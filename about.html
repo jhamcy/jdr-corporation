@@ -18,7 +18,7 @@
 
         /* --- GLOBAL STYLES (STICKY FOOTER FIX) --- */
         html, body {
-            height: 100%; /* Required for sticky footer */
+            height: 100%;
             margin: 0;
         }
 
@@ -29,13 +29,12 @@
             line-height: 1.4;
             overflow-x: hidden;
             scroll-behavior: smooth;
-            /* Flexbox layout to push footer down */
             display: flex;
             flex-direction: column;
         }
 
         .main-content {
-            flex: 1 0 auto; /* This pushes the footer to the bottom */
+            flex: 1 0 auto;
         }
 
         /* --- NAVIGATION --- */
@@ -63,6 +62,7 @@
         .nav-links li { margin-left: 20px; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.75rem; display: inline-block; }
         .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
+        
         .nav-quote-btn {
             border: 1px solid var(--accent-orange);
             padding: 5px 12px;
@@ -108,7 +108,7 @@
         }
 
         /* --- MOBILE OVERRIDES --- */
-        @media (max-width: 850px) {
+        @media (max-width: 768px) {
             .hamburger { display: flex; }
             .nav-links {
                 position: fixed; right: 0; top: 0; height: 100vh; background-color: #000;
@@ -124,9 +124,9 @@
             .toggle .line3 { transform: rotate(45deg) translate(-4px, -5px); }
         }
 
-        /* --- FOOTER (PUSHED TO BOTTOM) --- */
+        /* --- FOOTER --- */
         footer { 
-            flex-shrink: 0; /* Prevents footer from shrinking */
+            flex-shrink: 0;
             padding: 40px 5% 30px; 
             text-align: center; 
             border-top: 1px solid #222; 
@@ -149,6 +149,7 @@
                 <li><a href="index.html">Home</a></li>
                 <li><a href="about.html" class="active-link">About Us</a></li>
                 <li><a href="service.html">Services</a></li>
+                <li><a href="portfolio.html">Portfolio</a></li>
                 <li><a href="quote.html" class="nav-quote-btn">Get a Quote</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
@@ -172,6 +173,9 @@
             <div class="highlight-text">
                 "Transparency through code. Watch your vision come to life in real-time, one deployment at a time."
             </div>
+            
+            
+
             <h2>Real-Time Collaboration</h2>
             <p style="font-size: 0.95rem; color: var(--muted-text);">
                 We grant you access to your <strong>Private GitHub Link</strong> from day one. Monitor every update and provide feedback instantly as we build your vision. This process ensures that "ghosting" is impossible—our work is visible 24/7.
@@ -189,9 +193,15 @@
                 <a href="service.html" style="color: var(--primary-blue); text-decoration: none; font-weight: bold; font-size: 0.85rem; letter-spacing: 1px;">VIEW DETAILED SERVICES &rarr;</a>
             </div>
         </div>
-    </div> <footer>
+    </div> 
+
+    <footer>
         <div class="footer-nav">
-            <a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="service.html">Services</a> | <a href="legal.html">Legal & Privacy</a>
+            <a href="index.html">Home</a> | 
+            <a href="about.html">About</a> | 
+            <a href="service.html">Services</a> | 
+            <a href="portfolio.html">Portfolio</a> | 
+            <a href="legal.html">Legal & Privacy</a>
         </div>
         <p>&copy; 2026 JDR CORP. All Rights Reserved.</p>
         <div class="footer-badges">

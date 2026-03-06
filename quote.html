@@ -351,20 +351,38 @@
     </footer>
 
     <script>
-        /* --- NAVIGATION LOGIC --- */
+        /* --- UPDATED NAVIGATION LOGIC --- */
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
+
         const closeMenu = () => {
-            navMenu.classList.remove('nav-active');
-            hamburger.classList.remove('toggle');
+            if (navMenu.classList.contains('nav-active')) {
+                navMenu.classList.remove('nav-active');
+                hamburger.classList.remove('toggle');
+            }
         };
+
+        // 1. Toggle on click
         hamburger.addEventListener('click', (e) => {
             e.stopPropagation();
             navMenu.classList.toggle('nav-active');
             hamburger.classList.toggle('toggle');
         });
+
+        // 2. Auto-hide on SCROLL
+        window.addEventListener('scroll', () => {
+            closeMenu();
+        }, { passive: true });
+
+        // 3. Auto-hide when clicking OUTSIDE the link text/menu
         document.addEventListener('click', (e) => {
-            if (!navMenu.contains(e.target) && !hamburger.contains(e.target)) closeMenu();
+            const isClickInsideMenu = navMenu.contains(e.target);
+            const isHamburger = hamburger.contains(e.target);
+            
+            // If user clicks outside the menu entirely OR on a link inside the menu
+            if ((!isClickInsideMenu && !isHamburger) || e.target.tagName === 'A') {
+                closeMenu();
+            }
         });
 
         /* --- CALCULATION LOGIC --- */
@@ -390,7 +408,6 @@
         const adsDetails = document.getElementById('ads-calculator-details');
         const noMgmtDetails = document.getElementById('no-mgmt-details');
 
-        // Mutual Exclusivity - Core Development
         devChecks.forEach(c => {
             c.addEventListener('change', () => {
                 if(c.checked) devChecks.forEach(other => { if(other !== c) other.checked = false; });
@@ -398,7 +415,6 @@
             });
         });
 
-        // Mutual Exclusivity - Maintenance
         maintChecks.forEach(c => {
             c.addEventListener('change', () => {
                 if(c.checked) maintChecks.forEach(other => { if(other !== c) other.checked = false; });
@@ -415,7 +431,6 @@
             setupTotal += domainCost;
             let selectedItems = [domainName];
             
-            // Handle standard price triggers (the checkboxes)
             const allChecks = document.querySelectorAll('.price-trigger, #no-mgmt-check');
             allChecks.forEach(t => {
                 const parentLabel = t.closest('.option-item');

@@ -14,33 +14,23 @@
             --light-text: #F4F4F4;
             --muted-text: #A0A0A0;
             --header-bg: #000000;
-            --success-green: #28a745;
         }
 
         /* --- GLOBAL STYLES (Sticky Footer Fix) --- */
-        html, body {
-            height: 100%;
-            margin: 0;
-        }
-
+        html, body { height: 100%; margin: 0; }
         body {
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
             background-color: var(--dark-bg);
             color: var(--light-text);
             line-height: 1.4;
             overflow-x: hidden;
-            scroll-behavior: smooth;
-            /* Flexbox layout */
             display: flex;
             flex-direction: column;
         }
-
-        .main-content {
-            flex: 1 0 auto; /* Pushes footer down */
-        }
+        .main-content { flex: 1 0 auto; }
 
         /* --- NAVIGATION --- */
-      nav {
+        nav {
             background: var(--header-bg);
             padding: 0.7rem 5%;
             display: flex;
@@ -69,14 +59,15 @@
             letter-spacing: 0.5px;
         }
         .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
-        .nav-links li { margin-left: 20px; }
+        .nav-links li { margin-left: 18px; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.75rem; display: inline-block; }
         .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
         
-        .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; }
+        .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; font-weight: 800 !important; }
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 4px; padding: 10px; z-index: 1001; }
         @media (max-width: 768px) { .hamburger { display: flex; } }
         .hamburger div { width: 20px; height: 2px; background-color: white; transition: 0.3s; }
+
         /* --- QUOTE HERO & BUILDER --- */
         .quote-section {
             padding: 40px 5% 80px;
@@ -110,10 +101,7 @@
             transition: 0.2s ease;
             border: 1px solid transparent;
         }
-        .option-item.selected {
-            background: rgba(10, 88, 202, 0.1);
-            border-color: var(--primary-blue);
-        }
+        .option-item.selected { background: rgba(10, 88, 202, 0.1); border-color: var(--primary-blue); }
 
         /* --- TOOLTIPS & DETAILS --- */
         .tooltip { position: relative; display: inline-block; cursor: help; margin-left: 4px; color: var(--primary-blue); font-weight: bold; }
@@ -143,17 +131,11 @@
         .payment-label { font-weight: 600; color: var(--light-text); }
         .payment-value { font-weight: 800; color: white; }
         .monthly-notice { background: rgba(10, 88, 202, 0.1); border: 1px solid rgba(10, 88, 202, 0.3); padding: 15px; border-radius: 8px; margin-top: 20px; }
-        .btn-quote {
-            display: block; text-align: center; background: var(--primary-blue); color: white; text-decoration: none;
-            padding: 18px; border-radius: 8px; font-weight: bold; transition: 0.3s; font-size: 1rem;
-        }
-        .btn-quote:hover { transform: translateY(-3px); box-shadow: 0 8px 20px rgba(10, 88, 202, 0.4); background: #0b66eb; }
 
         /* --- MOBILE OVERRIDES --- */
         @media (max-width: 850px) {
             .builder-container { grid-template-columns: 1fr; padding: 20px; }
             .summary-box { position: static; margin-top: 20px; }
-            .hamburger { display: flex; }
             .nav-links {
                 position: fixed; right: 0; top: 0; height: 100vh; background-color: #000;
                 flex-direction: column; width: 260px; transform: translateX(100%); 
@@ -163,19 +145,17 @@
             .nav-links li { width: 100%; margin: 0; }
             .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #111; box-sizing: border-box; }
             .nav-active { transform: translateX(0%); }
+            .toggle .line1 { transform: rotate(-45deg) translate(-4px, 5px); }
+            .toggle .line2 { opacity: 0; }
+            .toggle .line3 { transform: rotate(45deg) translate(-4px, -5px); }
         }
 
         /* --- FOOTER --- */
         footer { 
-            flex-shrink: 0; 
-            padding: 40px 5% 30px; 
-            text-align: center; 
-            border-top: 1px solid #222; 
-            color: #555; 
-            font-size: 0.75rem; 
-            background-color: #000; 
+            flex-shrink: 0; padding: 40px 5% 30px; text-align: center; border-top: 1px solid #222; 
+            color: #555; font-size: 0.75rem; background-color: #000; 
         }
-        footer a { color: #888; text-decoration: none; margin: 0 10px; transition: 0.3s; }
+        footer a { color: #888; text-decoration: none; margin: 0 10px; }
         footer a:hover { color: var(--accent-orange); }
         .footer-nav { margin-bottom: 15px; }
         .footer-badges { margin-top: 15px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 0.5px; }
@@ -184,17 +164,18 @@
 <body>
 
     <div class="main-content">
-         <nav>
+        <nav>
             <a href="index.html" class="nav-brand">
                 JDR Corporation<br><span>Real-Time Custom Web Development</span>
             </a>
             <ul class="nav-links" id="nav-menu">
                 <li><a href="index.html">Home</a></li>
-                <li><a href="about.html" class="active-link">About Us</a></li>
+                <li><a href="about.html">About Us</a></li>
                 <li><a href="service.html">Services</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="quote.html" class="active-link">Projects / Pricing</a></li>
                 <li><a href="legal.html">Legal & Privacy</a></li>
-                <li><a href="quote.html" class="nav-quote-btn">Get a Quote</a></li>
+                <li><a href="contact.html" class="nav-quote-btn">Get Started</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <div class="line1"></div><div class="line2"></div><div class="line3"></div>
@@ -202,7 +183,7 @@
         </nav>
 
         <section class="quote-section">
-            <h1>Instant <span style="color: var(--accent-orange);">Quote</span> Builder</h1>
+            <h1>Instant <span style="color: var(--accent-orange);">Project Price</span></h1>
             <p style="color: var(--muted-text); font-size: 1rem;">Setup your digital infrastructure with full Google Business & SEO integration.</p>
             
             <div class="builder-container">
@@ -222,7 +203,7 @@
 
                     <h3>2. Core Development & Google Setup</h3>
                     <label class="option-item">
-                        <input type="checkbox" class="price-trigger dev-group" data-price="9000" data-name="Growth Engine (1-Page)">
+                        <input type="checkbox" class="price-trigger dev-group" data-price="10000" data-name="Growth Engine (1-Page)">
                         <div style="width: 100%;">
                             <strong>Single-Page Growth Engine</strong>
                             <p style="margin:0; font-size: 0.8rem; color: var(--muted-text);">1-Page Site + GMB Setup + Ads Config + Live Code Access.</p>
@@ -325,8 +306,6 @@
                             </div>
                         </div>
                     </div>
-                    <a href="#" id="quote-btn" target="_blank" class="btn-quote" style="margin-top: 20px;">Lock in this Price</a>
-                    <p style="font-size: 0.65rem; color: #555; text-align: center; margin-top: 10px;">Price valid for 7 days.</p>
                 </div>
             </div>
         </section>
@@ -338,6 +317,8 @@
             <a href="about.html">About</a> | 
             <a href="service.html">Services</a> | 
             <a href="portfolio.html">Portfolio</a> | 
+            <a href="quote.html">Projects / Pricing</a> | 
+            <a href="contact.html">Get Started</a> | 
             <a href="legal.html">Legal & Privacy</a>
         </div>
         <p>&copy; 2026 JDR CORP. All Rights Reserved.</p>
@@ -347,151 +328,102 @@
     </footer>
 
     <script>
-        /* --- UPDATED NAVIGATION LOGIC --- */
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-
-        const closeMenu = () => {
-            if (navMenu.classList.contains('nav-active')) {
-                navMenu.classList.remove('nav-active');
-                hamburger.classList.remove('toggle');
-            }
-        };
-
-        // 1. Toggle on click
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navMenu.classList.toggle('nav-active');
-            hamburger.classList.toggle('toggle');
-        });
-
-        // 2. Auto-hide on SCROLL
-        window.addEventListener('scroll', () => {
-            closeMenu();
-        }, { passive: true });
-
-        // 3. Auto-hide when clicking OUTSIDE the link text/menu
-        document.addEventListener('click', (e) => {
-            const isClickInsideMenu = navMenu.contains(e.target);
-            const isHamburger = hamburger.contains(e.target);
-            
-            // If user clicks outside the menu entirely OR on a link inside the menu
-            if ((!isClickInsideMenu && !isHamburger) || e.target.tagName === 'A') {
-                closeMenu();
-            }
-        });
-
-        /* --- CALCULATION LOGIC --- */
-        const triggers = document.querySelectorAll('.price-trigger');
-        const devChecks = document.querySelectorAll('.dev-group');
-        const maintChecks = document.querySelectorAll('.maint-group');
-        const domainSelect = document.getElementById('domain-select');
-        const displayTotal = document.getElementById('display-total');
-        const displayAdvance = document.getElementById('display-advance');
-        const displayBalance = document.getElementById('display-balance');
-        const displayMonthly = document.getElementById('display-monthly');
-        const displayGoogle = document.getElementById('display-google');
-        const displayCombinedMonthly = document.getElementById('display-combined-monthly');
-        const monthlySummary = document.getElementById('monthly-summary');
-        const quoteBtn = document.getElementById('quote-btn');
-        const adSlider = document.getElementById('ad-slider');
-        const dailyVal = document.getElementById('daily-val');
-        const googleSpendVal = document.getElementById('google-spend-val');
-        const totalMonthlyVal = document.getElementById('total-monthly-val');
-        const estClicks = document.getElementById('est-clicks');
-        const mgmtCheck = document.getElementById('mgmt-check');
-        const noMgmtCheck = document.getElementById('no-mgmt-check');
-        const adsDetails = document.getElementById('ads-calculator-details');
-        const noMgmtDetails = document.getElementById('no-mgmt-details');
-
-        devChecks.forEach(c => {
-            c.addEventListener('change', () => {
-                if(c.checked) devChecks.forEach(other => { if(other !== c) other.checked = false; });
-                calculate();
+        document.addEventListener('DOMContentLoaded', () => {
+            const hamburger = document.getElementById('hamburger');
+            const navMenu = document.getElementById('nav-menu');
+            const closeMenu = () => {
+                if (navMenu.classList.contains('nav-active')) {
+                    navMenu.classList.remove('nav-active');
+                    hamburger.classList.remove('toggle');
+                }
+            };
+            hamburger.addEventListener('click', (e) => {
+                e.stopPropagation();
+                navMenu.classList.toggle('nav-active');
+                hamburger.classList.toggle('toggle');
             });
-        });
-
-        maintChecks.forEach(c => {
-            c.addEventListener('change', () => {
-                if(c.checked) maintChecks.forEach(other => { if(other !== c) other.checked = false; });
-                calculate();
-            });
-        });
-
-        function calculate() {
-            let setupTotal = 0;
-            let laborTotal = 0;
-            let monthlyMgmtFee = 0;
-            let domainCost = parseInt(domainSelect.value);
-            let domainName = domainSelect.options[domainSelect.selectedIndex].getAttribute('data-name');
-            setupTotal += domainCost;
-            let selectedItems = [domainName];
-            
-            const allChecks = document.querySelectorAll('.price-trigger, #no-mgmt-check');
-            allChecks.forEach(t => {
-                const parentLabel = t.closest('.option-item');
-                let price = parseInt(t.getAttribute('data-price') || 0);
-                if(t.checked) {
-                    if(t.classList.contains('monthly-check')) {
-                        monthlyMgmtFee += price;
-                        adsDetails.open = true;
-                    } else if (t.classList.contains('price-trigger')) {
-                        setupTotal += price;
-                        laborTotal += price;
-                    }
-                    selectedItems.push(t.getAttribute('data-name') || "Self-Managed");
-                    parentLabel.classList.add('selected');
-                } else {
-                    parentLabel.classList.remove('selected');
-                    if(t.classList.contains('monthly-check')) adsDetails.open = false;
+            window.addEventListener('scroll', closeMenu, { passive: true });
+            document.addEventListener('click', (e) => {
+                const isClickInsideMenu = navMenu.contains(e.target);
+                const isHamburger = hamburger.contains(e.target);
+                if ((!isClickInsideMenu && !isHamburger) || e.target.tagName === 'A') {
+                    closeMenu();
                 }
             });
 
-            if(noMgmtCheck.checked) {
-                noMgmtDetails.open = true;
-            } else {
-                noMgmtDetails.open = false;
+            /* --- CALCULATION LOGIC --- */
+            const devChecks = document.querySelectorAll('.dev-group');
+            const maintChecks = document.querySelectorAll('.maint-group');
+            const domainSelect = document.getElementById('domain-select');
+            const displayTotal = document.getElementById('display-total');
+            const displayAdvance = document.getElementById('display-advance');
+            const displayBalance = document.getElementById('display-balance');
+            const displayMonthly = document.getElementById('display-monthly');
+            const displayGoogle = document.getElementById('display-google');
+            const displayCombinedMonthly = document.getElementById('display-combined-monthly');
+            const monthlySummary = document.getElementById('monthly-summary');
+            const adSlider = document.getElementById('ad-slider');
+            const dailyVal = document.getElementById('daily-val');
+            const googleSpendVal = document.getElementById('google-spend-val');
+            const totalMonthlyVal = document.getElementById('total-monthly-val');
+            const estClicks = document.getElementById('est-clicks');
+            const mgmtCheck = document.getElementById('mgmt-check');
+            const noMgmtCheck = document.getElementById('no-mgmt-check');
+            const adsDetails = document.getElementById('ads-calculator-details');
+            const noMgmtDetails = document.getElementById('no-mgmt-details');
+
+            devChecks.forEach(c => { c.addEventListener('change', () => { if(c.checked) devChecks.forEach(o => { if(o !== c) o.checked = false; }); calculate(); }); });
+            maintChecks.forEach(c => { c.addEventListener('change', () => { if(c.checked) maintChecks.forEach(o => { if(o !== c) o.checked = false; }); calculate(); }); });
+
+            function calculate() {
+                let setupTotal = 0;
+                let laborTotal = 0;
+                let monthlyMgmtFee = 0;
+                let domainCost = parseInt(domainSelect.value);
+                setupTotal += domainCost;
+                
+                const allChecks = document.querySelectorAll('.price-trigger, #no-mgmt-check');
+                allChecks.forEach(t => {
+                    const parentLabel = t.closest('.option-item');
+                    let price = parseInt(t.getAttribute('data-price') || 0);
+                    if(t.checked) {
+                        if(t.classList.contains('monthly-check')) { monthlyMgmtFee += price; adsDetails.open = true; } 
+                        else if (t.classList.contains('price-trigger')) { setupTotal += price; laborTotal += price; }
+                        parentLabel.classList.add('selected');
+                    } else {
+                        parentLabel.classList.remove('selected');
+                        if(t.classList.contains('monthly-check')) adsDetails.open = false;
+                    }
+                });
+
+                noMgmtDetails.open = noMgmtCheck.checked;
+
+                let dailyBudget = parseInt(adSlider.value);
+                let monthlyGoogleSpend = dailyBudget * 30;
+                let clicks = Math.floor(monthlyGoogleSpend / 20); 
+                let combinedMonthly = monthlyMgmtFee + monthlyGoogleSpend;
+
+                dailyVal.innerText = dailyBudget.toLocaleString();
+                googleSpendVal.innerText = monthlyGoogleSpend.toLocaleString();
+                totalMonthlyVal.innerText = combinedMonthly.toLocaleString();
+                estClicks.innerText = clicks.toLocaleString();
+
+                const advance = domainCost + (laborTotal / 2);
+                const balance = setupTotal - advance;
+
+                displayTotal.innerText = setupTotal.toLocaleString();
+                displayAdvance.innerText = Math.round(advance).toLocaleString();
+                displayBalance.innerText = Math.round(balance).toLocaleString();
+                displayMonthly.innerText = monthlyMgmtFee.toLocaleString();
+                displayGoogle.innerText = monthlyGoogleSpend.toLocaleString();
+                displayCombinedMonthly.innerText = combinedMonthly.toLocaleString();
+                monthlySummary.style.display = mgmtCheck.checked ? "block" : "none";
             }
 
-            let dailyBudget = parseInt(adSlider.value);
-            let monthlyGoogleSpend = dailyBudget * 30;
-            let clicks = Math.floor(monthlyGoogleSpend / 20); 
-            let combinedMonthly = monthlyMgmtFee + monthlyGoogleSpend;
-
-            dailyVal.innerText = dailyBudget.toLocaleString();
-            googleSpendVal.innerText = monthlyGoogleSpend.toLocaleString();
-            totalMonthlyVal.innerText = combinedMonthly.toLocaleString();
-            estClicks.innerText = clicks.toLocaleString();
-
-            const advance = domainCost + (laborTotal / 2);
-            const balance = setupTotal - advance;
-
-            displayTotal.innerText = setupTotal.toLocaleString();
-            displayAdvance.innerText = Math.round(advance).toLocaleString();
-            displayBalance.innerText = Math.round(balance).toLocaleString();
-            displayMonthly.innerText = monthlyMgmtFee.toLocaleString();
-            displayGoogle.innerText = monthlyGoogleSpend.toLocaleString();
-            displayCombinedMonthly.innerText = combinedMonthly.toLocaleString();
-            monthlySummary.style.display = mgmtCheck.checked ? "block" : "none";
-
-            const phoneNumber = "639310410733";
-            let messageBody = `Hi JDR Corp! I'd like to lock in a quote.\n\n` +
-                              `Items: ${selectedItems.join(', ')}\n` +
-                              `--------------------------\n` +
-                              `SETUP TOTAL: ₱${setupTotal.toLocaleString()}\n` +
-                              `Advance: ₱${Math.round(advance).toLocaleString()}\n`;
-            if(mgmtCheck.checked) {
-                messageBody += `--------------------------\n` +
-                               `MONTHLY TOTAL: ₱${combinedMonthly.toLocaleString()}\n` +
-                               `(Mgmt: ₱${monthlyMgmtFee.toLocaleString()} | Ad Spend: ₱${monthlyGoogleSpend.toLocaleString()})\n` +
-                               `Est. Reach: ${clicks} visitors/mo`;
-            }
-            quoteBtn.href = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(messageBody)}`;
-        }
-
-        domainSelect.addEventListener('change', calculate);
-        adSlider.addEventListener('input', calculate);
-        calculate();
+            domainSelect.addEventListener('change', calculate);
+            adSlider.addEventListener('input', calculate);
+            calculate();
+        });
     </script>
 </body>
 </html>

@@ -59,10 +59,11 @@
             letter-spacing: 0.5px;
         }
         .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
-        .nav-links li { margin-left: 20px; }
+        .nav-links li { margin-left: 18px; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.75rem; display: inline-block; }
         .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
-        .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; }
+        
+        .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; font-weight: 800 !important; }
         .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 4px; padding: 10px; z-index: 1001; }
         @media (max-width: 768px) { .hamburger { display: flex; } }
         .hamburger div { width: 20px; height: 2px; background-color: white; transition: 0.3s; }
@@ -122,8 +123,9 @@
                 <li><a href="about.html">About Us</a></li>
                 <li><a href="service.html" class="active-link">Services</a></li>
                 <li><a href="portfolio.html">Portfolio</a></li>
+                <li><a href="quote.html">Projects / Pricing</a></li>
                 <li><a href="legal.html">Legal & Privacy</a></li>
-                <li><a href="quote.html" class="nav-quote-btn">Get a Quote</a></li>
+                <li><a href="contact.html" class="nav-quote-btn">Get Started</a></li>
             </ul>
             <div class="hamburger" id="hamburger">
                 <div class="line1"></div><div class="line2"></div><div class="line3"></div>
@@ -154,8 +156,6 @@
                     <p>We secure your digital real estate. From .com to .ph, we provide transparent registration and management for all your brand assets.</p>
                 </div>
             </div>
-            
-            
 
             <div class="advantage-box">
                 <h2 style="color: var(--accent-orange); text-align: center; margin-top: 0; font-size: 1.4rem;">The JDR Advantage</h2>
@@ -177,15 +177,21 @@
 
             <div class="cta-container">
                 <h2 style="margin-top: 0; font-size: 1.5rem;">Ready to start your project?</h2>
-                <p style="color: var(--muted-text); margin-bottom: 25px; font-size: 0.9rem;">Use our builder to calculate your setup and monthly maintenance costs instantly.</p>
-                <a href="quote.html" class="btn-primary">Build Your Instant Quote &rarr;</a>
+                <p style="color: var(--muted-text); margin-bottom: 25px; font-size: 0.9rem;">View our project pricing and configuration to get an estimate.</p>
+                <a href="quote.html" class="btn-primary">View Projects & Pricing &rarr;</a>
             </div>
         </div>
     </div>
 
     <footer>
         <div class="footer-nav">
-            <a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="service.html">Services</a> | <a href="portfolio.html">Portfolio</a> | <a href="legal.html">Legal & Privacy</a>
+            <a href="index.html">Home</a> | 
+            <a href="about.html">About</a> | 
+            <a href="service.html">Services</a> | 
+            <a href="portfolio.html">Portfolio</a> | 
+            <a href="quote.html">Projects / Pricing</a> | 
+            <a href="contact.html">Get Started</a> | 
+            <a href="legal.html">Legal & Privacy</a>
         </div>
         <p>&copy; 2026 JDR CORP. All Rights Reserved.</p>
         <div class="footer-badges">

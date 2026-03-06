@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>JDR CORP | Project Inquiry</title>
+    <style>
+        /* --- BRAND VARIABLES --- */
+        :root {
+            --primary-blue: #0A58CA;
+            --accent-orange: #F98C15;
+            --dark-bg: #0C0D11;
+            --card-bg: #161b22;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --header-bg: #000000;
+        }
+
+        * { box-sizing: border-box; }
+
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: var(--dark-bg); 
+            color: var(--text); 
+            margin: 0; 
+            padding: 0;
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            overflow-x: hidden;
+        }
+
+        .main-content { flex: 1 0 auto; }
+
+        /* --- NAVIGATION --- */
+        nav { 
+            background: var(--header-bg); 
+            padding: 0.7rem 5%; 
+            display: flex; 
+            justify-content: space-between; 
+            align-items: center; 
+            border-bottom: 1px solid #222; 
+            position: sticky; 
+            top: 0; 
+            z-index: 1000; 
+        }
+
+        .nav-brand { 
+            font-size: 0.9rem; 
+            font-weight: 800; 
+            letter-spacing: 1px; 
+            color: #fff; 
+            text-transform: uppercase; 
+            text-decoration: none; 
+            line-height: 1.2; 
+        }
+
+        .nav-brand span { 
+            color: var(--accent-orange); 
+            font-size: 0.65rem; 
+            display: block; 
+            margin-top: 2px; 
+        }
+
+        .nav-links { 
+            display: flex; 
+            list-style: none; 
+            margin: 0; 
+            padding: 0; 
+            align-items: center; 
+        }
+
+        .nav-links li { margin-left: 18px; }
+
+        .nav-links a { 
+            color: white; 
+            text-decoration: none; 
+            font-weight: 500; 
+            font-size: 0.75rem; 
+            transition: 0.3s; 
+        }
+
+        .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
+
+        .nav-quote-btn { 
+            border: 1px solid var(--accent-orange); 
+            padding: 5px 12px; 
+            border-radius: 4px; 
+            color: var(--accent-orange) !important; 
+            font-weight: 800; 
+        }
+
+        /* --- HAMBURGER MENU --- */
+        .hamburger { 
+            display: none; 
+            cursor: pointer; 
+            flex-direction: column; 
+            gap: 4px; 
+            padding: 10px; 
+            z-index: 1001; 
+        }
+
+        .hamburger div { 
+            width: 20px; 
+            height: 2px; 
+            background-color: white; 
+            transition: 0.3s; 
+        }
+
+        /* --- PAGE HEADER TITLE --- */
+        .page-header {
+            text-align: center;
+            padding: 40px 5% 20px;
+            background: linear-gradient(180deg, #000 0%, var(--dark-bg) 100%);
+        }
+
+        .page-header h1 {
+            font-size: 2.2rem;
+            margin: 0;
+            color: #fff;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: -1px;
+        }
+
+        .page-header p {
+            color: var(--accent-orange);
+            font-size: 0.9rem;
+            margin-top: 10px;
+            font-weight: 600;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* --- FORM STYLES --- */
+        .form-container { 
+            max-width: 800px; 
+            margin: 0 auto 60px; 
+            padding: 10px; 
+        }
+        
+        .flex-row { 
+            display: flex !important; 
+            flex-direction: row !important; 
+            flex-wrap: nowrap !important; 
+            gap: 8px; 
+            width: 100%; 
+            margin-bottom: 5px; 
+        }
+
+        .flex-item { flex: 1; min-width: 0; }
+
+        .section-title { 
+            color: var(--primary-blue); 
+            text-transform: uppercase; 
+            font-size: 0.75rem; 
+            font-weight: 800; 
+            margin: 25px 0 10px 0; 
+            display: block; 
+            border-bottom: 1px solid var(--border); 
+            padding-bottom: 4px; 
+        }
+
+        label { 
+            display: block; 
+            margin-bottom: 4px; 
+            font-weight: 600; 
+            font-size: 0.75rem; 
+        }
+
+        input, select, textarea { 
+            width: 100%; 
+            padding: 12px; 
+            background: #0d1117; 
+            border: 1px solid var(--border); 
+            color: #fff; 
+            border-radius: 6px; 
+            margin-bottom: 8px; 
+            font-family: inherit; 
+            font-size: 0.9rem; 
+        }
+
+        .option-card { 
+            flex: 1; 
+            background: var(--card-bg); 
+            padding: 12px; 
+            border-radius: 8px; 
+            cursor: pointer; 
+            display: flex; 
+            align-items: center; 
+            flex-direction: row; 
+            gap: 8px; 
+            border: 1px solid var(--border); 
+            min-width: 0; 
+            min-height: 60px; 
+        }
+
+        .option-card.selected { 
+            background: rgba(10, 88, 202, 0.2); 
+            border-color: var(--primary-blue); 
+        }
+
+        .option-card input[type="radio"] { 
+            flex-shrink: 0; 
+            accent-color: var(--accent-orange); 
+            margin: 0; 
+            width: 16px; 
+            height: 16px; 
+        }
+        
+        .card-text { 
+            font-size: 0.75rem; 
+            line-height: 1.2; 
+            color: #fff; 
+            flex-grow: 1; 
+            min-width: 0; 
+        }
+
+        .price-tag { 
+            color: var(--accent-orange); 
+            font-weight: 700; 
+            display: block; 
+            margin-top: 2px; 
+            font-size: 0.75rem; 
+        }
+
+        .summary-box { 
+            background: #000; 
+            padding: 20px; 
+            border-radius: 10px; 
+            border: 1px solid var(--primary-blue); 
+            margin-top: 15px; 
+        }
+
+        .total-price { 
+            font-size: 1.8rem; 
+            color: var(--accent-orange); 
+            font-weight: 800; 
+        }
+
+        .btn-submit { 
+            width: 100%; 
+            padding: 16px; 
+            background: var(--primary-blue); 
+            color: #fff; 
+            border: none; 
+            border-radius: 6px; 
+            font-weight: 800; 
+            cursor: pointer; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            margin-top: 15px; 
+            font-size: 1rem;
+            text-transform: uppercase;
+        }
+
+        footer { 
+            flex-shrink: 0; 
+            padding: 40px 5% 30px; 
+            text-align: center; 
+            border-top: 1px solid #222; 
+            color: #555; 
+            font-size: 0.75rem; 
+            background-color: #000; 
+        }
+
+        .footer-nav { margin-bottom: 15px; }
+
+        footer a { 
+            color: #888; 
+            text-decoration: none; 
+            margin: 0 10px; 
+            transition: 0.3s; 
+        }
+
+        footer a:hover { color: var(--accent-orange); }
+
+        @media (max-width: 768px) {
+            .hamburger { display: flex; }
+            
+            .nav-links { 
+                position: fixed; 
+                right: 0; 
+                top: 0; 
+                height: 100vh; 
+                background-color: #000; 
+                flex-direction: column; 
+                width: 260px; 
+                transform: translateX(100%); 
+                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
+                padding-top: 70px; 
+                border-left: 1px solid #222; 
+                align-items: flex-start;
+            }
+
+            .nav-links li { width: 100%; margin: 0; }
+
+            .nav-links a { 
+                display: block; 
+                width: 100%; 
+                padding: 20px 30px; 
+                font-size: 0.95rem; 
+                border-bottom: 1px solid #111; 
+                box-sizing: border-box; 
+            }
+
+            .nav-active { transform: translateX(0%); }
+
+            .toggle .line1 { transform: rotate(-45deg) translate(-4px, 5px); }
+            .toggle .line2 { opacity: 0; }
+            .toggle .line3 { transform: rotate(45deg) translate(-4px, -5px); }
+            
+            .flex-row { flex-direction: row !important; flex-wrap: nowrap !important; gap: 8px !important; }
+            .page-header h1 { font-size: 1.5rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="main-content">
+    <nav>
+        <a href="index.html" class="nav-brand">
+            JDR Corporation<br><span>Real-Time Custom Web Development</span>
+        </a>
+        <ul class="nav-links" id="nav-menu">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About Us</a></li>
+            <li><a href="service.html">Services</a></li>
+            <li><a href="portfolio.html">Portfolio</a></li>
+            <li><a href="quote.html">Projects / Pricing</a></li>
+            <li><a href="legal.html">Legal & Privacy</a></li>
+            <li><a href="contact.html" class="active-link nav-quote-btn">Get Started</a></li>
+        </ul>
+        <div class="hamburger" id="hamburger">
+            <div class="line1"></div>
+            <div class="line2"></div>
+            <div class="line3"></div>
+        </div>
+    </nav>
+
+    <header class="page-header">
+        <h1>Project Inquiry</h1>
+        <p>Build your custom digital solution</p>
+    </header>
+
+    <div class="form-container">
+        <form action="https://formspree.io/f/xeelbooj" method="POST" enctype="multipart/form-data">
+            <span class="section-title">Client Details</span>
+            <div class="flex-row">
+                <div class="flex-item"><label>Full Name</label><input type="text" name="name" required placeholder="Name"></div>
+                <div class="flex-item"><label>Email Address</label><input type="email" name="email" required placeholder="Email"></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-item"><label>Mobile Number</label><input type="tel" name="phone" id="phone-input" required pattern="[0-9]{11}" maxlength="11" placeholder="09171234567"></div>
+                <div class="flex-item"><label>Desired Web Name</label><input type="text" name="Company Name" required placeholder="Website Name"></div>
+            </div>
+            <div class="flex-row">
+                <div class="flex-item"><label>Contact Method</label>
+                    <select name="contact_method">
+                        <option value="WhatsApp">WhatsApp</option><option value="Viber">Viber</option><option value="Email">Email</option><option value="SMS">SMS/Call</option>
+                    </select>
+                </div>
+                <div class="flex-item"><label>Brand Assets</label><input type="file" name="attachment" accept="image/*, .pdf, .zip"></div>
+            </div>
+            
+            <label>Project Description</label>
+            <textarea name="description" required rows="3" placeholder="Describe your project goals..."></textarea>
+
+            <span class="section-title">1. Infrastructure</span>
+            <select name="domain" id="domain-select" onchange="calculate()">
+                <option value="1200">Standard .com (₱1,200/yr)</option><option value="3500">Premium .ph (₱3,500/yr)</option><option value="0">Existing Domain (₱0)</option>
+            </select>
+
+            <span class="section-title">2. Core Development</span>
+            <div class="flex-row">
+                <div class="option-card" id="card-dev1" onclick="selectRadio('dev1')">
+                    <input type="radio" name="dev_package" id="dev1" value="Single-Page" data-price="10000" onchange="calculate()" checked>
+                    <div class="card-text">Single-Page<span class="price-tag">₱10,000</span></div>
+                </div>
+                <div class="option-card" id="card-dev2" onclick="selectRadio('dev2')">
+                    <input type="radio" name="dev_package" id="dev2" value="Multi-Page" data-price="16500" onchange="calculate()">
+                    <div class="card-text">Multi-Page<span class="price-tag">₱16,500</span></div>
+                </div>
+            </div>
+
+            <span class="section-title">3. Growth & Maintenance</span>
+            <div class="flex-row">
+                <div class="option-card" id="card-maint1" onclick="selectRadio('maint1')">
+                    <input type="radio" name="maintenance" id="maint1" value="Managed" data-price="1500" onchange="calculate()" checked>
+                    <div class="card-text">Managed<span class="price-tag">₱1,500/mo</span></div>
+                </div>
+                <div class="option-card" id="card-maint2" onclick="selectRadio('maint2')">
+                    <input type="radio" name="maintenance" id="maint2" value="Self-Managed" data-price="0" onchange="calculate()">
+                    <div class="card-text">Self-Managed<span class="price-tag">₱0</span></div>
+                </div>
+            </div>
+
+            <span id="monthly-title" class="section-title">4. Monthly Commitment</span>
+            <div id="monthly-section" class="summary-box" style="background: rgba(10, 88, 202, 0.05);">
+                <div style="font-size: 0.9rem; font-weight: bold; margin-bottom: 5px;">Total Monthly: ₱<span id="display-monthly-total">7,500</span></div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8b949e;"><span>Management Fee:</span> <span>₱1,500</span></div>
+                <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8b949e; margin-bottom: 10px;"><span>Google Ad Spend:</span> <span>₱<span id="ad-spend-val">6,000</span></span></div>
+                
+                <label style="font-size: 0.75rem;">Adjust Daily Ad Budget: ₱<span id="daily-val">200</span></label>
+                <input type="range" id="ad-slider" min="100" max="2000" step="50" value="200" oninput="updateAds()">
+                <div style="font-size: 0.75rem; color: #8b949e; margin-top: 5px;">Est. Traffic: <strong id="display-traffic" style="color:white;">300 visitors/mo</strong></div>
+            </div>
+
+            <div class="summary-box">
+                <div style="font-size: 0.85rem; color: #8b949e;">Setup Total: <span id="display-total" style="color:white; font-weight:700;">₱0</span></div>
+                <div style="margin-top: 10px; border-top: 1px solid var(--border); padding-top:10px;">
+                    <div style="font-size: 0.85rem; color: var(--accent-orange);">50% Advance Required:</div>
+                    <div class="total-price" id="display-advance">₱0</div>
+                </div>
+                <button type="submit" class="btn-submit">Submit Inquiry</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+<footer>
+    <div class="footer-nav">
+        <a href="index.html">Home</a> | 
+        <a href="about.html">About</a> | 
+        <a href="service.html">Services</a> | 
+        <a href="portfolio.html">Portfolio</a> | 
+        <a href="quote.html">Projects / Pricing</a> | 
+        <a href="contact.html">Get Started</a> | 
+        <a href="legal.html">Legal & Privacy</a>
+    </div>
+    <p>&copy; 2026 JDR CORP. All Rights Reserved.</p>
+    <div style="margin-top: 15px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 0.5px;">CUSTOM HTML ARCHITECTURE • GITHUB WORKFLOWS • GCASH VERIFIED BUSINESS</div>
+</footer>
+
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const hamburger = document.getElementById('hamburger');
+        const navMenu = document.getElementById('nav-menu');
+        const closeMenu = () => {
+            if (navMenu.classList.contains('nav-active')) {
+                navMenu.classList.remove('nav-active');
+                hamburger.classList.remove('toggle');
+            }
+        };
+        hamburger.addEventListener('click', (e) => {
+            e.stopPropagation();
+            navMenu.classList.toggle('nav-active');
+            hamburger.classList.toggle('toggle');
+        });
+        window.addEventListener('scroll', closeMenu, { passive: true });
+        document.addEventListener('click', (e) => {
+            const isClickInsideMenu = navMenu.contains(e.target);
+            const isHamburger = hamburger.contains(e.target);
+            if ((!isClickInsideMenu && !isHamburger) || e.target.tagName === 'A') {
+                closeMenu();
+            }
+        });
+
+        // Form Logic
+        document.getElementById('phone-input').addEventListener('input', function (e) { 
+            this.value = this.value.replace(/[^0-9]/g, ''); 
+        });
+    });
+
+    function selectRadio(id) { 
+        document.getElementById(id).checked = true; 
+        calculate(); 
+    }
+    
+    function calculate() {
+        let setup = parseInt(document.getElementById('domain-select').value);
+        document.querySelectorAll('input[name="dev_package"]').forEach(opt => {
+            const card = document.getElementById('card-' + opt.id);
+            if(opt.checked) { 
+                setup += parseInt(opt.getAttribute('data-price')); 
+                card.classList.add('selected'); 
+            } else { 
+                card.classList.remove('selected'); 
+            }
+        });
+
+        document.querySelectorAll('input[name="maintenance"]').forEach(opt => {
+            const card = document.getElementById('card-' + opt.id);
+            if(opt.checked) card.classList.add('selected'); 
+            else card.classList.remove('selected');
+        });
+        
+        const isSelf = document.getElementById('maint2').checked;
+        document.getElementById('monthly-section').style.display = isSelf ? 'none' : 'block';
+        document.getElementById('monthly-title').style.display = isSelf ? 'none' : 'block';
+        
+        document.getElementById('display-total').innerText = "₱" + setup.toLocaleString();
+        document.getElementById('display-advance').innerText = "₱" + (setup * 0.5).toLocaleString();
+        updateAds();
+    }
+    
+    function updateAds() {
+        const daily = parseInt(document.getElementById('ad-slider').value);
+        const mgmtFee = document.getElementById('maint1').checked ? 1500 : 0;
+        const adSpend = daily * 30;
+        document.getElementById('daily-val').innerText = daily;
+        document.getElementById('ad-spend-val').innerText = adSpend.toLocaleString();
+        document.getElementById('display-monthly-total').innerText = (adSpend + mgmtFee).toLocaleString();
+        document.getElementById('display-traffic').innerText = Math.floor(adSpend / 20).toLocaleString() + " visitors/mo";
+    }
+
+    calculate();
+</script>
+</body>
+</html>

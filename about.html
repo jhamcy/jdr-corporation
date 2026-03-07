@@ -81,10 +81,10 @@
         .highlight-text { font-size: 1.05rem; color: var(--accent-orange); font-weight: 600; border-left: 3px solid var(--accent-orange); padding-left: 20px; margin: 40px 0; font-style: italic; line-height: 1.6; }
         .philosophy-card { background: rgba(10, 88, 202, 0.05); padding: 30px; border-radius: 12px; border: 1px solid rgba(10, 88, 202, 0.2); margin-top: 40px; }
 
-        /* --- MOBILE OVERRIDES --- */
+        /* --- MOBILE NAV --- */
         @media (max-width: 768px) {
             .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: #000; flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #222; align-items: flex-start; }
-            .nav-links li { width: 100%; }
+            .nav-links li { width: 100%; margin: 0; }
             .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #111; box-sizing: border-box; }
             .nav-active { transform: translateX(0%); }
             .toggle .line1 { transform: rotate(-45deg) translate(-4px, 5px); }
@@ -171,6 +171,7 @@
     <footer>
         <div class="footer-nav">
             <a href="index.html">Home</a> | 
+            <a href="about.html">About</a> | 
             <a href="service.html">Services</a> | 
             <a href="portfolio.html">Portfolio</a> | 
             <a href="quote.html">Projects / Pricing</a> | 
@@ -178,7 +179,9 @@
             <a href="legal.html">Legal & Privacy</a>
         </div>
         <p>&copy; 2026 JDR CORP. All Rights Reserved.</p>
-        <div class="footer-badges">CUSTOM HTML ARCHITECTURE • GITHUB WORKFLOWS • GCASH VERIFIED BUSINESS</div>
+        <div class="footer-badges">
+            CUSTOM HTML ARCHITECTURE • GITHUB WORKFLOWS • GCASH VERIFIED BUSINESS
+        </div>
     </footer>
 
     <script>

@@ -563,10 +563,9 @@
             const { error: dbError } = await _supabase.from('inquiries').insert([formData]);
             if (dbError) throw new Error("DB Error: " + dbError.message);
 
-            // 4. Send Email Alert (Run independently)
-            emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formData)
-                .then(() => console.log("Email sent"))
-                .catch(err => console.error("Email failed", err));
+            // 4. Send Email Alert (Awaited to catch errors)
+            const emailResult = await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formData);
+            console.log("Email sent successfully", emailResult);
 
             // 5. Success Flow
             document.getElementById('thx-modal').style.display = 'block';

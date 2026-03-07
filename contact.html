@@ -541,19 +541,16 @@
                 if (upErr) throw upErr;
                 publicImageUrl = _supabase.storage.from('project-files').getPublicUrl(fileName).data.publicUrl;
             }
-
-            const formData = {
-                title: "New Inquiry: " + document.getElementById('web-name').value,
-                name: document.getElementById('full-name').value,
-                email: document.getElementById('email-address').value,
-                phone: document.getElementById('phone-input').value,
-                web_name: document.getElementById('web-name').value,
-                contact_method: document.getElementById('contact-method').value,
-                description: document.getElementById('project-desc').value,
-                total_cost: document.getElementById('display-total').innerText,
-                monthly_ads: document.getElementById('display-monthly-total').innerText,
-                attachment: publicImageUrl
-            };
+const formData = {
+    name: document.getElementById('full-name').value,
+    email: document.getElementById('email-address').value,
+    phone: document.getElementById('phone-input').value,
+    web_name: document.getElementById('web-name').value,
+    contact_method: document.getElementById('contact-method').value,
+    description: document.getElementById('project-desc').value,
+    total_cost: document.getElementById('display-total').innerText,
+    attachment: publicImageUrl
+};
 
             const { error: dbError } = await _supabase.from('inquiries').insert([formData]);
             if (dbError) throw dbError;

@@ -4,6 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>JDR CORP | Project Inquiry</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
     <style>
         /* --- BRAND VARIABLES --- */
         :root {
@@ -91,7 +93,6 @@
             font-weight: 800; 
         }
 
-        /* --- HAMBURGER MENU --- */
         .hamburger { 
             display: none; 
             cursor: pointer; 
@@ -108,7 +109,6 @@
             transition: 0.3s; 
         }
 
-        /* --- PAGE HEADER TITLE --- */
         .page-header {
             text-align: center;
             padding: 40px 5% 20px;
@@ -133,7 +133,6 @@
             text-transform: uppercase;
         }
 
-        /* --- FORM STYLES --- */
         .form-container { 
             max-width: 800px; 
             margin: 0 auto 60px; 
@@ -257,128 +256,30 @@
             transition: opacity 0.3s, cursor 0.3s;
         }
 
-        .btn-submit:disabled {
-            opacity: 0.4;
-            cursor: not-allowed;
-        }
+        .btn-submit:disabled { opacity: 0.4; cursor: not-allowed; }
 
-        /* --- TERMS CHECKBOX & MODAL --- */
-        .terms-container {
-            display: flex;
-            align-items: flex-start;
-            gap: 10px;
-            margin: 20px 0 10px 0;
-            padding: 0 5px;
-        }
+        #status-msg { margin-top: 15px; padding: 10px; text-align: center; font-size: 0.85rem; border-radius: 6px; display: none; }
 
-        .terms-container input[type="checkbox"] {
-            width: 18px;
-            height: 18px;
-            margin: 0;
-            accent-color: var(--accent-orange);
-            flex-shrink: 0;
-            cursor: pointer;
-        }
+        .terms-container { display: flex; align-items: flex-start; gap: 10px; margin: 20px 0 10px 0; padding: 0 5px; }
+        .terms-container input[type="checkbox"] { width: 18px; height: 18px; margin: 0; accent-color: var(--accent-orange); flex-shrink: 0; cursor: pointer; }
+        .terms-text { font-size: 0.75rem; line-height: 1.4; color: #8b949e; }
+        .terms-text span { color: var(--accent-orange); text-decoration: underline; cursor: pointer; font-weight: 600; }
 
-        .terms-text {
-            font-size: 0.75rem;
-            line-height: 1.4;
-            color: #8b949e;
-        }
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.8); }
+        .modal-content { background-color: var(--card-bg); margin: 10% auto; padding: 25px; border: 1px solid var(--border); width: 80%; max-width: 500px; border-radius: 10px; color: white; font-size: 0.85rem; line-height: 1.6; }
+        .close-modal { color: var(--accent-orange); float: right; font-size: 1.5rem; font-weight: bold; cursor: pointer; }
 
-        .terms-text span {
-            color: var(--accent-orange);
-            text-decoration: underline;
-            cursor: pointer;
-            font-weight: 600;
-        }
-
-        .modal {
-            display: none; 
-            position: fixed; 
-            z-index: 2000; 
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.8);
-        }
-
-        .modal-content {
-            background-color: var(--card-bg);
-            margin: 10% auto;
-            padding: 25px;
-            border: 1px solid var(--border);
-            width: 80%;
-            max-width: 500px;
-            border-radius: 10px;
-            color: white;
-            font-size: 0.85rem;
-            line-height: 1.6;
-        }
-
-        .close-modal {
-            color: var(--accent-orange);
-            float: right;
-            font-size: 1.5rem;
-            font-weight: bold;
-            cursor: pointer;
-        }
-
-        footer { 
-            flex-shrink: 0; 
-            padding: 40px 5% 30px; 
-            text-align: center; 
-            border-top: 1px solid #222; 
-            color: #555; 
-            font-size: 0.75rem; 
-            background-color: #000; 
-        }
-
-        .footer-nav { margin-bottom: 15px; }
-
-        footer a { 
-            color: #888; 
-            text-decoration: none; 
-            margin: 0 10px; 
-            transition: 0.3s; 
-        }
-
-        footer a:hover { color: var(--accent-orange); }
+        footer { flex-shrink: 0; padding: 40px 5% 30px; text-align: center; border-top: 1px solid #222; color: #555; font-size: 0.75rem; background-color: #000; }
 
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            
-            .nav-links { 
-                position: fixed; 
-                right: 0; 
-                top: 0; 
-                height: 100vh; 
-                background-color: #000; 
-                flex-direction: column; 
-                width: 260px; 
-                transform: translateX(100%); 
-                transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-                padding-top: 70px; 
-                border-left: 1px solid #222; 
-                align-items: flex-start;
-            }
-
+            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: #000; flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #222; align-items: flex-start; }
             .nav-links li { width: 100%; margin: 0; }
-
-            .nav-links a { 
-                display: block; 
-                width: 100%; 
-                padding: 20px 30px; 
-                font-size: 0.95rem; 
-                border-bottom: 1px solid #111; 
-                box-sizing: border-box; 
-            }
-
+            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #111; box-sizing: border-box; }
             .nav-active { transform: translateX(0%); }
-
             .toggle .line1 { transform: rotate(-45deg) translate(-4px, 5px); }
             .toggle .line2 { opacity: 0; }
             .toggle .line3 { transform: rotate(45deg) translate(-4px, -5px); }
-            
             .flex-row { flex-direction: row !important; flex-wrap: nowrap !important; gap: 8px !important; }
             .page-header h1 { font-size: 1.5rem; }
         }
@@ -401,9 +302,7 @@
             <li><a href="contact.html" class="active-link nav-quote-btn">Get Started</a></li>
         </ul>
         <div class="hamburger" id="hamburger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
+            <div class="line1"></div><div class="line2"></div><div class="line3"></div>
         </div>
     </nav>
 
@@ -413,32 +312,32 @@
     </header>
 
     <div class="form-container">
-        <form action="https://formspree.io/f/xeelbooj" method="POST" enctype="multipart/form-data" id="inquiry-form">
+        <form id="inquiry-form">
             <span class="section-title">Client Details</span>
             <div class="flex-row">
                 <div class="flex-item">
                     <label for="full-name">Full Name</label>
-                    <input type="text" id="full-name" name="name" required placeholder="Name">
+                    <input type="text" id="full-name" required placeholder="Name">
                 </div>
                 <div class="flex-item">
                     <label for="email-address">Email Address</label>
-                    <input type="email" id="email-address" name="email" required placeholder="Email">
+                    <input type="email" id="email-address" required placeholder="Email">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="flex-item">
                     <label for="phone-input">Mobile Number</label>
-                    <input type="tel" name="phone" id="phone-input" required pattern="[0-9]{11}" maxlength="11" placeholder="09171234567" inputmode="numeric">
+                    <input type="tel" id="phone-input" required pattern="[0-9]{11}" maxlength="11" placeholder="09171234567" inputmode="numeric">
                 </div>
                 <div class="flex-item">
                     <label for="web-name">Desired Web Name</label>
-                    <input type="text" id="web-name" name="Company Name" required placeholder="Website Name">
+                    <input type="text" id="web-name" required placeholder="Website Name">
                 </div>
             </div>
             <div class="flex-row">
                 <div class="flex-item">
                     <label for="contact-method">Contact Method</label>
-                    <select id="contact-method" name="contact_method">
+                    <select id="contact-method">
                         <option value="WhatsApp">WhatsApp</option>
                         <option value="Viber">Viber</option>
                         <option value="Email">Email</option>
@@ -446,17 +345,16 @@
                     </select>
                 </div>
                 <div class="flex-item">
-                    <label for="brand-assets">Brand Assets</label>
-                    <input type="file" id="brand-assets" name="attachment" accept="image/*, .pdf, .zip">
+                    <label for="brand-assets">Brand Assets (Logo/Refs)</label>
+                    <input type="file" id="brand-assets" accept="image/*, .pdf, .zip">
                 </div>
             </div>
             
             <label for="project-desc">Project Description</label>
-            <textarea id="project-desc" name="description" required rows="3" placeholder="Describe your project goals..."></textarea>
+            <textarea id="project-desc" required rows="3" placeholder="Describe your project goals..."></textarea>
 
             <span class="section-title">1. Infrastructure</span>
-            <label for="domain-select" style="display:none;">Select Domain</label>
-            <select name="domain" id="domain-select" onchange="calculate()">
+            <select id="domain-select" onchange="calculate()">
                 <option value="1200">Standard .com (₱1,200/yr)</option>
                 <option value="3500">Premium .ph (₱3,500/yr)</option>
                 <option value="0">Existing Domain (₱0)</option>
@@ -503,18 +401,15 @@
                     <div style="font-size: 0.85rem; color: var(--accent-orange);">50% Advance Payment:</div>
                     <div class="total-price" id="display-advance">₱0</div>
                 </div>
-                <p style="font-size: 0.7rem; margin: 0 0 12px 0; opacity: 0.7;">To start (Domain + 50% Labor)</p>
                 
-                <input type="hidden" name="Total_Setup_Cost" id="hidden-total" value="0">
-                <input type="hidden" name="Advance_Payment_Required" id="hidden-advance" value="0">
-
                 <div class="terms-container">
                     <input type="checkbox" id="terms-check" onchange="toggleSubmit()">
                     <label for="terms-check" class="terms-text">
-                        I agree to the <span onclick="openModal()">Terms of Service</span> and acknowledge the 50% advance payment requirement to commence development.
+                        I agree to the <span onclick="openModal()">Terms of Service</span> and acknowledge the 50% advance payment.
                     </label>
                 </div>
 
+                <div id="status-msg"></div>
                 <button type="submit" class="btn-submit" id="submit-btn" disabled>Submit Inquiry</button>
             </div>
         </form>
@@ -525,113 +420,109 @@
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
         <h3>Terms of Service</h3>
-        <p>By proceeding, you agree that JDR CORP will initiate development upon receipt of the 50% non-refundable advance payment. All assets provided remain your intellectual property. Maintenance plans are billed monthly. Please contact us for full service agreement details.</p>
+        <p>JDR CORP initiates development upon 50% non-refundable advance. Maintenance is monthly.</p>
     </div>
 </div>
 
 <footer>
-    <div class="footer-nav">
-        <a href="index.html">Home</a> | 
-        <a href="about.html">About</a> | 
-        <a href="service.html">Services</a> | 
-        <a href="portfolio.html">Portfolio</a> | 
-        <a href="quote.html">Projects / Pricing</a> | 
-        <a href="contact.html">Get Started</a> | 
-        <a href="legal.html">Legal & Privacy</a>
-    </div>
     <p>&copy; 2026 JDR CORP. All Rights Reserved.</p>
-    <div style="margin-top: 15px; opacity: 0.5; font-size: 0.7rem; letter-spacing: 0.5px;">CUSTOM HTML ARCHITECTURE • GITHUB WORKFLOWS • GCASH VERIFIED BUSINESS</div>
 </footer>
 
 <script>
-    // Modal Functions
+    // --- CONFIGURATION ---
+    const SUPABASE_URL = 'https://yphtlcsgicbzjrcyxybp.supabase.co';
+    const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlwaHRsY3NnaWNiempyY3l4eWJwIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzI3Njk0NDAsImV4cCI6MjA4ODM0NTQ0MH0.Bb6ShJPt1be2VwcOMG_CKziYwjIBaoDGgs9B2DEYpm0';
+    const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
+
+    const EJS_SERVICE_ID = 'service_9azfmgp';
+    const EJS_TEMPLATE_ID = 'template_rug054q';
+    const EJS_PUBLIC_KEY = '9HgNOjgLcMRk';
+    
+    emailjs.init(EJS_PUBLIC_KEY);
+
+    // Navigation and Modals
     function openModal() { document.getElementById('terms-modal').style.display = 'block'; }
     function closeModal() { document.getElementById('terms-modal').style.display = 'none'; }
-    window.onclick = function(event) { if (event.target == document.getElementById('terms-modal')) closeModal(); }
-
-    document.addEventListener('DOMContentLoaded', () => {
-        const hamburger = document.getElementById('hamburger');
-        const navMenu = document.getElementById('nav-menu');
-        const closeMenu = () => {
-            if (navMenu.classList.contains('nav-active')) {
-                navMenu.classList.remove('nav-active');
-                hamburger.classList.remove('toggle');
-            }
-        };
-        hamburger.addEventListener('click', (e) => {
-            e.stopPropagation();
-            navMenu.classList.toggle('nav-active');
-            hamburger.classList.toggle('toggle');
-        });
-        window.addEventListener('scroll', closeMenu, { passive: true });
-        document.addEventListener('click', (e) => {
-            const isClickInsideMenu = navMenu.contains(e.target);
-            const isHamburger = hamburger.contains(e.target);
-            if ((!isClickInsideMenu && !isHamburger) || e.target.tagName === 'A') {
-                closeMenu();
-            }
-        });
-
-        // Form Logic
-        document.getElementById('phone-input').addEventListener('input', function (e) { 
-            this.value = this.value.replace(/[^0-9]/g, ''); 
-        });
+    const hamburger = document.getElementById('hamburger');
+    const navMenu = document.getElementById('nav-menu');
+    hamburger.addEventListener('click', () => {
+        navMenu.classList.toggle('nav-active');
+        hamburger.classList.toggle('toggle');
     });
 
-    function toggleSubmit() {
-        const isChecked = document.getElementById('terms-check').checked;
-        document.getElementById('submit-btn').disabled = !isChecked;
-    }
-
-    function selectRadio(id) { 
-        document.getElementById(id).checked = true; 
-        calculate(); 
-    }
-    
+    // Calculator Logic
+    function selectRadio(id) { document.getElementById(id).checked = true; calculate(); }
     function calculate() {
         let setup = parseInt(document.getElementById('domain-select').value);
         document.querySelectorAll('input[name="dev_package"]').forEach(opt => {
             const card = document.getElementById('card-' + opt.id);
-            if(opt.checked) { 
-                setup += parseInt(opt.getAttribute('data-price')); 
-                card.classList.add('selected'); 
-            } else { 
-                card.classList.remove('selected'); 
-            }
-        });
-
-        document.querySelectorAll('input[name="maintenance"]').forEach(opt => {
-            const card = document.getElementById('card-' + opt.id);
-            if(opt.checked) card.classList.add('selected'); 
+            if(opt.checked) { setup += parseInt(opt.getAttribute('data-price')); card.classList.add('selected'); }
             else card.classList.remove('selected');
         });
-        
         const isSelf = document.getElementById('maint2').checked;
         document.getElementById('monthly-section').style.display = isSelf ? 'none' : 'block';
         document.getElementById('monthly-title').style.display = isSelf ? 'none' : 'block';
-        
         document.getElementById('display-total').innerText = "₱" + setup.toLocaleString();
         document.getElementById('display-advance').innerText = "₱" + (setup * 0.5).toLocaleString();
-        
-        // Update hidden inputs for email
-        document.getElementById('hidden-total').value = "₱" + setup.toLocaleString();
-        document.getElementById('hidden-advance').value = "₱" + (setup * 0.5).toLocaleString();
-        
         updateAds();
     }
-    
     function updateAds() {
         const slider = document.getElementById('ad-slider');
-        if(!slider) return;
         const daily = parseInt(slider.value);
-        const maint1 = document.getElementById('maint1');
-        const mgmtFee = maint1 && maint1.checked ? 1500 : 0;
         const adSpend = daily * 30;
+        const mgmt = document.getElementById('maint1').checked ? 1500 : 0;
         document.getElementById('daily-val').innerText = daily;
         document.getElementById('ad-spend-val').innerText = adSpend.toLocaleString();
-        document.getElementById('display-monthly-total').innerText = (adSpend + mgmtFee).toLocaleString();
+        document.getElementById('display-monthly-total').innerText = (adSpend + mgmt).toLocaleString();
         document.getElementById('display-traffic').innerText = Math.floor(adSpend / 20).toLocaleString() + " visitors/mo";
     }
+    function toggleSubmit() { document.getElementById('submit-btn').disabled = !document.getElementById('terms-check').checked; }
+
+    // Submission Logic
+    document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const btn = document.getElementById('submit-btn');
+        const status = document.getElementById('status-msg');
+        btn.disabled = true; btn.innerText = "Processing...";
+        status.style.display = "block"; status.style.background = "#30363d"; status.innerText = "Uploading data...";
+
+        try {
+            const fileInput = document.getElementById('brand-assets');
+            let publicImageUrl = "No Attachment";
+            
+            if (fileInput.files.length > 0) {
+                const file = fileInput.files[0];
+                const fileName = `${Date.now()}-${file.name}`;
+                const { error: upErr } = await _supabase.storage.from('project-files').upload(fileName, file);
+                if (upErr) throw upErr;
+                publicImageUrl = _supabase.storage.from('project-files').getPublicUrl(fileName).data.publicUrl;
+            }
+
+            const formData = {
+                name: document.getElementById('full-name').value,
+                email: document.getElementById('email-address').value,
+                phone: document.getElementById('phone-input').value,
+                web_name: document.getElementById('web-name').value,
+                contact_method: document.getElementById('contact-method').value,
+                description: document.getElementById('project-desc').value,
+                total_cost: document.getElementById('display-total').innerText,
+                attachment: publicImageUrl
+            };
+
+            await _supabase.from('inquiries').insert([formData]);
+            status.innerText = "Sending Email Alert...";
+            await emailjs.send(EJS_SERVICE_ID, EJS_TEMPLATE_ID, formData);
+
+            status.style.background = "#25D366";
+            status.style.color = "#000";
+            status.innerText = "Success! We will contact you soon.";
+            btn.innerText = "Sent!";
+        } catch (err) {
+            status.style.background = "#ff4d4d";
+            status.innerText = "Error: " + err.message;
+            btn.disabled = false;
+        }
+    });
 
     calculate();
 </script>

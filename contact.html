@@ -254,6 +254,73 @@
             margin-top: 15px; 
             font-size: 1rem;
             text-transform: uppercase;
+            transition: opacity 0.3s, cursor 0.3s;
+        }
+
+        .btn-submit:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+        }
+
+        /* --- TERMS CHECKBOX & MODAL --- */
+        .terms-container {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin: 20px 0 10px 0;
+            padding: 0 5px;
+        }
+
+        .terms-container input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            margin: 0;
+            accent-color: var(--accent-orange);
+            flex-shrink: 0;
+            cursor: pointer;
+        }
+
+        .terms-text {
+            font-size: 0.75rem;
+            line-height: 1.4;
+            color: #8b949e;
+        }
+
+        .terms-text span {
+            color: var(--accent-orange);
+            text-decoration: underline;
+            cursor: pointer;
+            font-weight: 600;
+        }
+
+        .modal {
+            display: none; 
+            position: fixed; 
+            z-index: 2000; 
+            left: 0; top: 0;
+            width: 100%; height: 100%;
+            background-color: rgba(0,0,0,0.8);
+        }
+
+        .modal-content {
+            background-color: var(--card-bg);
+            margin: 10% auto;
+            padding: 25px;
+            border: 1px solid var(--border);
+            width: 80%;
+            max-width: 500px;
+            border-radius: 10px;
+            color: white;
+            font-size: 0.85rem;
+            line-height: 1.6;
+        }
+
+        .close-modal {
+            color: var(--accent-orange);
+            float: right;
+            font-size: 1.5rem;
+            font-weight: bold;
+            cursor: pointer;
         }
 
         footer { 
@@ -346,31 +413,53 @@
     </header>
 
     <div class="form-container">
-        <form action="https://formspree.io/f/xeelbooj" method="POST" enctype="multipart/form-data">
+        <form action="https://formspree.io/f/xeelbooj" method="POST" enctype="multipart/form-data" id="inquiry-form">
             <span class="section-title">Client Details</span>
             <div class="flex-row">
-                <div class="flex-item"><label>Full Name</label><input type="text" name="name" required placeholder="Name"></div>
-                <div class="flex-item"><label>Email Address</label><input type="email" name="email" required placeholder="Email"></div>
+                <div class="flex-item">
+                    <label for="full-name">Full Name</label>
+                    <input type="text" id="full-name" name="name" required placeholder="Name">
+                </div>
+                <div class="flex-item">
+                    <label for="email-address">Email Address</label>
+                    <input type="email" id="email-address" name="email" required placeholder="Email">
+                </div>
             </div>
             <div class="flex-row">
-                <div class="flex-item"><label>Mobile Number</label><input type="tel" name="phone" id="phone-input" required pattern="[0-9]{11}" maxlength="11" placeholder="09171234567"></div>
-                <div class="flex-item"><label>Desired Web Name</label><input type="text" name="Company Name" required placeholder="Website Name"></div>
+                <div class="flex-item">
+                    <label for="phone-input">Mobile Number</label>
+                    <input type="tel" name="phone" id="phone-input" required pattern="[0-9]{11}" maxlength="11" placeholder="09171234567" inputmode="numeric">
+                </div>
+                <div class="flex-item">
+                    <label for="web-name">Desired Web Name</label>
+                    <input type="text" id="web-name" name="Company Name" required placeholder="Website Name">
+                </div>
             </div>
             <div class="flex-row">
-                <div class="flex-item"><label>Contact Method</label>
-                    <select name="contact_method">
-                        <option value="WhatsApp">WhatsApp</option><option value="Viber">Viber</option><option value="Email">Email</option><option value="SMS">SMS/Call</option>
+                <div class="flex-item">
+                    <label for="contact-method">Contact Method</label>
+                    <select id="contact-method" name="contact_method">
+                        <option value="WhatsApp">WhatsApp</option>
+                        <option value="Viber">Viber</option>
+                        <option value="Email">Email</option>
+                        <option value="SMS">SMS/Call</option>
                     </select>
                 </div>
-                <div class="flex-item"><label>Brand Assets</label><input type="file" name="attachment" accept="image/*, .pdf, .zip"></div>
+                <div class="flex-item">
+                    <label for="brand-assets">Brand Assets</label>
+                    <input type="file" id="brand-assets" name="attachment" accept="image/*, .pdf, .zip">
+                </div>
             </div>
             
-            <label>Project Description</label>
-            <textarea name="description" required rows="3" placeholder="Describe your project goals..."></textarea>
+            <label for="project-desc">Project Description</label>
+            <textarea id="project-desc" name="description" required rows="3" placeholder="Describe your project goals..."></textarea>
 
             <span class="section-title">1. Infrastructure</span>
+            <label for="domain-select" style="display:none;">Select Domain</label>
             <select name="domain" id="domain-select" onchange="calculate()">
-                <option value="1200">Standard .com (₱1,200/yr)</option><option value="3500">Premium .ph (₱3,500/yr)</option><option value="0">Existing Domain (₱0)</option>
+                <option value="1200">Standard .com (₱1,200/yr)</option>
+                <option value="3500">Premium .ph (₱3,500/yr)</option>
+                <option value="0">Existing Domain (₱0)</option>
             </select>
 
             <span class="section-title">2. Core Development</span>
@@ -389,34 +478,54 @@
             <div class="flex-row">
                 <div class="option-card" id="card-maint1" onclick="selectRadio('maint1')">
                     <input type="radio" name="maintenance" id="maint1" value="Managed" data-price="1500" onchange="calculate()" checked>
-                    <div class="card-text">Managed<span class="price-tag">₱1,500/mo</span></div>
+                    <div class="card-text">Ads Management & SEO Maintenance<span class="price-tag">₱1,500/mo</span></div>
                 </div>
                 <div class="option-card" id="card-maint2" onclick="selectRadio('maint2')">
                     <input type="radio" name="maintenance" id="maint2" value="Self-Managed" data-price="0" onchange="calculate()">
-                    <div class="card-text">Self-Managed<span class="price-tag">₱0</span></div>
+                    <div class="card-text">No Maintenance (Self-Managed)<span class="price-tag">₱0</span></div>
                 </div>
             </div>
 
             <span id="monthly-title" class="section-title">4. Monthly Commitment</span>
             <div id="monthly-section" class="summary-box" style="background: rgba(10, 88, 202, 0.05);">
-                <div style="font-size: 0.9rem; font-weight: bold; margin-bottom: 5px;">Total Monthly: ₱<span id="display-monthly-total">7,500</span></div>
+                <div style="font-size: 0.9rem; font-weight: bold; margin-bottom: 5px;">Ads Total Monthly: ₱<span id="display-monthly-total">7,500</span></div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8b949e;"><span>Management Fee:</span> <span>₱1,500</span></div>
                 <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #8b949e; margin-bottom: 10px;"><span>Google Ad Spend:</span> <span>₱<span id="ad-spend-val">6,000</span></span></div>
                 
-                <label style="font-size: 0.75rem;">Adjust Daily Ad Budget: ₱<span id="daily-val">200</span></label>
+                <label for="ad-slider" style="font-size: 0.75rem;">Adjust Daily Ad Budget: ₱<span id="daily-val">200</span></label>
                 <input type="range" id="ad-slider" min="100" max="2000" step="50" value="200" oninput="updateAds()">
                 <div style="font-size: 0.75rem; color: #8b949e; margin-top: 5px;">Est. Traffic: <strong id="display-traffic" style="color:white;">300 visitors/mo</strong></div>
             </div>
 
             <div class="summary-box">
-                <div style="font-size: 0.85rem; color: #8b949e;">Setup Total: <span id="display-total" style="color:white; font-weight:700;">₱0</span></div>
+                <div style="font-size: 0.85rem; color: #8b949e;">Setup Total Price: <span id="display-total" style="color:white; font-weight:700;">₱0</span></div>
                 <div style="margin-top: 10px; border-top: 1px solid var(--border); padding-top:10px;">
-                    <div style="font-size: 0.85rem; color: var(--accent-orange);">50% Advance Required:</div>
+                    <div style="font-size: 0.85rem; color: var(--accent-orange);">50% Advance Payment:</div>
                     <div class="total-price" id="display-advance">₱0</div>
                 </div>
-                <button type="submit" class="btn-submit">Submit Inquiry</button>
+                <p style="font-size: 0.7rem; margin: 0 0 12px 0; opacity: 0.7;">To start (Domain + 50% Labor)</p>
+                
+                <input type="hidden" name="Total_Setup_Cost" id="hidden-total" value="0">
+                <input type="hidden" name="Advance_Payment_Required" id="hidden-advance" value="0">
+
+                <div class="terms-container">
+                    <input type="checkbox" id="terms-check" onchange="toggleSubmit()">
+                    <label for="terms-check" class="terms-text">
+                        I agree to the <span onclick="openModal()">Terms of Service</span> and acknowledge the 50% advance payment requirement to commence development.
+                    </label>
+                </div>
+
+                <button type="submit" class="btn-submit" id="submit-btn" disabled>Submit Inquiry</button>
             </div>
         </form>
+    </div>
+</div>
+
+<div id="terms-modal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3>Terms of Service</h3>
+        <p>By proceeding, you agree that JDR CORP will initiate development upon receipt of the 50% non-refundable advance payment. All assets provided remain your intellectual property. Maintenance plans are billed monthly. Please contact us for full service agreement details.</p>
     </div>
 </div>
 
@@ -435,6 +544,11 @@
 </footer>
 
 <script>
+    // Modal Functions
+    function openModal() { document.getElementById('terms-modal').style.display = 'block'; }
+    function closeModal() { document.getElementById('terms-modal').style.display = 'none'; }
+    window.onclick = function(event) { if (event.target == document.getElementById('terms-modal')) closeModal(); }
+
     document.addEventListener('DOMContentLoaded', () => {
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
@@ -463,6 +577,11 @@
             this.value = this.value.replace(/[^0-9]/g, ''); 
         });
     });
+
+    function toggleSubmit() {
+        const isChecked = document.getElementById('terms-check').checked;
+        document.getElementById('submit-btn').disabled = !isChecked;
+    }
 
     function selectRadio(id) { 
         document.getElementById(id).checked = true; 
@@ -493,12 +612,20 @@
         
         document.getElementById('display-total').innerText = "₱" + setup.toLocaleString();
         document.getElementById('display-advance').innerText = "₱" + (setup * 0.5).toLocaleString();
+        
+        // Update hidden inputs for email
+        document.getElementById('hidden-total').value = "₱" + setup.toLocaleString();
+        document.getElementById('hidden-advance').value = "₱" + (setup * 0.5).toLocaleString();
+        
         updateAds();
     }
     
     function updateAds() {
-        const daily = parseInt(document.getElementById('ad-slider').value);
-        const mgmtFee = document.getElementById('maint1').checked ? 1500 : 0;
+        const slider = document.getElementById('ad-slider');
+        if(!slider) return;
+        const daily = parseInt(slider.value);
+        const maint1 = document.getElementById('maint1');
+        const mgmtFee = maint1 && maint1.checked ? 1500 : 0;
         const adSpend = daily * 30;
         document.getElementById('daily-val').innerText = daily;
         document.getElementById('ad-spend-val').innerText = adSpend.toLocaleString();

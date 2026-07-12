@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" style="height: 100%;">
 <head>
     <script async src="https://www.googletagmanager.com/gtag.js?id=G-31P3617CQT"></script>
     <script>
@@ -33,124 +33,72 @@
     <style>
         :root {
             --primary-blue: #0A58CA;
-            --primary-blue-hover: #0b63e5;
             --accent-orange: #F98C15;
             --dark-bg: #0C0D11;
-            --card-bg: #13151a;
             --light-text: #F4F4F4;
             --muted-text: #A0A0A0;
-            --border-color: #222530;
+            --header-bg: #000000;
         }
 
-        * {
-            box-sizing: border-box;
-        }
-
-        html, body { 
-            margin: 0; 
-            padding: 0; 
-            width: 100%;
-            overflow-x: hidden;
-        }
-
+        html, body { height: 100%; margin: 0; padding: 0; }
         body { 
             font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; 
             background-color: var(--dark-bg); 
             color: var(--light-text); 
-            line-height: 1.6; 
+            line-height: 1.4; 
             display: flex; 
             flex-direction: column; 
             min-height: 100vh; 
-            padding-top: 70px; 
+            padding-top: 60px; 
         }
 
         main { flex: 1 0 auto; display: flex; flex-direction: column; }
 
         /* --- NAVIGATION --- */
         nav { 
-            padding: 0 5%; 
-            height: 70px;
+            padding: 0.5rem 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid var(--border-color); 
+            border-bottom: 1px solid #222; 
             position: fixed; 
             top: 0; 
             left: 0; 
             right: 0; 
             z-index: 1000; 
-            background-color: rgba(12, 13, 17, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            background-image: url('tech-bg.png'); 
+            background-size: cover;
+            background-position: center bottom;
+            overflow: hidden; 
         }
         
         .nav-brand { 
-            display: flex; 
+            display: flex !important; 
             align-items: center; 
-            font-size: 0.95rem; 
+            font-size: 0.9rem; 
             font-weight: 800; 
-            letter-spacing: 0.5px; 
+            letter-spacing: 1px; 
             color: var(--light-text); 
             text-transform: uppercase; 
             text-decoration: none; 
             line-height: 1.2; 
         }
-        .nav-logo { height: 40px; width: auto; margin-right: 12px; }
+        .nav-logo { height: 40px; width: auto; margin-right: 12px; vertical-align: middle; }
         .nav-brand span { color: var(--accent-orange); font-size: 0.65rem; display: block; margin-top: 2px; letter-spacing: 0.5px; }
         
-        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; gap: 20px; }
-        .nav-links a { color: var(--light-text); text-decoration: none; font-weight: 500; transition: color 0.3s ease; font-size: 0.8rem; display: inline-block; }
+        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
+        .nav-links li { margin-left: 18px; }
+        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.75rem; display: inline-block; }
         .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
-        
-        .nav-quote-btn { 
-            border: 1px solid var(--accent-orange); 
-            padding: 6px 16px; 
-            border-radius: 4px; 
-            color: var(--accent-orange) !important; 
-            font-weight: 700 !important; 
-            transition: all 0.3s ease !important;
-        }
-        .nav-quote-btn:hover {
-            background-color: var(--accent-orange);
-            color: #000 !important;
-        }
-
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 5px; padding: 10px; z-index: 1001; }
-        .hamburger div { width: 22px; height: 2px; background-color: white; transition: 0.3s ease; }
-        
-        @media (max-width: 992px) { 
-            .hamburger { display: flex; } 
-            .nav-links { 
-                position: fixed; 
-                right: 0; 
-                top: 0; 
-                height: 100vh; 
-                background-color: var(--dark-bg); 
-                flex-direction: column; 
-                width: 280px; 
-                transform: translateX(100%); 
-                transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1); 
-                padding-top: 90px; 
-                border-left: 1px solid var(--border-color); 
-                align-items: flex-start; 
-                gap: 0;
-            }
-            .nav-links li { width: 100%; }
-            .nav-links a { display: block; width: 100%; padding: 18px 30px; font-size: 0.95rem; border-bottom: 1px solid rgba(255,255,255,0.03); }
-            .nav-quote-btn { border: none; border-bottom: 1px solid rgba(255,255,255,0.03); border-radius: 0; width: 100%; }
-            .nav-quote-btn:hover { background: none; color: var(--accent-orange) !important; }
-            .nav-active { transform: translateX(0%); }
-
-            /* Hamburger animation toggles */
-            .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 5px); }
-            .hamburger.toggle .line2 { opacity: 0; }
-            .hamburger.toggle .line3 { transform: rotate(45deg) translate(-5px, -5px); }
-        }
+        .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; font-weight: 800 !important; }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 4px; padding: 10px; z-index: 1001; }
+        @media (max-width: 768px) { .hamburger { display: flex; } }
+        .hamburger div { width: 20px; height: 2px; background-color: white; transition: 0.3s; }
         
         /* --- HERO SECTION --- */
         .hero { 
             position: relative;
-            min-height: 85vh;
+            min-height: 86vh;
             width: 100%;
             text-align: center; 
             overflow: hidden;
@@ -158,7 +106,6 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 40px 20px;
         }
         .hero-video-bg {
             position: absolute;
@@ -168,7 +115,6 @@
             height: 100%;
             z-index: 1;
             object-fit: cover;
-            opacity: 0.5;
         }
         .hero-overlay {
             position: absolute;
@@ -176,115 +122,92 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(180deg, rgba(12,13,17,0.5) 0%, rgba(12,13,17,0.95) 100%);
+            background: radial-gradient(circle, rgba(12,13,17,0.3) 0%, rgba(12,13,17,0.9) 100%);
             z-index: 2;
         }
-        .hero-content { position: relative; z-index: 3; max-width: 900px; }
-        .hero h1 { font-size: clamp(2.5rem, 7vw, 4.2rem); margin: 0 0 20px 0; font-weight: 900; line-height: 1.15; letter-spacing: -0.5px; }
-        .hero h2 { font-size: clamp(1.1rem, 3.5vw, 1.6rem); margin: 0 auto 30px; font-weight: 500; line-height: 1.4; color: #fff; max-width: 700px; }
-        .hero p { font-size: clamp(1rem, 2vw, 1.15rem); color: var(--muted-text); max-width: 700px; margin: 0 auto 40px; }
-        
-        .cta-btn-main { 
-            background: var(--primary-blue); 
-            color: white; 
-            padding: 16px 40px; 
-            border-radius: 6px; 
-            text-decoration: none; 
-            display: inline-block; 
-            transition: all 0.3s ease; 
-            font-size: 1rem; 
-            font-weight: 700; 
-            box-shadow: 0 4px 20px rgba(10, 88, 202, 0.3); 
-        }
-        .cta-btn-main:hover { transform: translateY(-2px); background: var(--primary-blue-hover); box-shadow: 0 6px 25px rgba(10, 88, 202, 0.5); }
+        .hero-content { position: relative; z-index: 3; }
+        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 30px; font-weight: 900; line-height: 1.1;}
+        .hero h2 { font-size: clamp(1.1rem, 4vw, 1.8rem); margin-bottom: 40px; font-weight: 700; line-height: 1.2; color: #fff; }
+        .hero p { font-size: 1.2rem; color: #ccc; max-width: 750px; margin: 0 auto 30px; }
+        .cta-btn-main { background: var(--primary-blue); color: white; padding: 14px 42px; border-radius: 5px; text-decoration: none; display: inline-block; transition: 0.3s; font-size: 0.95rem; font-weight: bold; box-shadow: 0 4px 15px rgba(10, 88, 202, 0.4); }
+        .cta-btn-main:hover { transform: translateY(-2px); background: #0d6efd; }
 
-        /* --- GLOBAL CONTENT SECTIONS --- */
-        .section-padding { padding: 80px 0; }
-        .container { max-width: 1100px; margin: 0 auto; padding: 0 5%; }
+        /* --- MAIN CONTAINER --- */
+        .container { max-width: 800px; margin: 0 auto; padding: 40px 5% 80px; }
 
-        /* --- TRANSPARENCY & MONITOR GRID --- */
-        .transparency-section { text-align: center; }
-        .monitor-box { max-width: 1000px; margin: 0 auto; padding: 40px 30px; background: rgba(10, 88, 202, 0.03); border: 1px solid rgba(10, 88, 202, 0.25); border-radius: 12px; }
-        
-        .status-badge { display: inline-flex; align-items: center; gap: 8px; background: rgba(0,0,0,0.4); padding: 6px 14px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.05); margin-bottom: 20px; }
-        .pulse-dot { height: 8px; width: 8px; background-color: #ff4b4b; border-radius: 50%; display: inline-block; box-shadow: 0 0 8px #ff4b4b; animation: pulse-animation 1.5s infinite; }
-        @keyframes pulse-animation { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
-        .status-badge span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1.5px; font-weight: 700; color: #eee; }
-        
-        .section-title { font-size: clamp(1.8rem, 4vw, 2.3rem); margin: 0 0 15px 0; font-weight: 800; letter-spacing: -0.5px; }
-        .section-desc { color: var(--muted-text); font-size: 1rem; max-width: 580px; margin: 0 auto 45px; }
-
-        .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 20px; text-align: left; margin-top: 40px; }
-        .monitor-card { background: var(--card-bg); padding: 30px; border-radius: 10px; border: 1px solid var(--border-color); transition: border-color 0.3s ease; }
-        .monitor-card:hover { border-color: rgba(10, 88, 202, 0.4); }
-        .monitor-card h4 { color: var(--accent-orange); margin: 0 0 12px 0; font-size: 1.1rem; font-weight: 700; }
-        .monitor-card p { font-size: 0.9rem; color: var(--muted-text); line-height: 1.6; margin: 0; }
-
-        /* --- VIDEO STYLING --- */
+        /* --- PROCESS VIDEO STYLING (Updated for Clickable Play) --- */
         .process-video-container {
             width: 100%;
-            max-width: 750px;
+            max-width: 650px;
             margin: 0 auto;
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            border: 1px solid var(--border-color);
+            border: 2px solid #222;
             background: #000;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
-        .process-video { width: 100%; display: block; cursor: pointer; }
+        .process-video { 
+            width: 100%; 
+            display: block;
+            cursor: pointer;
+        }
+
+        /* --- MONITOR/GRID STYLES --- */
+        .transparency-section { padding: 40px 5%; background: #000; text-align: center; }
+        .monitor-box { max-width: 900px; margin: 0 auto; padding: 30px 20px; background: rgba(10, 88, 202, 0.05); border: 1px solid var(--primary-blue); border-radius: 12px; }
+        .pulse-dot { height: 7px; width: 7px; background-color: #ff4b4b; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #ff4b4b; animation: pulse-animation 1.5s infinite; }
+        @keyframes pulse-animation { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
+        .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
+        .monitor-card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
+        .monitor-card h4 { color: var(--accent-orange); margin: 0 0 8px; font-size: 1rem; }
+        .monitor-card p { font-size: 0.85rem; color: var(--muted-text); line-height: 1.5; margin: 0; }
 
         /* --- TESTIMONIALS --- */
-        .testimonial-section { background: rgba(0,0,0,0.2); padding: 80px 0 40px 0; border-top: 1px solid var(--border-color); }
-        .review-cta-box { max-width: 450px; margin: 0 auto 50px; background: var(--card-bg); padding: 35px 30px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center; }
-        .review-cta-box h2 { font-size: 1.4rem; margin: 0 0 10px 0; font-weight: 700; }
-        .review-cta-box p { font-size: 0.9rem; color: var(--muted-text); margin: 0 0 25px 0; line-height: 1.6; }
-        
-        .submit-btn { 
-            background: var(--accent-orange); 
-            color: #000; 
-            border: none; 
-            padding: 14px 24px; 
-            border-radius: 5px; 
-            font-weight: 700; 
-            cursor: pointer; 
-            font-size: 0.85rem; 
-            transition: all 0.3s ease; 
-            width: 100%; 
-            text-transform: uppercase; 
-            letter-spacing: 1px; 
-        }
-        .submit-btn:hover { background: #ff9e2e; transform: translateY(-1px); }
-
+        .testimonial-section { background: #000; padding: 40px 0 0 0; border-top: 1px solid #111; margin-top: auto; overflow: hidden; }
         .testimonial-slider { width: 100%; overflow: hidden; padding: 20px 0; position: relative; }
-        .testimonial-track { display: flex; width: max-content; gap: 20px; animation: marquee 30s linear infinite; }
+        .testimonial-track { display: flex; width: max-content; gap: 15px; animation: marquee 25s linear infinite; }
         .testimonial-track:hover { animation-play-state: paused; }
-        .testimonial-card-move { width: 280px; flex-shrink: 0; background: var(--card-bg); padding: 25px; border-radius: 10px; border-left: 4px solid var(--primary-blue); border-top: 1px solid var(--border-color); border-right: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color); white-space: normal; text-align: left; }
+        .testimonial-card-move { width: 240px; flex-shrink: 0; background: rgba(10, 88, 202, 0.05); padding: 15px; border-radius: 10px; border-left: 3px solid var(--primary-blue); white-space: normal; text-align: left; }
 
         @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
         
         /* --- FOOTER --- */
         footer { 
-            padding: 40px 5%; 
+            flex-shrink: 0; 
+            padding: 20px 5%; 
             text-align: center; 
-            border-top: 1px solid var(--border-color); 
-            color: var(--muted-text); 
-            font-size: 0.85rem; 
-            background: #08090c;
+            border-top: 1px solid #333; 
+            color: #ddd; 
+            font-size: 0.8rem; 
+            position: relative; 
+            background-image: url('tech-bg.png'); 
+            background-size: cover;
+            background-position: center top; 
+            overflow: hidden; 
         }
         
-        footer a { color: var(--light-text); text-decoration: none; margin: 0 10px; font-weight: 500; transition: color 0.3s ease; }
+        footer a { color: #fff; text-decoration: none; margin: 0 8px; font-weight: 600; }
         footer a:hover { color: var(--accent-orange); }
-        .footer-nav { margin-bottom: 20px; display: flex; justify-content: center; flex-wrap: wrap; gap: 10px; }
-        .footer-badges { margin-top: 20px; opacity: 0.9; font-size: 0.7rem; letter-spacing: 1.5px; color: var(--accent-orange); font-weight: 700; }
+        .footer-nav { margin-bottom: 10px; }
+        .footer-badges { margin-top: 10px; opacity: 0.8; font-size: 0.65rem; letter-spacing: 1px; color: var(--accent-orange); font-weight: bold; }
         
         /* --- FLOATING CONTACT --- */
-        .floating-contact-wrap { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; align-items: center; gap: 6px; z-index: 9999; }
-        .float-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; box-shadow: 0 8px 24px rgba(0,0,0,0.5); transition: transform 0.2s ease; border: none; cursor: pointer;}
-        .float-btn:hover { transform: scale(1.08); }
+        .floating-contact-wrap { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; transition: transform 0.4s ease, opacity 0.3s ease; }
+        body.is-scrolling .floating-contact-wrap { transform: translateX(100px); opacity: 0; pointer-events: none; }
+        .float-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
+        .float-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; box-shadow: 0 6px 16px rgba(0,0,0,0.6); transition: 0.2s; cursor: pointer; border: none; }
+        .float-btn:hover { transform: scale(1.1); }
         .float-whatsapp { background-color: #25D366; }
         .float-btn svg { width: 28px; height: 28px; fill: white; }
-        .float-label { font-size: 0.65rem; font-weight: 700; color: #fff; background: rgba(12,13,17,0.9); padding: 4px 10px; border-radius: 20px; text-transform: uppercase; letter-spacing: 0.5px; border: 1px solid rgba(255,255,255,0.05); }
+        .float-label { font-size: 0.65rem; font-weight: bold; color: #ccc; background: rgba(0,0,0,0.8); padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
+
+        @media (max-width: 768px) {
+            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: #000; flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #222; align-items: flex-start; }
+            .nav-links li { width: 100%; margin: 0; }
+            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #111; box-sizing: border-box; }
+            .nav-active { transform: translateX(0%); }
+        }
     </style>
 </head>
 <body>
@@ -302,11 +225,7 @@
             <li><a href="quote.html">Projects / Pricing</a></li>
             <li><a href="contact.html" class="nav-quote-btn">Get Started</a></li>
         </ul>
-        <div class="hamburger" id="hamburger">
-            <div class="line1"></div>
-            <div class="line2"></div>
-            <div class="line3"></div>
-        </div>
+        <div class="hamburger" id="hamburger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
     </nav>
 
     <main>
@@ -317,43 +236,32 @@
             <div class="hero-overlay"></div>
             
             <div class="hero-content">
-                <h1>Custom Websites Built <span style="color: var(--accent-orange);">Real-Time</span></h1>
-                <h2>Watch Your Site Being Developed Step-By-Step</h2>
-                <p>Get a private live preview link and watch your system architecture expand dynamically—with 100% transparency, faster revisions, and zero guesswork.</p>
+                <h1><span style="color: var(--accent-orange);">Custom Websites Built Real-Time</span></h1>
+                <h2>Watch Your Site Being Developed in Real Time</h2>
+                <p>Get a private live preview link and watch your website evolve step-by-step — with full transparency, faster revisions, and zero guesswork.</p>
                 <a href="quote.html" class="cta-btn-main">Build Your Custom Quote</a>
             </div>
         </section>
         
-        <div class="container section-padding">
+        <div class="container">
             <section class="transparency-section">
                 <div class="monitor-box">
-                    <div class="status-badge">
+                    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px; border: 1px solid #333; margin-bottom: 15px;">
                          <span class="pulse-dot"></span>
-                         <span>System Status: Active Build</span>
+                         <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #eee;">System Status: Active Build</span>
                     </div>
-                    <h2 class="section-title">Real-Time Development Access</h2>
+                    <h2 style="font-size: 1.8rem; margin: 0 0 15px;">Real-Time Development Access</h2>
                     <div class="monitor-grid">
-                        <div class="monitor-card">
-                            <h4>Exclusive Preview URL</h4>
-                            <p>Access a secure, <strong>live staging link</strong> where code updates deploy automatically the instant they are completed.</p>
-                        </div>
-                        <div class="monitor-card">
-                            <h4>Visual Verification</h4>
-                            <p>Preview your product across mobile and desktop environments fluidly, verifying precision before going live.</p>
-                        </div>
-                        <div class="monitor-card">
-                            <h4>Instant Milestone Sync</h4>
-                            <p>Every major layout block is updated transparently, doing away with hidden waiting periods or workflow siloes.</p>
-                        </div>
+                         <div class="monitor-card"><h4>Exclusive Preview URL</h4><p>Real-Time Development Access <strong>live staging link</strong> where every update is deployed instantly.</p></div>
+                        <div class="monitor-card"><h4>Visual Verification</h4><p>Preview your website on mobile or desktop in real time — ensuring everything looks perfect before launch.</p></div>
+                        <div class="monitor-card"><h4>Instant Milestone Sync</h4><p>Every feature and section is updated live — no waiting, no hidden progress, full visibility.</p></div>
                     </div>
                 </div>
             </section>
-        </div>
 
-        <section style="background: #090a0d; border-top: 1px solid var(--border-color); border-bottom: 1px solid var(--border-color);" class="section-padding">
-            <div class="container" style="text-align: center;">
-                <h2 class="section-title" style="color: var(--primary-blue);">Our Development Process</h2>
-                <p class="section-desc">A streamlined workflow designed to put you in complete control from concept to final deployment.</p>
+            <section style="padding:60px 0; background:#0C0D11; text-align:center;">
+                <h2 style="font-size:1.8rem; margin-bottom:15px; color: var(--primary-blue);">Our Development Process</h2>
+                <p style="color:var(--muted-text); font-size:0.9rem; max-width:550px; margin:0 auto 25px;">A streamlined workflow designed to give you full control at every stage.</p>
                 
                 <div class="process-video-container">
                     <video class="process-video" controls preload="none" poster="image_0.png">
@@ -362,52 +270,44 @@
                     </video>
                 </div>
 
-                <div class="monitor-grid">
-                    <div class="monitor-card"><h4>1. Quote Builder</h4><p>Tailor your project specifications instantly by using our custom software pricing engine.</p></div>
-                    <div class="monitor-card"><h4>2. Live Development</h4><p>Production cycles initiate immediately paired with active access keys to your live preview build.</p></div>
-                    <div class="monitor-card"><h4>3. Review & Feedback</h4><p>Submit revision notes on updates instantly while staging runs directly over server pipelines.</p></div>
-                    <div class="monitor-card"><h4>4. Production Launch</h4><p>Following final validation, structural assets are live optimized and distributed globally.</p></div>
+                <div class="monitor-grid" style="margin-top: 40px;">
+                    <div class="monitor-card"><h4>1. Quote Builder</h4><p>Customize your project by selecting features and functionality through our smart quote builder.</p></div>
+                    <div class="monitor-card"><h4>2. Live Development</h4><p>Development starts immediately with real-time access to your private preview link.</p></div>
+                    <div class="monitor-card"><h4>3. Review & Feedback</h4><p>Review progress live and request changes instantly while your website is being built.</p></div>
+                    <div class="monitor-card"><h4>4. Launch</h4><p>After final approval, your fully optimized website is deployed and ready for the world.</p></div>
                 </div>
-            </div>
-        </section>
+            </section>
+        </div>
 
         <section class="testimonial-section">
-            <div class="container">
-                <div class="review-cta-box">
-                    <h2>Rate Our <span style="color: var(--accent-orange);">Service</span></h2>
-                    <p>Your technical insights directly help us optimize our engineering and support frameworks.</p>
-                    <button onclick="submitRating()" class="submit-btn">Submit Rating & Review</button>
+            <div style="max-width: 800px; margin: 0 auto; padding: 0 5%;">
+                <div style="max-width: 400px; margin: 0 auto 40px; background: rgba(255,255,255,0.02); padding: 30px 20px; border-radius: 12px; border: 1px solid #222; text-align: center;">
+                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;">Rate Our <span style="color: var(--accent-orange);">Service</span></h2>
+                    <p style="font-size: 0.8rem; color: var(--muted-text); margin-bottom: 25px; line-height: 1.6;">Your insights are vital in maintaining our high technical standards.</p>
+                    <button onclick="submitRating()" id="submit-btn" style="background: var(--accent-orange); color: black; border: none; padding: 14px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; width: 100%; text-transform: uppercase; letter-spacing: 1px;">Submit Rating & Review</button>
                 </div>
             </div>
-            <div class="testimonial-slider">
+            <div class="testimonial-slider" id="slider-container">
                 <div class="testimonial-track" id="slider-track">
-                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 8px;">★★★★★</div><p style="font-size: 0.8rem; color: var(--light-text); font-style: italic; margin-bottom: 10px;">"The GitHub Live link was a game changer."</p><span style="font-size: 0.75rem; color: var(--muted-text); font-weight: bold;">— TechStart <span style="color:var(--primary-blue)">✔</span></span></div>
-                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 8px;">★★★★★</div><p style="font-size: 0.8rem; color: var(--light-text); font-style: italic; margin-bottom: 10px;">"Fast delivery and very clean code."</p><span style="font-size: 0.75rem; color: var(--muted-text); font-weight: bold;">— Creative Agency <span style="color:var(--primary-blue)">✔</span></span></div>
-                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 8px;">★★★★★</div><p style="font-size: 0.8rem; color: var(--light-text); font-style: italic; margin-bottom: 10px;">"Real-time monitoring made the process easy."</p><span style="font-size: 0.75rem; color: var(--muted-text); font-weight: bold;">— DevSolutions <span style="color:var(--primary-blue)">✔</span></span></div>
+                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 5px;">★★★★★</div><p style="font-size: 0.75rem; color: var(--light-text); font-style: italic; margin-bottom: 8px;">"The GitHub Live link was a game changer."</p><span style="font-size: 0.7rem; color: var(--muted-text); font-weight: bold;">— TechStart <span style="color:var(--primary-blue)">✔</span></span></div>
+                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 5px;">★★★★★</div><p style="font-size: 0.75rem; color: var(--light-text); font-style: italic; margin-bottom: 8px;">"Fast delivery and very clean code."</p><span style="font-size: 0.7rem; color: var(--muted-text); font-weight: bold;">— Creative Agency <span style="color:var(--primary-blue)">✔</span></span></div>
+                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 5px;">★★★★★</div><p style="font-size: 0.75rem; color: var(--light-text); font-style: italic; margin-bottom: 8px;">"Real-time monitoring made the process easy."</p><span style="font-size: 0.7rem; color: var(--muted-text); font-weight: bold;">— DevSolutions <span style="color:var(--primary-blue)">✔</span></span></div>
                 </div>
             </div>
         </section>
     </main>
 
     <footer>
-        <div class="footer-nav">
-            <a href="index.html">Home</a>
-            <a href="about.html">About</a>
-            <a href="service.html">Services</a>
-            <a href="portfolio.html">Portfolio</a>
-            <a href="quote.html">Pricing</a>
-            <a href="contact.html">Get Started</a>
-            <a href="legal.html">Terms & Conditions</a>
-        </div>
+        <div class="footer-nav"><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="service.html">Services</a> | <a href="portfolio.html">Portfolio</a> | <a href="quote.html">Pricing</a> | <a href="contact.html">Get Started</a> | <a href="legal.html">Terms & Conditions</a></div>
         <p>&copy; 2026 JMCY WEB SOLUTIONS. All Rights Reserved.</p>
         <div class="footer-badges">REAL-TIME WEB DEVELOPMENT • CUSTOM-BUILT SYSTEMS • GCASH VERIFIED</div>
     </footer>
 
     <div class="floating-contact-wrap">
-        <button class="float-btn float-whatsapp" onclick="openApp('whatsapp://send?phone=09091297422', 'https://play.google.com/store/apps/details?id=com.whatsapp')" aria-label="Contact via WhatsApp">
-            <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.53.909 3.039 1.389 4.625 1.39 5.25.001 9.522-4.271 9.524-9.521.001-2.544-.992-4.935-2.793-6.738-1.802-1.803-4.195-2.795-6.738-2.796-5.251 0-9.522 4.271-9.524 9.521-.001 1.688.45 3.336 1.306 4.773l-.991 3.618 3.706-.972zm10.165-6.843c-.277-.139-1.641-.809-1.894-.901-.253-.093-.438-.139-.623.139-.185.277-.714.901-.875 1.086-.161.185-.323.208-.6.069-.277-.139-1.171-.432-2.231-1.378-.824-.735-1.38-1.643-1.541-1.921-.162-.277-.017-.427.121-.565.125-.124.277-.323.416-.485.139-.161.185-.277.277-.462.093-.185.046-.347-.023-.485-.069-.139-.623-1.501-.853-2.057-.225-.542-.454-.469-.623-.477-.16-.007-.344-.008-.528-.008s-.485.069-.739.347c-.253.277-.97 0.948-.97 2.311 0 1.363.993 2.679 1.131 2.864.139.185 1.954 2.985 4.733 4.184.661.285 1.177.455 1.579.583.664.211 1.268.181 1.745.11.532-.079 1.641-.671 1.872-1.32.231-.648.231-1.202.161-1.32-.069-.118-.253-.185-.53-.324z"/></svg>
-        </button>
-        <span class="float-label">WhatsApp</span>
+        <div class="float-item">
+            <button class="float-btn float-whatsapp" onclick="openApp('whatsapp://send?phone=09091297422', 'https://play.google.com/store/apps/details?id=com.whatsapp')"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.53.909 3.039 1.389 4.625 1.39 5.25.001 9.522-4.271 9.524-9.521.001-2.544-.992-4.935-2.793-6.738-1.802-1.803-4.195-2.795-6.738-2.796-5.251 0-9.522 4.271-9.524 9.521-.001 1.688.45 3.336 1.306 4.773l-.991 3.618 3.706-.972zm10.165-6.843c-.277-.139-1.641-.809-1.894-.901-.253-.093-.438-.139-.623.139-.185.277-.714.901-.875 1.086-.161.185-.323.208-.6.069-.277-.139-1.171-.432-2.231-1.378-.824-.735-1.38-1.643-1.541-1.921-.162-.277-.017-.427.121-.565.125-.124.277-.323.416-.485.139-.161.185-.277.277-.462.093-.185.046-.347-.023-.485-.069-.139-.623-1.501-.853-2.057-.225-.542-.454-.469-.623-.477-.16-.007-.344-.008-.528-.008s-.485.069-.739.347c-.253.277-.97 0.948-.97 2.311 0 1.363.993 2.679 1.131 2.864.139.185 1.954 2.985 4.733 4.184.661.285 1.177.455 1.579.583.664.211 1.268.181 1.745.11.532-.079 1.641-.671 1.872-1.32.231-.648.231-1.202.161-1.32-.069-.118-.253-.185-.53-.324z"/></svg></button>
+            <span class="float-label">WhatsApp</span>
+        </div>
     </div>
 
     <script>
@@ -415,46 +315,24 @@
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('nav-menu');
             
-            const toggleMenu = (e) => {
-                e.stopPropagation();
-                navMenu.classList.toggle('nav-active');
-                hamburger.classList.toggle('toggle');
-            };
+            let scrollTimer;
+            window.addEventListener('scroll', () => {
+                document.body.classList.add('is-scrolling');
+                clearTimeout(scrollTimer);
+                scrollTimer = setTimeout(() => { document.body.classList.remove('is-scrolling'); }, 400);
+            }, { passive: true });
 
-            const closeMenu = () => {
-                if (navMenu.classList.contains('nav-active')) {
-                    navMenu.classList.remove('nav-active');
-                    hamburger.classList.remove('toggle');
-                }
-            };
-
-            hamburger.addEventListener('click', toggleMenu);
+            const closeMenu = () => { if (navMenu.classList.contains('nav-active')) { navMenu.classList.remove('nav-active'); hamburger.classList.remove('toggle'); } };
+            hamburger.addEventListener('click', (e) => { e.stopPropagation(); navMenu.classList.toggle('nav-active'); hamburger.classList.toggle('toggle'); });
             window.addEventListener('scroll', closeMenu, { passive: true });
-            
-            document.addEventListener('click', (e) => {
-                if ((!navMenu.contains(e.target) && !hamburger.contains(e.target)) || e.target.tagName === 'A') {
-                    closeMenu();
-                }
-            });
+            document.addEventListener('click', (e) => { if ((!navMenu.contains(e.target) && !hamburger.contains(e.target)) || e.target.tagName === 'A') closeMenu(); });
 
-            // Handle endless marquee loop
             const track = document.getElementById('slider-track');
-            if (track) { 
-                track.innerHTML += track.innerHTML; 
-            }
+            if (track) { track.innerHTML += track.innerHTML; }
         });
 
-        function openApp(appUri, storeUrl) { 
-            const start = Date.now(); 
-            window.location.href = appUri; 
-            setTimeout(function() { 
-                if (Date.now() - start < 2500) window.location.href = storeUrl; 
-            }, 2000); 
-        }
-        
-        function submitRating() { 
-            window.open("https://g.page/r/CZbhiUAcia4iEBI/review", "_blank"); 
-        }
+        function openApp(appUri, storeUrl) { const start = Date.now(); window.location.href = appUri; setTimeout(function() { if (Date.now() - start < 2500) window.location.href = storeUrl; }, 2000); }
+        function submitRating() { window.open("https://g.page/r/CZbhiUAcia4iEBI/review", "_blank"); }
     </script>
 </body>
 </html>

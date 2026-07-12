@@ -20,8 +20,8 @@
         :root {
             --primary-blue: #0A58CA;
             --accent-orange: #F98C15;
-            --dark-bg: #0C0D11;
-            --card-bg: rgba(23, 25, 30, 0.6);
+            --dark-bg: #090D16; /* Matched to index.html professional slate background */
+            --card-bg: rgba(18, 24, 38, 0.6); /* Matched to index.html premium card look */
             --light-text: #F4F4F4;
             --muted-text: #A0A0A0;
             --nav-height: 60px;
@@ -41,14 +41,14 @@
 
         main { flex: 1 0 auto; display: flex; flex-direction: column; }
 
-        /* --- NAVIGATION (Standardized) --- */
+        /* --- NAVIGATION --- */
         nav { 
             height: var(--nav-height);
             padding: 0 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid #222; 
+            border-bottom: 1px solid #161e2e; 
             position: fixed; 
             top: 0; left: 0; right: 0; 
             z-index: 1000; 
@@ -81,12 +81,12 @@
             align-items: center;
             justify-content: center;
             overflow: hidden;
-            background: #000;
+            background: var(--dark-bg);
         }
 
         .video-bg-wrap { position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 0; }
         .video-bg-wrap video { width: 100%; height: 100%; object-fit: cover; }
-        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(12,13,17,0.3) 0%, rgba(12,13,17,0.9) 100%); z-index: 2; }
+        .hero-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: radial-gradient(circle, rgba(9,13,22,0.4) 0%, rgba(9,13,22,0.95) 100%); z-index: 2; }
         .hero-content { position: relative; z-index: 3; padding: 0 5%; }
         .hero-content h1 { font-size: clamp(2.2rem, 8vw, 4rem); margin-bottom: 20px; font-weight: 900; line-height: 1.1; color: #fff; }
         .hero-content p { font-size: 1.2rem; color: #ccc; max-width: 800px; margin: 0 auto; line-height: 1.6; }
@@ -118,9 +118,9 @@
         .slider-btn:hover { background: var(--primary-blue); }
         .prev-btn { left: 20px; } .next-btn { right: 20px; }
 
-        /* --- FOOTER (Standardized) --- */
+        /* --- FOOTER --- */
         footer { 
-            flex-shrink: 0; padding: 20px 5%; text-align: center; border-top: 1px solid #333; color: #ddd; font-size: 0.8rem; 
+            flex-shrink: 0; padding: 20px 5%; text-align: center; border-top: 1px solid #161e2e; color: #ddd; font-size: 0.8rem; 
             position: relative; background-image: url('tech-bg.png'); background-size: cover; background-position: center top; 
             overflow: hidden;
         }
@@ -139,9 +139,9 @@
 
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: #000; flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #222; align-items: flex-start; }
+            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: var(--dark-bg); flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #161e2e; align-items: flex-start; }
             .nav-links li { width: 100%; margin: 0; }
-            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #111; box-sizing: border-box; }
+            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #161e2e; box-sizing: border-box; }
             .nav-active { transform: translateX(0%); }
             .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
             .hamburger.toggle .line2 { opacity: 0; }
@@ -170,8 +170,9 @@
     <main>
         <section class="portfolio-hero">
             <div class="video-bg-wrap">
-            <video class="hero-video-bg" autoplay loop muted playsinline preload="auto" poster="image_0.png">
-                <source src="818026310.webm" type="video/webm">
+                <video class="hero-video-bg" autoplay loop muted playsinline preload="auto" poster="image_0.png">
+                    <source src="818026310.webm" type="video/webm">
+                </video>
             </div>
             <div class="hero-overlay"></div>
             <div class="hero-content">

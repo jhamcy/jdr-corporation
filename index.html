@@ -34,8 +34,8 @@
         :root {
             --primary-blue: #0A58CA;
             --accent-orange: #F98C15;
-            --dark-bg: #0C0D11;
-            --card-bg: rgba(23, 25, 30, 0.6);
+            --dark-bg: #090D16; /* Enhanced professional slate-dark background */
+            --card-bg: rgba(18, 24, 38, 0.6); /* Cleaner contrast matching the slate theme */
             --light-text: #F4F4F4;
             --muted-text: #A0A0A0;
             --nav-height: 60px;
@@ -61,7 +61,7 @@
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid #222; 
+            border-bottom: 1px solid #161e2e; 
             position: fixed; 
             top: 0; 
             left: 0; 
@@ -103,7 +103,7 @@
             width: 100%;
             text-align: center; 
             overflow: hidden;
-            background: #000;
+            background: var(--dark-bg);
             display: flex;
             align-items: center;
             justify-content: center;
@@ -123,7 +123,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(12,13,17,0.3) 0%, rgba(12,13,17,0.9) 100%);
+            background: radial-gradient(circle, rgba(9,13,22,0.4) 0%, rgba(9,13,22,0.95) 100%);
             z-index: 2;
         }
         .hero-content { position: relative; z-index: 3; }
@@ -136,7 +136,7 @@
         /* --- MAIN CONTAINER --- */
         .container { max-width: 800px; margin: 0 auto; padding: 40px 5% 80px; }
 
-        /* --- PROCESS VIDEO STYLING (Updated for Clickable Play) --- */
+        /* --- PROCESS VIDEO STYLING --- */
         .process-video-container {
             width: 100%;
             max-width: 650px;
@@ -144,7 +144,7 @@
             position: relative;
             border-radius: 12px;
             overflow: hidden;
-            border: 2px solid #222;
+            border: 2px solid #1e293b;
             background: #000;
             box-shadow: 0 15px 40px rgba(0,0,0,0.6);
         }
@@ -155,8 +155,8 @@
         }
 
         /* --- MONITOR/GRID STYLES --- */
-        .transparency-section { padding: 40px 5%; background: #000; text-align: center; }
-        .monitor-box { max-width: 900px; margin: 0 auto; padding: 30px 20px; background: rgba(10, 88, 202, 0.05); border: 1px solid var(--primary-blue); border-radius: 12px; }
+        .transparency-section { padding: 40px 5%; background: transparent; text-align: center; }
+        .monitor-box { max-width: 900px; margin: 0 auto; padding: 30px 20px; background: rgba(10, 88, 202, 0.03); border: 1px solid rgba(10, 88, 202, 0.3); border-radius: 12px; }
         .pulse-dot { height: 7px; width: 7px; background-color: #ff4b4b; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #ff4b4b; animation: pulse-animation 1.5s infinite; }
         @keyframes pulse-animation { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
         .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
@@ -165,7 +165,7 @@
         .monitor-card p { font-size: 0.85rem; color: var(--muted-text); line-height: 1.5; margin: 0; }
 
         /* --- TESTIMONIALS --- */
-        .testimonial-section { background: #000; padding: 40px 0 0 0; border-top: 1px solid #111; margin-top: auto; overflow: hidden; }
+        .testimonial-section { background: rgba(0,0,0,0.2); padding: 40px 0 0 0; border-top: 1px solid #161e2e; margin-top: auto; overflow: hidden; }
         .testimonial-slider { width: 100%; overflow: hidden; padding: 20px 0; position: relative; }
         .testimonial-track { display: flex; width: max-content; gap: 15px; animation: marquee 25s linear infinite; }
         .testimonial-track:hover { animation-play-state: paused; }
@@ -178,7 +178,7 @@
             flex-shrink: 0; 
             padding: 20px 5%; 
             text-align: center; 
-            border-top: 1px solid #333; 
+            border-top: 1px solid #161e2e; 
             color: #ddd; 
             font-size: 0.8rem; 
             position: relative; 
@@ -205,9 +205,9 @@
 
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: #000; flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #222; align-items: flex-start; }
+            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: var(--dark-bg); flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #161e2e; align-items: flex-start; }
             .nav-links li { width: 100%; margin: 0; }
-            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #111; box-sizing: border-box; }
+            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #161e2e; box-sizing: border-box; }
             .nav-active { transform: translateX(0%); }
             .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
             .hamburger.toggle .line2 { opacity: 0; }
@@ -251,7 +251,7 @@
         <div class="container">
             <section class="transparency-section">
                 <div class="monitor-box">
-                    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px; border: 1px solid #333; margin-bottom: 15px;">
+                    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px; border: 1px solid #1e293b; margin-bottom: 15px;">
                          <span class="pulse-dot"></span>
                          <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #eee;">System Status: Active Build</span>
                     </div>
@@ -264,7 +264,7 @@
                 </div>
             </section>
 
-            <section style="padding:60px 0; background:#0C0D11; text-align:center;">
+            <section style="padding:60px 0; background: transparent; text-align:center;">
                 <h2 style="font-size:1.8rem; margin-bottom:15px; color: var(--primary-blue);">Our Development Process</h2>
                 <p style="color:var(--muted-text); font-size:0.9rem; max-width:550px; margin:0 auto 25px;">A streamlined workflow designed to give you full control at every stage.</p>
                 
@@ -286,7 +286,7 @@
 
         <section class="testimonial-section">
             <div style="max-width: 800px; margin: 0 auto; padding: 0 5%;">
-                <div style="max-width: 400px; margin: 0 auto 40px; background: rgba(255,255,255,0.02); padding: 30px 20px; border-radius: 12px; border: 1px solid #222; text-align: center;">
+                <div style="max-width: 400px; margin: 0 auto 40px; background: rgba(255,255,255,0.01); padding: 30px 20px; border-radius: 12px; border: 1px solid #161e2e; text-align: center;">
                     <h2 style="font-size: 1.2rem; margin-bottom: 10px;">Rate Our <span style="color: var(--accent-orange);">Service</span></h2>
                     <p style="font-size: 0.8rem; color: var(--muted-text); margin-bottom: 25px; line-height: 1.6;">Your insights are vital in maintaining our high technical standards.</p>
                     <button onclick="submitRating()" id="submit-btn" style="background: var(--accent-orange); color: black; border: none; padding: 14px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; width: 100%; text-transform: uppercase; letter-spacing: 1px;">Submit Rating & Review</button>

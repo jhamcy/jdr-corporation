@@ -144,6 +144,25 @@
         .terms-text { font-size: 0.75rem; line-height: 1.4; color: var(--muted-text); }
         .terms-text span { color: var(--accent-orange); text-decoration: underline; cursor: pointer; }
 
+        /* --- MODAL SYSTEM --- */
+        .modal-overlay {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0, 0, 0, 0.85); backdrop-filter: blur(8px);
+            z-index: 2000; display: none; align-items: center; justify-content: center;
+            overflow-y: auto; padding: 20px; box-sizing: border-box;
+        }
+        .modal-card {
+            background: #0d1117; border: 1px solid var(--primary-blue);
+            width: 100%; max-width: 650px; border-radius: 12px; padding: 30px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.7); box-sizing: border-box;
+        }
+        .review-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; font-size: 0.85rem; }
+        .review-label { color: var(--muted-text); font-weight: 600; }
+        .review-value { color: #fff; text-align: right; font-weight: 700; max-width: 60%; word-break: break-word; }
+        .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
+        .btn-modal-confirm { flex: 2; padding: 15px; background: var(--primary-blue); border: none; color: white; border-radius: 6px; font-weight: 800; text-transform: uppercase; cursor: pointer; }
+        .btn-modal-back { flex: 1; padding: 15px; background: #222; border: 1px solid #444; color: #fff; border-radius: 6px; font-weight: 700; text-transform: uppercase; cursor: pointer; }
+
         /* --- THANK YOU MESSAGE --- */
         #thank-you-message {
             display: none;
@@ -176,6 +195,7 @@
             .option-grid { grid-template-columns: 1fr; }
             .flex-row { flex-direction: column; }
             .form-container { margin-top: 20px; }
+            .modal-actions { flex-direction: column; }
         }
     </style>
 </head>
@@ -213,6 +233,15 @@
     <div class="form-container">
         <!-- Configured Formspree endpoint -->
         <form id="inquiry-form" action="https://formspree.io/f/xdaqljjk" method="POST" style="background: rgba(12, 13, 17, 0.95); padding: 30px; border-radius: 12px; border: 1px solid #222;">
+            
+            <!-- Hidden inputs to catch complete cost updates for Formspree emails -->
+            <input type="hidden" name="Infrastructure Option" id="email-infra-name">
+            <input type="hidden" name="Infrastructure Cost" id="email-infra-cost">
+            <input type="hidden" name="Core Development Cost" id="email-dev-cost">
+            <input type="hidden" name="Maintenance Type" id="email-maint-type">
+            <input type="hidden" name="Total Setup Cost" id="email-total-cost">
+            <input type="hidden" name="50% Down Payment Required" id="email-advance-cost">
+
             <span class="section-title">Client Details</span>
             <div class="flex-row">
                 <div class="flex-item">
@@ -344,9 +373,33 @@
                 </div>
 
                 <div id="status-msg" style="margin-bottom:10px; text-align:center; display:none;"></div>
-                <button type="submit" class="btn-submit" id="submit-btn" disabled>Confirm & Submit Inquiry</button>
+                <button type="button" class="btn-submit" id="submit-btn" onclick="openReviewModal()" disabled>Confirm & Review Inquiry</button>
             </div>
         </form>
+
+        <!-- Dynamic Review Modal Overlay -->
+        <div class="modal-overlay" id="review-modal">
+            <div class="modal-card">
+                <span class="section-title" style="margin-top: 0; color: var(--accent-orange); border-bottom: 1px solid #333;">Review Application Parameters</span>
+                <p style="font-size: 0.8rem; color: var(--muted-text); margin-bottom: 20px;">Please crosscheck your data records accurately prior to server transmission.</p>
+                
+                <div class="review-item"><span class="review-label">Full Name</span><span class="review-value" id="rev-name">-</span></div>
+                <div class="review-item"><span class="review-label">Email Address</span><span class="review-value" id="rev-email">-</span></div>
+                <div class="review-item"><span class="review-label">Mobile Number</span><span class="review-value" id="rev-phone">-</span></div>
+                <div class="review-item"><span class="review-label">Website Name</span><span class="review-value" id="rev-webname">-</span></div>
+                <div class="review-item"><span class="review-label">Description</span><span class="review-value" id="rev-desc" style="font-size:0.75rem; font-weight:normal; max-width:70%; text-align:left;">-</span></div>
+                <div class="review-item"><span class="review-label">Package Plan</span><span class="review-value" id="rev-package" style="color:var(--accent-orange);">-</span></div>
+                <div class="review-item"><span class="review-label">Infrastructure Setup</span><span class="review-value" id="rev-infra">-</span></div>
+                <div class="review-item"><span class="review-label">Operation Mode</span><span class="review-value" id="rev-maint">-</span></div>
+                <div class="review-item" style="border-top:1px dashed var(--primary-blue); padding-top:12px; margin-top:10px;"><span class="review-label" style="color:#fff;">Gross Project Value</span><span class="review-value" id="rev-total" style="font-size:1.1rem; color:#fff;">-</span></div>
+                <div class="review-item" style="border-bottom:none;"><span class="review-label" style="color:var(--accent-orange);">Down Payment Required</span><span class="review-value" id="rev-advance" style="font-size:1.2rem; color:var(--accent-orange);">-</span></div>
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-modal-back" onclick="closeReviewModal()">Go Back & Edit</button>
+                    <button type="button" class="btn-modal-confirm" id="final-confirm-btn" onclick="executeFinalSubmission()">Submit Now</button>
+                </div>
+            </div>
+        </div>
 
         <!-- Updated Thank You Screen Content -->
         <div id="thank-you-message">
@@ -385,7 +438,9 @@
     function selectRadio(id) { document.getElementById(id).checked = true; calculate(); }
     
     function calculate() {
-        const domainPrice = parseInt(document.getElementById('domain-select').value) || 0;
+        const domainSelect = document.getElementById('domain-select');
+        const domainPrice = parseInt(domainSelect.value) || 0;
+        const domainText = domainSelect.options[domainSelect.selectedIndex].text;
         let devPrice = 0;
         let packageName = "";
 
@@ -403,6 +458,7 @@
         const setup = domainPrice + devPrice;
         const advance = setup * 0.5;
 
+        // UI Text updates
         document.getElementById('detail-package-name').innerText = packageName;
         document.getElementById('detail-package-price').innerText = "₱" + devPrice.toLocaleString();
         document.getElementById('detail-domain-price').innerText = "₱" + domainPrice.toLocaleString();
@@ -411,33 +467,73 @@
         document.getElementById('display-advance').innerText = "₱" + advance.toLocaleString();
 
         const isManaged = document.getElementById('maint1').checked;
+        const maintText = isManaged ? "Managed SEO + Ads (₱1,500/mo)" : "Self-Managed (₱0)";
         document.getElementById('card-maint1').classList.toggle('selected', isManaged);
         document.getElementById('card-maint2').classList.toggle('selected', !isManaged);
+
+        // Map data variables to hidden elements for extraction by Formspree
+        document.getElementById('email-infra-name').value = domainText;
+        document.getElementById('email-infra-cost').value = "₱" + domainPrice.toLocaleString();
+        document.getElementById('email-dev-cost').value = "₱" + devPrice.toLocaleString();
+        document.getElementById('email-maint-type').value = maintText;
+        document.getElementById('email-total-cost').value = "₱" + setup.toLocaleString();
+        document.getElementById('email-advance-cost').value = "₱" + advance.toLocaleString();
     }
     
     function toggleSubmit() { document.getElementById('submit-btn').disabled = !document.getElementById('terms-check').checked; }
+
+    /* Modal controller features */
+    function openReviewModal() {
+        // Trigger validation layout browser engine manually 
+        const htmlForm = document.getElementById('inquiry-form');
+        if (!htmlForm.checkValidity()) {
+            htmlForm.reportValidity();
+            return;
+        }
+
+        calculate(); // Refresh arrays
+
+        // Populate modal text values dynamically
+        document.getElementById('rev-name').innerText = document.getElementById('full-name').value;
+        document.getElementById('rev-email').innerText = document.getElementById('email-address').value;
+        document.getElementById('rev-phone').innerText = document.getElementById('phone-input').value;
+        document.getElementById('rev-webname').innerText = document.getElementById('web-name').value;
+        document.getElementById('rev-desc').innerText = document.getElementById('project-desc').value;
+        
+        document.getElementById('rev-package').innerText = document.getElementById('detail-package-name').innerText + " (" + document.getElementById('detail-package-price').innerText + ")";
+        document.getElementById('rev-infra').innerText = document.getElementById('email-infra-name').value;
+        document.getElementById('rev-maint').innerText = document.getElementById('email-maint-type').value;
+        document.getElementById('rev-total').innerText = document.getElementById('display-total').innerText;
+        document.getElementById('rev-advance').innerText = document.getElementById('display-advance').innerText;
+
+        document.getElementById('review-modal').style.display = 'flex';
+    }
+
+    function closeReviewModal() {
+        document.getElementById('review-modal').style.display = 'none';
+    }
 
     function resetFormView() {
         document.getElementById('inquiry-form').reset();
         document.getElementById('inquiry-form').style.display = 'block';
         document.getElementById('thank-you-message').style.display = 'none';
         document.getElementById('status-msg').style.display = 'none';
-        document.getElementById('submit-btn').innerText = "Confirm & Submit Inquiry";
+        document.getElementById('submit-btn').innerText = "Confirm & Review Inquiry";
+        closeReviewModal();
         calculate();
         toggleSubmit();
     }
 
-    document.getElementById('inquiry-form').addEventListener('submit', async (e) => {
-        e.preventDefault();
-        const form = e.target;
-        const btn = document.getElementById('submit-btn');
+    async function executeFinalSubmission() {
+        const form = document.getElementById('inquiry-form');
+        const confirmBtn = document.getElementById('final-confirm-btn');
         const status = document.getElementById('status-msg');
         const thankYou = document.getElementById('thank-you-message');
         
-        btn.disabled = true; 
-        btn.innerText = "SENDING...";
+        confirmBtn.disabled = true;
+        confirmBtn.innerText = "TRANSMITTING...";
         status.style.display = "block"; 
-        status.innerText = "Processing...";
+        status.innerText = "Syncing server assets securely...";
 
         const name = document.getElementById('full-name').value;
         const email = document.getElementById('email-address').value;
@@ -462,7 +558,7 @@
             // 1. Database insertion to Supabase
             await _supabase.from('inquiries').insert([formData]);
             
-            // 2. Direct asynchronous submission to Formspree
+            // 2. Direct asynchronous transmission to Formspree (Includes hidden breakdown metadata fields)
             await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
@@ -471,17 +567,19 @@
                 }
             });
             
-            // Interface Transition (WhatsApp redirect logic completely removed)
+            // UI Switch configuration maps
+            closeReviewModal();
             form.style.display = 'none';
             thankYou.style.display = 'block';
 
         } catch (err) {
             console.error(err);
-            status.innerText = "Error submitting entry. Please verify your internet connection and try again.";
-            btn.disabled = false;
-            btn.innerText = "Confirm & Submit Inquiry";
+            status.innerText = "Network pipeline error encountered. Please check connection maps and try again.";
+            confirmBtn.disabled = false;
+            confirmBtn.innerText = "Submit Now";
+            closeReviewModal();
         }
-    });
+    }
 </script>
 </body>
 </html>

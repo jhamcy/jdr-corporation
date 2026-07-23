@@ -191,28 +191,8 @@
                             <div class="slider-wrapper" id="enterprise-wrapper">
                                 <!-- Slide 1: JMP International -->
                                 <div class="slide" style="background-image: linear-gradient(to bottom, rgba(9, 13, 22, 0.1), rgba(9, 13, 22, 0.85)), url('jmp.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #0b111e;"></div>
-                                <!-- Slide 2: PrimePay Payroll Logo System (Embedded Vector Design) -->
-                                <div class="slide" style="background-color: #090D16;">
-                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" width="85%" height="auto">
-                                      <defs>
-                                        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
-                                          <stop offset="0%" stop-color="#0A58CA" />
-                                          <stop offset="100%" stop-color="#04398B" />
-                                        </linearGradient>
-                                        <linearGradient id="orangeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
-                                          <stop offset="0%" stop-color="#F98C15" />
-                                          <stop offset="100%" stop-color="#FFB057" />
-                                        </linearGradient>
-                                      </defs>
-                                      <g transform="translate(35, 30)">
-                                        <path d="M30,15 C55,15 70,30 70,45 C70,60 55,75 30,75 L30,90 L10,90 L10,0 L30,0 L30,15 Z" fill="url(#blueGrad)" opacity="0.9"/>
-                                        <path d="M40,30 C55,30 65,40 65,50 C65,60 55,70 40,70 L25,70 L25,90 L40,90 C65,90 85,75 85,50 C85,25 65,10 40,10 Z" fill="url(#orangeGrad)"/>
-                                        <circle cx="40" cy="50" r="6" fill="#F4F4F4"/>
-                                      </g>
-                                      <text x="150" y="72" font-family="'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#F4F4F4" letter-spacing="1.5">PRIME<tspan fill="#F98C15">PAY</tspan></text>
-                                      <text x="152" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#A0A0A0" letter-spacing="4">SECURE PAYROLL SYSTEMS</text>
-                                    </svg>
-                                </div>
+                                <!-- Slide 2: Custom Payroll System Asset Image Reference -->
+                                <div class="slide" style="background-image: linear-gradient(to bottom, rgba(9, 13, 22, 0.1), rgba(9, 13, 22, 0.85)), url('payroll.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #090D16;"></div>
                             </div>
                             <button class="slider-btn prev-btn" onclick="moveEnterpriseSlide(-1)">&#10094;</button>
                             <button class="slider-btn next-btn" onclick="moveEnterpriseSlide(1)">&#10095;</button>
@@ -342,7 +322,7 @@
             document.getElementById('dynamic-tag').innerText = slidesData[currentIdx].tag;
         }
 
-        // Top Slider Logic: Enterprise Deployed & PrimePay System Packaging Pricing
+        // Top Slider Logic: Enterprise Deployed & Custom Payroll Packaging Pricing
         let enterpriseIdx = 0;
         const enterpriseSlidesData = [
             {
@@ -355,7 +335,7 @@
             {
                 badge: "SYSTEM PRODUCT ARCHITECTURE",
                 badgeColor: "#0A58CA",
-                title: "PrimePay Custom Architecture Pricing Framework",
+                title: "Custom Payroll Architecture Pricing Framework",
                 desc: "A commercial strategy layout blueprint for custom Philippine PHP Payroll Engine rollouts. Built architecture models map directly to specialized business constraints: <br><br><strong>Tier 1 (Small Scale):</strong> ₱40,000 to ₱80,000 Upfront Base License + ₱2,500 to ₱4,500/mo Maintenance. Fits 1 to 25 headcount teams.<br><strong>Tier 2 (Mid-Market):</strong> ₱120,000 to ₱300,000 Upfront Base License + ₱6,000 to ₱12,000/mo Maintenance. Fits 26 to 120 headcount teams.<br><strong>Tier 3 (Enterprise):</strong> ₱450,000 to ₱1.2M+ Upfront Base License + ₱20,000 to ₱45,000+/mo Maintenance. Fits 121+ headcount setups.",
                 tags: ["Perpetual License Model", "Government Mandatory Brackets", "Biometrics Hook Integrations", "Data Migration Automation"]
             }

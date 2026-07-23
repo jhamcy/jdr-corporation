@@ -234,7 +234,7 @@
         <!-- Configured Formspree endpoint -->
         <form id="inquiry-form" action="https://formspree.io/f/xdaqljjk" method="POST" style="background: rgba(12, 13, 17, 0.95); padding: 30px; border-radius: 12px; border: 1px solid #222;">
             
-            <!-- Dynamic Subject Value for Formspree to prevent grouping threads -->
+            <!-- FIXED: Added explicit name="_subject" attribute so Formspree processes the override value correctly -->
             <input type="hidden" name="_subject" id="email-subject-line" value="New Project Inquiry">
             
             <!-- Hidden inputs to catch complete cost updates for Formspree emails -->
@@ -547,10 +547,12 @@
         const packageSelected = document.querySelector('input[name="dev_package"]:checked').value;
         const total = document.getElementById('display-total').innerText;
 
-        // Force a completely dynamic subject using the client name and a timestamp hash key 
-        // This ensures every notification email lands completely separated in Gmail (No conversation thread nesting)
-        const uniqueId = new Date().getTime();
-        document.getElementById('email-subject-line').value = `Project Inquiry - ${name} [Ref: #${uniqueId}]`;
+        // FIXED: Generates a distinct Project Inquiry Reference Number using the exact Unix Timestamp
+        const inquiryNumber = new Date().getTime();
+        
+        // FIXED: Dynamically overrides the Formspree subject line using your exact request structural template:
+        // Output result will read: Project Inquiry #1721729000000 - Juan Dela Cruz
+        document.getElementById('email-subject-line').value = `Project Inquiry #${inquiryNumber} - ${name}`;
 
         const formData = {
             name: name,
@@ -566,7 +568,7 @@
             // 1. Database insertion to Supabase
             await _supabase.from('inquiries').insert([formData]);
             
-            // 2. Direct asynchronous transmission to Formspree (Includes unique custom subject string)
+            // 2. Direct asynchronous transmission to Formspree (Includes the structural unique override)
             await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),

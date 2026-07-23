@@ -113,8 +113,8 @@
         /* --- SLIDER --- */
         .slider-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
         .slider-wrapper { display: flex; transition: transform 0.7s cubic-bezier(0.19, 1, 0.22, 1); height: 100%; }
-        .slide { min-width: 100%; height: 100%; background-size: cover; background-position: top center; }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: white; border: none; width: 50px; height: 50px; cursor: pointer; border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center; }
+        .slide { min-width: 100%; height: 100%; background-size: cover; background-position: top center; display: flex; align-items: center; justify-content: center; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.8); color: white; border: none; width: 50px; height: 50px; cursor: pointer; border-radius: 50%; z-index: 10; display: flex; align-items: center; justify-content: center; font-size: 1.2rem; }
         .slider-btn:hover { background: var(--primary-blue); }
         .prev-btn { left: 20px; } .next-btn { right: 20px; }
 
@@ -183,21 +183,51 @@
 
         <div class="container">
             <div class="portfolio-grid">
-                <!-- ENTERPRISE PROJECT: JMP INTERNATIONAL -->
+                <!-- ENTERPRISE PROJECT: JMP INTERNATIONAL & CUSTOM PAYROLL DEPLOYMENT WITH INTEGRATED SLIDER -->
                 <article class="portfolio-card" style="border-color: rgba(249, 140, 21, 0.3);">
-                    <div class="preview-area" style="background-image: linear-gradient(to bottom, rgba(9, 13, 22, 0.1), rgba(9, 13, 22, 0.85)), url('jmp.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #0b111e;">
-                        <div class="status-badge" style="color: var(--accent-orange); border-color: var(--accent-orange);">ENTERPRISE DEPLOYED</div>
+                    <div class="preview-area">
+                        <div class="status-badge" id="enterprise-badge" style="color: var(--accent-orange); border-color: var(--accent-orange);">ENTERPRISE DEPLOYED</div>
+                        <div class="slider-container">
+                            <div class="slider-wrapper" id="enterprise-wrapper">
+                                <!-- Slide 1: JMP International -->
+                                <div class="slide" style="background-image: linear-gradient(to bottom, rgba(9, 13, 22, 0.1), rgba(9, 13, 22, 0.85)), url('jmp.png'); background-size: contain; background-repeat: no-repeat; background-position: center; background-color: #0b111e;"></div>
+                                <!-- Slide 2: PrimePay Payroll Logo System (Embedded Vector Design) -->
+                                <div class="slide" style="background-color: #090D16;">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 500 150" width="85%" height="auto">
+                                      <defs>
+                                        <linearGradient id="blueGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                          <stop offset="0%" stop-color="#0A58CA" />
+                                          <stop offset="100%" stop-color="#04398B" />
+                                        </linearGradient>
+                                        <linearGradient id="orangeGrad" x1="0%" y1="100%" x2="100%" y2="0%">
+                                          <stop offset="0%" stop-color="#F98C15" />
+                                          <stop offset="100%" stop-color="#FFB057" />
+                                        </linearGradient>
+                                      </defs>
+                                      <g transform="translate(35, 30)">
+                                        <path d="M30,15 C55,15 70,30 70,45 C70,60 55,75 30,75 L30,90 L10,90 L10,0 L30,0 L30,15 Z" fill="url(#blueGrad)" opacity="0.9"/>
+                                        <path d="M40,30 C55,30 65,40 65,50 C65,60 55,70 40,70 L25,70 L25,90 L40,90 C65,90 85,75 85,50 C85,25 65,10 40,10 Z" fill="url(#orangeGrad)"/>
+                                        <circle cx="40" cy="50" r="6" fill="#F4F4F4"/>
+                                      </g>
+                                      <text x="150" y="72" font-family="'Segoe UI', Roboto, sans-serif" font-size="34" font-weight="900" fill="#F4F4F4" letter-spacing="1.5">PRIME<tspan fill="#F98C15">PAY</tspan></text>
+                                      <text x="152" y="95" font-family="'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="700" fill="#A0A0A0" letter-spacing="4">SECURE PAYROLL SYSTEMS</text>
+                                    </svg>
+                                </div>
+                            </div>
+                            <button class="slider-btn prev-btn" onclick="moveEnterpriseSlide(-1)">&#10094;</button>
+                            <button class="slider-btn next-btn" onclick="moveEnterpriseSlide(1)">&#10095;</button>
+                        </div>
                     </div>
                     <div class="card-body">
-                        <div class="tag-list">
+                        <div class="tag-list" id="enterprise-tags">
                             <span class="tag" style="background: rgba(249, 140, 21, 0.1); color: var(--accent-orange); border-color: rgba(249, 140, 21, 0.3);">Full-Stack ERP</span>
                             <span class="tag">DA-BFAR & FDA Compliant</span>
                             <span class="tag">Multi-Cold Chain Inventory</span>
                             <span class="tag">HACCP Certified Standards</span>
                             <span class="tag">Secure Global Logistics Backend</span>
                         </div>
-                        <h3>JMP International</h3>
-                        <p>A high-tier, custom enterprise digital ecosystem engineered for global logistics and trading. Valued at <strong>₱1.2 Million Pesos</strong>, this comprehensive platform features an intelligent multi-facility cold chain management framework tracking high-volume operations across <strong>vvs cold storage & processing plant corp.</strong>, <strong>hightower storage & trading centre, inc.</strong>, <strong>eisberg cold logistics inc.</strong>, and <strong>polaris cold chain solutions</strong>. The system architecturally enforces regulatory documentation and data validation workflows accredited under <strong>FDA Philippines</strong> regulations, <strong>Department of Agriculture - Bureau of Fisheries and Aquatic Resources (DA-BFAR)</strong> standards, and strict <strong>HACCP Food Safety Certification</strong> rules for international trading compliance.</p>
+                        <h3 id="enterprise-title">JMP International</h3>
+                        <p id="enterprise-desc">A high-tier, custom enterprise digital ecosystem engineered for global logistics and trading. Valued at <strong>₱1.2 Million Pesos</strong>, this comprehensive platform features an intelligent multi-facility cold chain management framework tracking high-volume operations across <strong>vvs cold storage & processing plant corp.</strong>, <strong>hightower storage & trading centre, inc.</strong>, <strong>eisberg cold logistics inc.</strong>, and <strong>polaris cold chain solutions</strong>. The system architecturally enforces regulatory documentation and data validation workflows accredited under <strong>FDA Philippines</strong> regulations, <strong>Department of Agriculture - Bureau of Fisheries and Aquatic Resources (DA-BFAR)</strong> standards, and strict <strong>HACCP Food Safety Certification</strong> rules for international trading compliance.</p>
                     </div>
                 </article>
 
@@ -268,20 +298,17 @@
             const hamburger = document.getElementById('hamburger');
             const navMenu = document.getElementById('nav-menu');
             
-            // Close Menu
             const closeMenu = () => {
                 navMenu.classList.remove('nav-active');
                 hamburger.classList.remove('toggle');
             };
 
-            // Hamburger Logic
             hamburger.addEventListener('click', (e) => {
                 e.stopPropagation();
                 navMenu.classList.toggle('nav-active');
                 hamburger.classList.toggle('toggle');
             });
 
-            // Scroll Effects
             let scrollTimer;
             window.addEventListener('scroll', () => {
                 document.body.classList.add('is-scrolling');
@@ -290,7 +317,6 @@
                 scrollTimer = setTimeout(() => { document.body.classList.remove('is-scrolling'); }, 400);
             }, { passive: true });
 
-            // Click Outside
             document.addEventListener('click', (e) => {
                 if ((!navMenu.contains(e.target) && !hamburger.contains(e.target)) || e.target.tagName === 'A') {
                     closeMenu();
@@ -298,7 +324,7 @@
             });
         });
 
-        // Slider Logic
+        // Main Bottom Slider Logic (Brew & Bean)
         let currentIdx = 0;
         const slidesData = [
             { title: "Brew & Bean", desc: "Comprehensive digital ecosystem for retail businesses, featuring multi-page architecture and local Schema Markup integration.", link: "https://jhamcy.github.io/Coffee-Shop-Demo/", tag: "Local SEO" },
@@ -314,6 +340,62 @@
             document.getElementById('slider-desc').innerText = slidesData[currentIdx].desc;
             document.getElementById('slider-link').href = slidesData[currentIdx].link;
             document.getElementById('dynamic-tag').innerText = slidesData[currentIdx].tag;
+        }
+
+        // Top Slider Logic: Enterprise Deployed & PrimePay System Packaging Pricing
+        let enterpriseIdx = 0;
+        const enterpriseSlidesData = [
+            {
+                badge: "ENTERPRISE DEPLOYED",
+                badgeColor: "#F98C15",
+                title: "JMP International",
+                desc: "A high-tier, custom enterprise digital ecosystem engineered for global logistics and trading. Valued at <strong>₱1.2 Million Pesos</strong>, this comprehensive platform features an intelligent multi-facility cold chain management framework tracking high-volume operations across <strong>vvs cold storage & processing plant corp.</strong>, <strong>hightower storage & trading centre, inc.</strong>, <strong>eisberg cold logistics inc.</strong>, and <strong>polaris cold chain solutions</strong>. The system architecturally enforces regulatory documentation and data validation workflows accredited under <strong>FDA Philippines</strong> regulations, <strong>Department of Agriculture - Bureau of Fisheries and Aquatic Resources (DA-BFAR)</strong> standards, and strict <strong>HACCP Food Safety Certification</strong> rules for international trading compliance.",
+                tags: ["Full-Stack ERP", "DA-BFAR & FDA Compliant", "Multi-Cold Chain Inventory", "HACCP Certified Standards", "Secure Global Logistics Backend"]
+            },
+            {
+                badge: "SYSTEM PRODUCT ARCHITECTURE",
+                badgeColor: "#0A58CA",
+                title: "PrimePay Custom Architecture Pricing Framework",
+                desc: "A commercial strategy layout blueprint for custom Philippine PHP Payroll Engine rollouts. Built architecture models map directly to specialized business constraints: <br><br><strong>Tier 1 (Small Scale):</strong> ₱40,000 to ₱80,000 Upfront Base License + ₱2,500 to ₱4,500/mo Maintenance. Fits 1 to 25 headcount teams.<br><strong>Tier 2 (Mid-Market):</strong> ₱120,000 to ₱300,000 Upfront Base License + ₱6,000 to ₱12,000/mo Maintenance. Fits 26 to 120 headcount teams.<br><strong>Tier 3 (Enterprise):</strong> ₱450,000 to ₱1.2M+ Upfront Base License + ₱20,000 to ₱45,000+/mo Maintenance. Fits 121+ headcount setups.",
+                tags: ["Perpetual License Model", "Government Mandatory Brackets", "Biometrics Hook Integrations", "Data Migration Automation"]
+            }
+        ];
+
+        function moveEnterpriseSlide(direction) {
+            const wrapper = document.getElementById('enterprise-wrapper');
+            const totalSlides = enterpriseSlidesData.length;
+            enterpriseIdx = (enterpriseIdx + direction + totalSlides) % totalSlides;
+            wrapper.style.transform = `translateX(-${enterpriseIdx * 100}%)`;
+            
+            // Update Elements Content dynamically
+            const data = enterpriseSlidesData[enterpriseIdx];
+            
+            const badgeEl = document.getElementById('enterprise-badge');
+            badgeEl.innerText = data.badge;
+            badgeEl.style.color = data.badgeColor;
+            badgeEl.style.borderColor = data.badgeColor;
+            
+            document.getElementById('enterprise-title').innerText = data.title;
+            document.getElementById('enterprise-desc').innerHTML = data.desc;
+            
+            // Build Tags Loop
+            const tagContainer = document.getElementById('enterprise-tags');
+            tagContainer.innerHTML = '';
+            data.tags.forEach(tagText => {
+                const span = document.createElement('span');
+                span.className = 'tag';
+                if (enterpriseIdx === 1) {
+                    span.style.background = "rgba(10, 88, 202, 0.1)";
+                    span.style.color = "#8bb9ff";
+                    span.style.borderColor = "rgba(10, 88, 202, 0.3)";
+                } else {
+                    span.style.background = "rgba(249, 140, 21, 0.1)";
+                    span.style.color = "var(--accent-orange)";
+                    span.style.borderColor = "rgba(249, 140, 21, 0.3)";
+                }
+                span.innerText = tagText;
+                tagContainer.appendChild(span);
+            });
         }
     </script>
 </body>

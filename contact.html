@@ -19,8 +19,8 @@
         :root {
             --primary-blue: #0A58CA;
             --accent-orange: #F98C15;
-            --dark-bg: #0C0D11;
-            --card-bg: rgba(23, 25, 30, 0.6);
+            --dark-bg: #090D16; /* Enhanced professional slate-dark background synced from index */
+            --card-bg: rgba(18, 24, 38, 0.6); 
             --light-text: #F4F4F4;
             --muted-text: #A0A0A0;
             --nav-height: 60px;
@@ -41,21 +41,22 @@
 
         main { flex: 1 0 auto; display: flex; flex-direction: column; }
 
-        /* --- NAVIGATION --- */
+        /* --- NAVIGATION (Synced from index.html) --- */
         nav { 
-            height: var(--nav-height);
-            padding: 0 5%; 
+            padding: 0.5rem 5%; 
             display: flex; 
             justify-content: space-between; 
             align-items: center; 
-            border-bottom: 1px solid #222; 
+            border-bottom: 1px solid #161e2e; 
             position: fixed; 
-            top: 0; left: 0; right: 0; 
+            top: 0; 
+            left: 0; 
+            right: 0; 
             z-index: 1000; 
             background-image: url('tech-bg.png'); 
             background-size: cover;
             background-position: center bottom;
-            overflow: hidden;
+            overflow: hidden; 
         }
 
         .nav-brand { display: flex !important; align-items: center; font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; color: var(--light-text); text-transform: uppercase; text-decoration: none; line-height: 1.2; }
@@ -65,10 +66,11 @@
         .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
         .nav-links li { margin-left: 18px; }
         .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.75rem; display: inline-block; }
-        .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
+        .nav-links a:hover { color: var(--accent-orange) !important; }
+        .active-link { color: var(--accent-orange) !important; }
         .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; font-weight: 800 !important; }
         
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 4px; padding: 10px; }
+        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 4px; padding: 10px; z-index: 1001; }
         .hamburger div { width: 20px; height: 2px; background-color: white; transition: 0.3s; }
 
         /* --- HERO SECTION --- */
@@ -94,7 +96,7 @@
             position: absolute;
             top: 0; left: 0;
             width: 100%; height: 100%;
-            background: radial-gradient(circle, rgba(12,13,17,0.3) 0%, rgba(12,13,17,0.9) 100%);
+            background: radial-gradient(circle, rgba(9,13,22,0.4) 0%, rgba(9,13,22,0.95) 100%);
             z-index: 2;
         }
         .about-hero-content { position: relative; z-index: 3; padding: 0 5%; }
@@ -108,19 +110,19 @@
         
         .section-title { 
             color: var(--primary-blue); text-transform: uppercase; font-size: 0.75rem; font-weight: 800; 
-            margin: 30px 0 15px 0; display: block; border-bottom: 1px solid #333; padding-bottom: 5px; 
+            margin: 30px 0 15px 0; display: block; border-bottom: 1px solid #161e2e; padding-bottom: 5px; 
         }
 
         label { display: block; margin-bottom: 5px; font-weight: 600; font-size: 0.75rem; color: #ccc; }
         input, select, textarea { 
-            width: 100%; padding: 12px; background: #0d1117; border: 1px solid #333; 
+            width: 100%; padding: 12px; background: #0d1117; border: 1px solid #161e2e; 
             color: #fff; border-radius: 6px; font-family: inherit; font-size: 0.9rem; box-sizing: border-box;
         }
 
         .option-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 15px; }
         .option-card { 
-            background: rgba(23, 27, 34, 0.85); padding: 15px; border-radius: 8px; cursor: pointer; 
-            display: flex; align-items: center; gap: 12px; border: 1px solid #333; transition: 0.2s;
+            background: rgba(18, 24, 38, 0.85); padding: 15px; border-radius: 8px; cursor: pointer; 
+            display: flex; align-items: center; gap: 12px; border: 1px solid #161e2e; transition: 0.2s;
             backdrop-filter: blur(5px);
         }
         .option-card.selected { background: rgba(10, 88, 202, 0.15); border-color: var(--primary-blue); }
@@ -156,7 +158,7 @@
             width: 100%; max-width: 650px; border-radius: 12px; padding: 30px;
             box-shadow: 0 20px 50px rgba(0,0,0,0.7); box-sizing: border-box;
         }
-        .review-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #222; font-size: 0.85rem; }
+        .review-item { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #161e2e; font-size: 0.85rem; }
         .review-label { color: var(--muted-text); font-weight: 600; }
         .review-value { color: #fff; text-align: right; font-weight: 700; max-width: 60%; word-break: break-word; }
         .modal-actions { display: flex; gap: 15px; margin-top: 25px; }
@@ -181,17 +183,24 @@
 
         /* --- FOOTER --- */
         footer { 
-            flex-shrink: 0; padding: 20px 5%; text-align: center; border-top: 1px solid #333; color: #ddd; font-size: 0.8rem; position: relative; 
+            flex-shrink: 0; padding: 20px 5%; text-align: center; border-top: 1px solid #161e2e; color: #ddd; font-size: 0.8rem; position: relative; 
             background-image: url('tech-bg.png'); background-size: cover; background-position: center top; 
         }
         footer a { color: #fff; text-decoration: none; margin: 0 8px; font-weight: 600; }
         footer a:hover { color: var(--accent-orange); }
         .footer-badges { margin-top: 10px; font-size: 0.65rem; color: var(--accent-orange); font-weight: bold; letter-spacing: 1px;}
 
+        /* --- RESPONSIVE LAYOUT & HAMBURGER EFFECTS (Synced from index.html) --- */
         @media (max-width: 768px) {
             .hamburger { display: flex; }
-            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: #000; flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s; padding-top: 70px; }
+            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: var(--dark-bg); flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #161e2e; align-items: flex-start; }
+            .nav-links li { width: 100%; margin: 0; }
+            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #161e2e; box-sizing: border-box; }
             .nav-active { transform: translateX(0%); }
+            .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
+            .hamburger.toggle .line2 { opacity: 0; }
+            .hamburger.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+            
             .option-grid { grid-template-columns: 1fr; }
             .flex-row { flex-direction: column; }
             .form-container { margin-top: 20px; }
@@ -231,13 +240,10 @@
     </section>
 
     <div class="form-container">
-        <!-- Configured Formspree endpoint -->
-        <form id="inquiry-form" action="https://formspree.io/f/xdaqljjk" method="POST" style="background: rgba(12, 13, 17, 0.95); padding: 30px; border-radius: 12px; border: 1px solid #222;">
+        <form id="inquiry-form" action="https://formspree.io/f/xdaqljjk" method="POST" style="background: rgba(12, 13, 17, 0.95); padding: 30px; border-radius: 12px; border: 1px solid #161e2e;">
             
-            <!-- FIXED: Added explicit name="_subject" attribute so Formspree processes the override value correctly -->
             <input type="hidden" name="_subject" id="email-subject-line" value="New Project Inquiry">
             
-            <!-- Hidden inputs to catch complete cost updates for Formspree emails -->
             <input type="hidden" name="Infrastructure Option" id="email-infra-name">
             <input type="hidden" name="Infrastructure Cost" id="email-infra-cost">
             <input type="hidden" name="Core Development Cost" id="email-dev-cost">
@@ -334,7 +340,7 @@
             </div>
 
             <div class="summary-box">
-                <span class="section-title" style="margin-top: 0; color: var(--accent-orange); border-bottom: 1px solid #222;">Project Cost Breakdown</span>
+                <span class="section-title" style="margin-top: 0; color: var(--accent-orange); border-bottom: 1px solid #161e2e;">Project Cost Breakdown</span>
                 
                 <div style="display: flex; justify-content: space-between; font-size: 0.85rem; margin-bottom: 8px;">
                     <span style="color: var(--muted-text);">Selected Package:</span>
@@ -380,10 +386,9 @@
             </div>
         </form>
 
-        <!-- Dynamic Review Modal Overlay -->
         <div class="modal-overlay" id="review-modal">
             <div class="modal-card">
-                <span class="section-title" style="margin-top: 0; color: var(--accent-orange); border-bottom: 1px solid #333;">Review Application Parameters</span>
+                <span class="section-title" style="margin-top: 0; color: var(--accent-orange); border-bottom: 1px solid #161e2e;">Review Application Parameters</span>
                 <p style="font-size: 0.8rem; color: var(--muted-text); margin-bottom: 20px;">Please crosscheck your data records accurately prior to server transmission.</p>
                 
                 <div class="review-item"><span class="review-label">Full Name</span><span class="review-value" id="rev-name">-</span></div>
@@ -404,7 +409,6 @@
             </div>
         </div>
 
-        <!-- Updated Thank You Screen Content -->
         <div id="thank-you-message">
             <h2>Inquiry Received!</h2>
             <p>Thank you for choosing JMCY Web Solutions. Your application details have been successfully logged, and a confirmation summary has been sent directly to your email address. Our team will review your parameters and get in touch shortly.</p>
@@ -428,13 +432,32 @@
     const SUPABASE_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InJ0cGVvZmpsbXRsandhYm10aHNmIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzQ4ODI5MjAsImV4cCI6MjA5MDQ1ODkyMH0.w8V7fORbWYnD2gXQ0v8lS_287OSrNKxoHZ6vuzRHodE';
     const _supabase = supabase.createClient(SUPABASE_URL, SUPABASE_KEY);
 
+    /* Sync Navigation Controller logic exactly from index.html */
     document.addEventListener('DOMContentLoaded', () => {
         const hamburger = document.getElementById('hamburger');
         const navMenu = document.getElementById('nav-menu');
-        hamburger.addEventListener('click', () => {
-            navMenu.classList.toggle('nav-active');
-            hamburger.classList.toggle('toggle');
+        
+        const closeMenu = () => { 
+            if (navMenu.classList.contains('nav-active')) { 
+                navMenu.classList.remove('nav-active'); 
+                hamburger.classList.remove('toggle'); 
+            } 
+        };
+        
+        hamburger.addEventListener('click', (e) => { 
+            e.stopPropagation(); 
+            navMenu.classList.toggle('nav-active'); 
+            hamburger.classList.toggle('toggle'); 
         });
+        
+        window.addEventListener('scroll', closeMenu, { passive: true });
+        
+        document.addEventListener('click', (e) => { 
+            if ((!navMenu.contains(e.target) && !hamburger.contains(e.target)) || e.target.tagName === 'A') {
+                closeMenu(); 
+            }
+        });
+        
         calculate();
     });
 
@@ -461,7 +484,6 @@
         const setup = domainPrice + devPrice;
         const advance = setup * 0.5;
 
-        // UI Text updates
         document.getElementById('detail-package-name').innerText = packageName;
         document.getElementById('detail-package-price').innerText = "₱" + devPrice.toLocaleString();
         document.getElementById('detail-domain-price').innerText = "₱" + domainPrice.toLocaleString();
@@ -474,7 +496,6 @@
         document.getElementById('card-maint1').classList.toggle('selected', isManaged);
         document.getElementById('card-maint2').classList.toggle('selected', !isManaged);
 
-        // Map data variables to hidden elements for extraction by Formspree
         document.getElementById('email-infra-name').value = domainText;
         document.getElementById('email-infra-cost').value = "₱" + domainPrice.toLocaleString();
         document.getElementById('email-dev-cost').value = "₱" + devPrice.toLocaleString();
@@ -485,18 +506,14 @@
     
     function toggleSubmit() { document.getElementById('submit-btn').disabled = !document.getElementById('terms-check').checked; }
 
-    /* Modal controller features */
     function openReviewModal() {
-        // Trigger validation layout browser engine manually 
         const htmlForm = document.getElementById('inquiry-form');
         if (!htmlForm.checkValidity()) {
             htmlForm.reportValidity();
             return;
         }
+        calculate();
 
-        calculate(); // Refresh arrays
-
-        // Populate modal text values dynamically
         document.getElementById('rev-name').innerText = document.getElementById('full-name').value;
         document.getElementById('rev-email').innerText = document.getElementById('email-address').value;
         document.getElementById('rev-phone').innerText = document.getElementById('phone-input').value;
@@ -512,9 +529,7 @@
         document.getElementById('review-modal').style.display = 'flex';
     }
 
-    function closeReviewModal() {
-        document.getElementById('review-modal').style.display = 'none';
-    }
+    function closeReviewModal() { document.getElementById('review-modal').style.display = 'none'; }
 
     function resetFormView() {
         document.getElementById('inquiry-form').reset();
@@ -543,15 +558,10 @@
         const phone = document.getElementById('phone-input').value;
         const webName = document.getElementById('web-name').value;
         const desc = document.getElementById('project-desc').value;
-        
         const packageSelected = document.querySelector('input[name="dev_package"]:checked').value;
         const total = document.getElementById('display-total').innerText;
 
-        // FIXED: Generates a distinct Project Inquiry Reference Number using the exact Unix Timestamp
         const inquiryNumber = new Date().getTime();
-        
-        // FIXED: Dynamically overrides the Formspree subject line using your exact request structural template:
-        // Output result will read: Project Inquiry #1721729000000 - Juan Dela Cruz
         document.getElementById('email-subject-line').value = `Project Inquiry #${inquiryNumber} - ${name}`;
 
         const formData = {
@@ -565,23 +575,17 @@
         };
 
         try {
-            // 1. Database insertion to Supabase
             await _supabase.from('inquiries').insert([formData]);
             
-            // 2. Direct asynchronous transmission to Formspree (Includes the structural unique override)
             await fetch(form.action, {
                 method: 'POST',
                 body: new FormData(form),
-                headers: {
-                    'Accept': 'application/json'
-                }
+                headers: { 'Accept': 'application/json' }
             });
             
-            // UI Switch configuration maps
             closeReviewModal();
             form.style.display = 'none';
             thankYou.style.display = 'block';
-
         } catch (err) {
             console.error(err);
             status.innerText = "Network pipeline error encountered. Please check connection maps and try again.";

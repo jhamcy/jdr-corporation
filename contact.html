@@ -348,9 +348,10 @@
             </div>
         </form>
 
+        <!-- Updated Thank You Screen Content -->
         <div id="thank-you-message">
-            <h2>Thank You!</h2>
-            <p>Your inquiry has been sent successfully. We've redirected you to WhatsApp to start our conversation.</p>
+            <h2>Inquiry Received!</h2>
+            <p>Thank you for choosing JMCY Web Solutions. Your application details have been successfully logged, and a confirmation summary has been sent directly to your email address. Our team will review your parameters and get in touch shortly.</p>
             <button class="btn-reset" onclick="resetFormView()">Send Another Inquiry</button>
         </div>
     </div>
@@ -444,13 +445,8 @@
         const webName = document.getElementById('web-name').value;
         const desc = document.getElementById('project-desc').value;
         
-        const domainText = document.getElementById('domain-select').options[document.getElementById('domain-select').selectedIndex].text;
         const packageSelected = document.querySelector('input[name="dev_package"]:checked').value;
-        const packagePrice = document.getElementById('detail-package-price').innerText;
-        const maintenance = document.querySelector('input[name="maintenance"]:checked').value;
-        
         const total = document.getElementById('display-total').innerText;
-        const downpayment = document.getElementById('display-advance').innerText;
 
         const formData = {
             name: name,
@@ -475,33 +471,13 @@
                 }
             });
             
-            // 3. Forward message construct for WhatsApp
-            const waMessage = 
-                `*🚀 NEW PROJECT INQUIRY*\n\n` +
-                `*— CLIENT INFO —*\n` +
-                `👤 Name: ${name}\n` +
-                `📧 Email: ${email}\n` +
-                `📞 Phone: ${phone}\n` +
-                `🌐 Web Name: ${webName}\n\n` +
-                `*— PROJECT DETAILS —*\n` +
-                `📦 Package: ${packageSelected} (${packagePrice})\n` +
-                `🌍 Infrastructure: ${domainText}\n` +
-                `🛠 Maintenance: ${maintenance}\n` +
-                `📝 Desc: ${desc}\n\n` +
-                `*— FINANCIAL SUMMARY —*\n` +
-                `💰 *Total Quote: ${total}*\n` +
-                `💳 *Downpayment (50%): ${downpayment}*`;
-
-            const whatsappUrl = `https://api.whatsapp.com/send?phone=639091297422&text=${encodeURIComponent(waMessage)}`;
-            window.open(whatsappUrl, '_blank');
-            
-            // Interface Transition
+            // Interface Transition (WhatsApp redirect logic completely removed)
             form.style.display = 'none';
             thankYou.style.display = 'block';
 
         } catch (err) {
             console.error(err);
-            status.innerText = "Error. Please message us on WhatsApp directly.";
+            status.innerText = "Error submitting entry. Please verify your internet connection and try again.";
             btn.disabled = false;
             btn.innerText = "Confirm & Submit Inquiry";
         }

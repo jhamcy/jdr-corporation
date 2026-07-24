@@ -104,11 +104,25 @@
         .card-body h3 { color: var(--accent-orange); margin: 0 0 15px; font-size: 2rem; font-weight: 900; }
         .card-body p { font-size: 1rem; color: var(--muted-text); margin-bottom: 25px; line-height: 1.7; }
         
+        /* Customization Note Box */
+        .custom-note { font-size: 0.85rem; color: #8bb9ff; background: rgba(10, 88, 202, 0.15); border: 1px dashed rgba(10, 88, 202, 0.4); border-radius: 12px; padding: 15px 20px; margin-bottom: 25px; line-height: 1.5; }
+        .custom-note strong { color: #fff; text-transform: uppercase; letter-spacing: 0.5px; font-size: 0.8rem; display: block; margin-bottom: 4px; }
+
         .tag-list { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 25px; }
         .tag { font-size: 0.7rem; background: rgba(10, 88, 202, 0.2); color: #8bb9ff; padding: 6px 14px; border-radius: 6px; border: 1px solid rgba(10, 88, 202, 0.4); font-weight: 800; }
         
         .btn-live { display: block; text-decoration: none; padding: 18px; border-radius: 12px; font-weight: 900; font-size: 1rem; text-align: center; background: var(--primary-blue); color: white; transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; }
         .btn-live:hover { background: #0c63e4; }
+
+        /* Dual button flex wrapping container for custom modules */
+        .action-container { display: flex; flex-direction: column; gap: 12px; }
+        @media (min-width: 576px) {
+            .action-container { flex-direction: row; }
+            .action-container .btn-live, .action-container .btn-download { flex: 1; }
+        }
+
+        .btn-download { display: block; text-decoration: none; padding: 18px; border-radius: 12px; font-weight: 900; font-size: 1rem; text-align: center; background: transparent; color: var(--accent-orange); border: 2px solid var(--accent-orange); transition: 0.3s; text-transform: uppercase; letter-spacing: 1px; box-sizing: border-box; }
+        .btn-download:hover { background: rgba(249, 140, 21, 0.1); color: #fff; border-color: #fff; }
 
         /* --- SLIDER --- */
         .slider-container { position: relative; width: 100%; height: 100%; overflow: hidden; }
@@ -211,7 +225,7 @@
                     </div>
                 </article>
 
-                <!-- ARTICLE 2: FAMOUS TOUCH -->
+                <!-- ARTICLE 2: FAMOUS TOUCH WITH INTEGRATED DOWNLOAD ASSET LINK -->
                 <article class="portfolio-card">
                     <div class="preview-area" style="background-image: url('massage-service.png');">
                         <div class="status-badge">LIVE DEPLOYED</div>
@@ -224,7 +238,17 @@
                         </div>
                         <h3>Famous Touch</h3>
                         <p>A specialized digital platform for local service businesses in the Philippines. Built for speed and high conversion with integrated mobile booking UI.</p>
-                        <a href="https://www.famous-touch.com/" target="_blank" class="btn-live">Visit Live Site</a>
+                        
+                        <!-- Customization Infrastructure Note -->
+                        <div class="custom-note">
+                            <strong>⚡ Tailored Custom Deployment Available</strong>
+                            This layout structure serves as an initial model framework. Every design layout, color scheme, content module, structural flow, and functional component can be dynamically edited and scaled based explicitly on your corporate objectives and branding rules.
+                        </div>
+
+                        <div class="action-container">
+                            <a href="https://www.famous-touch.com/" target="_blank" class="btn-live">Visit Live Site</a>
+                            <a href="sample-files.zip" download="JMCY_FamousTouch_Sample.zip" class="btn-download">Download Free Sample</a>
+                        </div>
                     </div>
                 </article>
 

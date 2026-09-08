@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=1280">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>JMCY Web Solutions | Custom Frontend & Supabase Web Applications</title>
     <style>
         /* CSS RESET & VARIABLES */
@@ -36,7 +36,8 @@
             color: var(--text-color);
             display: flex;
             min-height: 100vh;
-            width: 1280px;
+            width: 100%;
+            overflow-x: hidden;
         }
 
         /* KEYFRAME ANIMATIONS */
@@ -57,20 +58,79 @@
             100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
         }
 
-        /* FIXED LEFT-SIDE NAVIGATION PANEL */
+        /* MOBILE HEADER BAR (Hidden on Desktop) */
+        .mobile-header {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 70px;
+            background-color: var(--sidebar-bg);
+            border-bottom: 1px solid var(--card-border);
+            padding: 0 1.5rem;
+            align-items: center;
+            justify-content: space-between;
+            z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .mobile-header.nav-hidden {
+            transform: translateY(-100%);
+        }
+
+        .mobile-brand {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            text-decoration: none;
+        }
+
+        .mobile-brand img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: 2px solid var(--card-border);
+        }
+
+        .mobile-brand span {
+            color: var(--accent-color);
+            font-size: 1.1rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .menu-toggle {
+            background: none;
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+            font-size: 1.4rem;
+            width: 42px;
+            height: 42px;
+            border-radius: 8px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--card-bg);
+        }
+
+        /* FIXED RIGHT-SIDE NAVIGATION PANEL */
         aside {
             width: var(--sidebar-width);
             position: fixed;
             top: 0;
             bottom: 0;
-            left: 0;
+            right: 0;
             background-color: var(--sidebar-bg);
             display: flex;
             flex-direction: column;
             justify-content: flex-start;
             padding: 2.5rem 1.5rem;
-            border-right: 1px solid var(--card-border);
-            z-index: 100;
+            border-left: 1px solid var(--card-border);
+            z-index: 900;
+            transition: transform 0.3s ease-in-out;
+            overflow-y: auto;
         }
 
         .brand {
@@ -155,7 +215,7 @@
         nav a:hover, nav a.active {
             color: #ffffff;
             background-color: var(--card-bg);
-            transform: translateX(6px);
+            transform: translateX(-6px);
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
         }
 
@@ -168,12 +228,12 @@
         nav a::after {
             content: '';
             position: absolute;
-            left: 0;
+            right: 0;
             top: 15%;
             height: 70%;
             width: 3px;
             background-color: var(--accent-color);
-            border-radius: 0 4px 4px 0;
+            border-radius: 4px 0 0 4px;
             opacity: 0;
             transform: scaleY(0);
             transition: all 0.3s ease;
@@ -184,7 +244,7 @@
             transform: scaleY(1);
         }
 
-        /* SOCIAL MEDIA LINKS SECTION (BELOW NAVIGATION) */
+        /* SOCIAL MEDIA LINKS SECTION */
         .social-nav {
             margin-top: 1.5rem;
             margin-bottom: auto;
@@ -236,30 +296,10 @@
             box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
         }
 
-        /* ICON HOVER COLORS */
-        .social-btn.facebook:hover {
-            color: #1877f2;
-            border-color: #1877f2;
-            background-color: rgba(24, 119, 242, 0.1);
-        }
-
-        .social-btn.instagram:hover {
-            color: #e4405f;
-            border-color: #e4405f;
-            background-color: rgba(228, 64, 95, 0.1);
-        }
-
-        .social-btn.messenger:hover {
-            color: #0084ff;
-            border-color: #0084ff;
-            background-color: rgba(0, 132, 255, 0.1);
-        }
-
-        .social-btn.whatsapp:hover {
-            color: #25d366;
-            border-color: #25d366;
-            background-color: rgba(37, 211, 102, 0.1);
-        }
+        .social-btn.facebook:hover { color: #1877f2; border-color: #1877f2; background-color: rgba(24, 119, 242, 0.1); }
+        .social-btn.instagram:hover { color: #e4405f; border-color: #e4405f; background-color: rgba(228, 64, 95, 0.1); }
+        .social-btn.messenger:hover { color: #0084ff; border-color: #0084ff; background-color: rgba(0, 132, 255, 0.1); }
+        .social-btn.whatsapp:hover { color: #25d366; border-color: #25d366; background-color: rgba(37, 211, 102, 0.1); }
 
         .sidebar-footer {
             font-size: 0.75rem;
@@ -281,13 +321,19 @@
             color: var(--github-gray) !important;
             font-weight: 600;
             margin-top: 0.4rem;
+            transition: color 0.3s ease;
+        }
+
+        .github-link:hover {
+            color: var(--accent-color) !important;
         }
 
         /* MAIN CONTENT AREA */
         main {
-            margin-left: var(--sidebar-width);
+            margin-right: var(--sidebar-width);
             flex: 1;
             padding: 3rem 4rem;
+            width: calc(100% - var(--sidebar-width));
         }
 
         section {
@@ -489,6 +535,7 @@
             display: flex;
             gap: 0.8rem;
             margin-bottom: 1.8rem;
+            flex-wrap: wrap;
         }
 
         .filter-btn {
@@ -588,25 +635,10 @@
             font-weight: 600;
         }
 
-        .tag.tag-frontend {
-            color: #38bdf8;
-            background-color: rgba(56, 189, 248, 0.1);
-        }
-
-        .tag.tag-fullstack {
-            color: #a855f7;
-            background-color: rgba(168, 85, 247, 0.1);
-        }
-
-        .tag.tag-supabase {
-            color: var(--supabase-green);
-            background-color: rgba(62, 207, 142, 0.1);
-        }
-
-        .tag.tag-github {
-            color: var(--github-gray);
-            background-color: rgba(255, 255, 255, 0.1);
-        }
+        .tag.tag-frontend { color: #38bdf8; background-color: rgba(56, 189, 248, 0.1); }
+        .tag.tag-fullstack { color: #a855f7; background-color: rgba(168, 85, 247, 0.1); }
+        .tag.tag-supabase { color: var(--supabase-green); background-color: rgba(62, 207, 142, 0.1); }
+        .tag.tag-github { color: var(--github-gray); background-color: rgba(255, 255, 255, 0.1); }
 
         /* ESTIMATOR DETAILS & BACKEND SCOPE STYLES */
         .estimator-details {
@@ -768,34 +800,45 @@
         /* CONTACT SECTION */
         .contact-grid {
             display: grid;
-            grid-template-columns: 0.8fr 1.2fr;
+            grid-template-columns: minmax(280px, 0.8fr) minmax(300px, 1.2fr);
             gap: 2rem;
+            width: 100%;
+            align-items: start;
         }
 
         .contact-info-card {
             background-color: var(--card-bg);
-            padding: 2.5rem;
+            padding: 2.2rem;
             border-radius: 12px;
             border: 1px solid var(--card-border);
             display: flex;
             flex-direction: column;
-            gap: 1.8rem;
+            gap: 1.5rem;
+            min-width: 0;
+        }
+
+        .info-item {
+            display: flex;
+            flex-direction: column;
+            min-width: 0;
         }
 
         .info-item h4 {
-            font-size: 0.8rem;
+            font-size: 0.75rem;
             color: var(--text-muted);
             text-transform: uppercase;
             letter-spacing: 1px;
-            margin-bottom: 0.4rem;
+            margin-bottom: 0.3rem;
         }
 
         .info-item a, .info-item p {
             color: var(--text-color);
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 600;
             text-decoration: none;
             transition: color 0.3s ease;
+            word-break: break-word;
+            overflow-wrap: anywhere;
         }
 
         .info-item a:hover {
@@ -804,10 +847,12 @@
 
         .contact-container {
             background-color: var(--card-bg);
-            padding: 2.5rem;
+            padding: 2.2rem;
             border-radius: 12px;
             border: 1px solid var(--card-border);
             transition: border-color 0.3s ease;
+            min-width: 0;
+            width: 100%;
         }
 
         .contact-container:hover {
@@ -818,11 +863,17 @@
             display: flex;
             flex-direction: column;
             gap: 1.2rem;
+            width: 100%;
+        }
+
+        form > div {
+            width: 100%;
         }
 
         input, textarea, select {
             width: 100%;
-            padding: 1rem 1.2rem;
+            box-sizing: border-box;
+            padding: 0.9rem 1.1rem;
             background-color: #0b1120;
             border: 1px solid var(--card-border);
             color: var(--text-color);
@@ -830,18 +881,86 @@
             outline: none;
             font-size: 0.95rem;
             transition: all 0.3s ease;
+            display: block;
         }
 
         input:focus, textarea:focus, select:focus {
             border-color: var(--accent-color);
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
+
+        /* MOBILE MEDIA QUERIES (< 1024px) */
+        @media (max-width: 1024px) {
+            .mobile-header {
+                display: flex;
+            }
+
+            aside {
+                transform: translateX(100%);
+                top: 70px;
+                height: calc(100vh - 70px);
+                padding-top: 1.5rem;
+            }
+
+            aside.open {
+                transform: translateX(0);
+            }
+
+            /* FORCE OVERRIDE OPEN STATE WHEN SCROLLING DOWN */
+            aside.nav-hidden {
+                transform: translateX(100%) !important;
+            }
+
+            main {
+                margin-right: 0;
+                width: 100%;
+                padding: 6rem 1.5rem 3rem 1.5rem;
+            }
+
+            .hero-container,
+            .calculator-container,
+            .contact-grid,
+            .estimator-details,
+            .grid,
+            .tech-grid {
+                grid-template-columns: 1fr !important;
+            }
+
+            .hero h2 {
+                font-size: 2rem;
+            }
+
+            .calc-options {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* DESKTOP MEDIA QUERIES (>= 1024px) */
+        @media (min-width: 1025px) {
+            aside {
+                transform: none !important;
+            }
+            .mobile-header {
+                display: none !important;
+            }
+        }
     </style>
 </head>
 <body>
 
-    <!-- PERMANENT LEFT SIDEBAR PANEL -->
-    <aside>
+    <!-- MOBILE TOP HEADER BAR -->
+    <header class="mobile-header" id="mobileHeader">
+        <a href="#about" class="mobile-brand">
+            <img src="logo.png" alt="JMCY Logo">
+            <span>JMCY</span>
+        </a>
+        <button class="menu-toggle" onclick="toggleMobileMenu()" aria-label="Toggle Menu">
+            ☰
+        </button>
+    </header>
+
+    <!-- RIGHT SIDEBAR PANEL -->
+    <aside id="sidebarNav">
         <div class="brand">
             <img src="logo.png" alt="JMCY Logo" class="brand-logo">
             <div>
@@ -852,32 +971,28 @@
 
         <nav>
             <ul>
-                <li><a href="#about" class="active">About</a></li>
-                <li><a href="#tech">Tech Stack</a></li>
-                <li><a href="#services">Services</a></li>
-                <li><a href="#projects">Projects</a></li>
-                <li><a href="#calculator">Estimator</a></li>
-                <li><a href="#contact">Contact</a></li>
+                <li><a href="#about" class="active" onclick="closeMobileMenu()">About</a></li>
+                <li><a href="#tech" onclick="closeMobileMenu()">Tech Stack</a></li>
+                <li><a href="#services" onclick="closeMobileMenu()">Services</a></li>
+                <li><a href="#projects" onclick="closeMobileMenu()">Projects</a></li>
+                <li><a href="#calculator" onclick="closeMobileMenu()">Estimator</a></li>
+                <li><a href="#contact" onclick="closeMobileMenu()">Contact</a></li>
             </ul>
         </nav>
 
-        <!-- SOCIAL MEDIA LINKS (POSITIONED BELOW NAVIGATION) -->
+        <!-- SOCIAL MEDIA LINKS -->
         <div class="social-nav">
             <span>Connect With Us</span>
             <div class="social-icons">
-                <!-- FACEBOOK -->
                 <a href="https://www.facebook.com/share/1F1MPHFTPg/" target="_blank" class="social-btn facebook" title="Facebook Page">
                     <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
                 </a>
-                <!-- INSTAGRAM -->
                 <a href="https://www.instagram.com/jmcy.websolutions" target="_blank" class="social-btn instagram" title="Instagram (jmcy.websolutions)">
                     <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
                 </a>
-                <!-- MESSENGER -->
                 <a href="https://m.me/jmcywebsolutions2026" target="_blank" class="social-btn messenger" title="Messenger (jmcywebsolutions2026)">
                     <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.246.466 3.443.466 6.627 0 12-4.975 12-11.113C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.96 3.125 3.26 5.893-3.26-6.559 6.96z"/></svg>
                 </a>
-                <!-- WHATSAPP -->
                 <a href="https://wa.me/639091297422" target="_blank" class="social-btn whatsapp" title="WhatsApp (0909 129 7422)">
                     <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
                 </a>
@@ -886,9 +1001,8 @@
 
         <div class="sidebar-footer">
             <p><a href="http://www.jmcywebsolutions.com" target="_blank">www.jmcywebsolutions.com</a></p>
-            <p><a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="github-link">
-                <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
-                GitHub Repositories
+            <p><a href="about-me.html" class="github-link">
+                Learn More About Us &rarr;
             </a></p>
             <p style="margin-top:0.4rem;">&copy; 2026 JMCY Web Solutions.</p>
         </div>
@@ -904,7 +1018,7 @@
                     <h2>Engineered Web Solutions: <span>Frontend & Full-Stack ERP</span></h2>
                     <p class="hero-text">We build two distinct tiers of web platforms: lightweight, lightning-fast <strong>Frontend-Only Websites</strong> and powerful <strong>Full-Stack Applications</strong> driven by Supabase cloud databases and Higher ERP backends.</p>
                     <a href="#calculator" class="btn">Calculate Project Cost</a>
-                    <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="btn btn-outline">Explore GitHub</a>
+                    <a href="about-me.html" class="btn btn-outline">Learn More About Us</a>
 
                     <div class="hero-stats">
                         <div class="stat-item">
@@ -942,7 +1056,7 @@
                     <p>Cloud PostgreSQL database for ERP data, real-time sync, and user access.</p>
                 </div>
                 <div class="tech-card github-card">
-                    <span class="tech-icon">🐙</span>
+                    <span class="tech-icon">🐱</span>      
                     <h4>GitHub Management</h4>
                     <p>Version control, automated deployments, and continuous integration.</p>
                 </div>
@@ -958,7 +1072,6 @@
         <section id="services">
             <h2 class="section-title">Our 2 Website Solution Types</h2>
             <div class="grid">
-                <!-- TYPE 1: FRONTEND-ONLY -->
                 <div class="card">
                     <div class="card-image-wrap">
                         <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=600&q=80" alt="Frontend Only Website" class="card-image">
@@ -975,7 +1088,6 @@
                     </div>
                 </div>
 
-                <!-- TYPE 2: FRONTEND + BACKEND -->
                 <div class="card">
                     <div class="card-image-wrap">
                         <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Full-Stack Web App" class="card-image">
@@ -1005,7 +1117,6 @@
             </div>
 
             <div class="grid">
-                <!-- PROJECT 1: FULLSTACK -->
                 <div class="card project-item fullstack-type">
                     <div class="card-image-wrap">
                         <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Enterprise Operations ERP" class="card-image">
@@ -1021,7 +1132,6 @@
                     </div>
                 </div>
 
-                <!-- PROJECT 2: FRONTEND ONLY -->
                 <div class="card project-item frontend-type">
                     <div class="card-image-wrap">
                         <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Corporate Showcase Website" class="card-image">
@@ -1037,7 +1147,6 @@
                     </div>
                 </div>
 
-                <!-- PROJECT 3: FULLSTACK -->
                 <div class="card project-item fullstack-type">
                     <div class="card-image-wrap">
                         <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=600&q=80" alt="E-Commerce Supabase Web App" class="card-image">
@@ -1059,7 +1168,6 @@
         <section id="calculator">
             <h2 class="section-title">Interactive Scope & Cost Estimator</h2>
 
-            <!-- HOW IT WORKS & BACKEND SCOPE EXPLANATION -->
             <div class="estimator-details">
                 <div class="estimator-info-card">
                     <h3>💡 How The Estimator Works</h3>
@@ -1077,7 +1185,6 @@
                 </div>
             </div>
 
-            <!-- CALCULATOR INTERFACE -->
             <div class="calculator-container">
                 <div>
                     <div class="calc-group">
@@ -1149,8 +1256,8 @@
                         <a href="http://www.jmcywebsolutions.com" target="_blank">www.jmcywebsolutions.com</a>
                     </div>
                     <div class="info-item">
-                        <h4>GitHub Profile</h4>
-                        <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank">github.com/YOUR_GITHUB_USERNAME</a>
+                        <h4>Company Details</h4>
+                        <a href="about-me.html">Learn More About Us &rarr;</a>
                     </div>
                     <div class="info-item">
                         <h4>Direct Email</h4>
@@ -1195,7 +1302,45 @@
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // PORTFOLIO FILTER FUNCTION
+        function toggleMobileMenu() {
+            const sidebar = document.getElementById('sidebarNav');
+            sidebar.classList.toggle('open');
+            sidebar.classList.remove('nav-hidden');
+        }
+
+        function closeMobileMenu() {
+            const sidebar = document.getElementById('sidebarNav');
+            if (window.innerWidth <= 1024) {
+                sidebar.classList.remove('open');
+            }
+        }
+
+        /* AUTO HIDE NAVIGATION ON MOBILE WHEN SCROLLING DOWN */
+        let lastScrollTop = 0;
+        const mobileHeader = document.getElementById('mobileHeader');
+        const sidebarNav = document.getElementById('sidebarNav');
+
+        function handleMobileScroll() {
+            if (window.innerWidth > 1024) return; // Ignore desktop viewers
+
+            let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
+
+            if (currentScroll > lastScrollTop && currentScroll > 60) {
+                // Scrolling DOWN on Mobile -> Close drawer & hide navigation bars
+                sidebarNav.classList.remove('open');
+                mobileHeader.classList.add('nav-hidden');
+                sidebarNav.classList.add('nav-hidden');
+            } else {
+                // Scrolling UP on Mobile -> Show navigation bars
+                mobileHeader.classList.remove('nav-hidden');
+                sidebarNav.classList.remove('nav-hidden');
+            }
+            lastScrollTop = currentScroll <= 0 ? 0 : currentScroll;
+        }
+
+        window.addEventListener('scroll', handleMobileScroll);
+        window.addEventListener('touchmove', handleMobileScroll);
+
         function filterProjects(category) {
             const buttons = document.querySelectorAll('.filter-btn');
             const items = document.querySelectorAll('.project-item');
@@ -1212,7 +1357,6 @@
             });
         }
 
-        // ESTIMATOR CALCULATOR LOGIC
         function calculateTotal() {
             let total = 0;
 
@@ -1230,7 +1374,6 @@
             return total;
         }
 
-        // APPLY ESTIMATE TO CONTACT FORM
         function applyEstimateToForm() {
             const total = calculateTotal();
             const selectedType = document.querySelector('input[name="projectType"]:checked');
@@ -1248,7 +1391,6 @@
             document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
         }
 
-        // ACCURATE NAV HIGHLIGHT ON SCROLL
         const sections = document.querySelectorAll('section');
         const navLinks = document.querySelectorAll('nav a');
 

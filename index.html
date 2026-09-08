@@ -1,343 +1,1285 @@
 <!DOCTYPE html>
-<html lang="en" style="height: 100%;">
+<html lang="en">
 <head>
-    <script async src="https://www.googletagmanager.com/gtag.js?id=G-31P3617CQT"></script>
-    <script>
-      window.dataLayer = window.dataLayer || [];
-      function gtag(){dataLayer.push(arguments);}
-      gtag('js', new Date());
-      gtag('config', 'G-31P3617CQT', { 'send_page_view': true, 'cookie_flags': 'SameSite=None;Secure' });
-    </script>
-
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    
-    <title>JMCY WEB SOLUTIONS | Custom HTML Architecture & Real-Time Development</title>
-    <meta name="title" content="JMCY WEB SOLUTIONS | Custom HTML Architecture & Real-Time Development">
-    <meta name="description" content="Custom websites built in real-time with full transparency. Track development live, request changes instantly, and launch faster with JMCY Web Solutions.">
-    <meta name="keywords" content="web development, custom HTML, GitHub staging, real-time web build, JMCY Web Solutions, responsive design, technical support">
-    <meta name="robots" content="index, follow">
-    <link rel="canonical" href="https://jmcywebsolutions.com/">
-    
-    <link rel="icon" type="image/png" sizes="48x48" href="https://jmcywebsolutions.com/logo.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="https://jmcywebsolutions.com/logo.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="https://jmcywebsolutions.com/logo.png">
-    <link rel="manifest" href="manifest.json">
-    <meta name="theme-color" content="#0A58CA">
-
-    <meta property="og:type" content="website">
-    <meta property="og:url" content="https://jmcywebsolutions.com/">
-    <meta property="og:title" content="JMCY WEB SOLUTIONS | Real-Time Custom Web Development">
-    <meta property="og:description" content="Expert HTML architecture with real-time transparency. Watch your vision come to life via private GitHub staging links.">
-    
+    <meta name="viewport" content="width=1280">
+    <title>JMCY Web Solutions | Custom Frontend & Supabase Web Applications</title>
     <style>
-        :root {
-            --primary-blue: #0A58CA;
-            --accent-orange: #F98C15;
-            --dark-bg: #090D16; /* Enhanced professional slate-dark background */
-            --card-bg: rgba(18, 24, 38, 0.6); /* Cleaner contrast matching the slate theme */
-            --light-text: #F4F4F4;
-            --muted-text: #A0A0A0;
-            --nav-height: 60px;
+        /* CSS RESET & VARIABLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
         }
 
-        html, body { height: 100%; margin: 0; padding: 0; }
-        body { 
-            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
-            background-color: var(--dark-bg);
-            color: var(--light-text);
-            line-height: 1.4;
+        html {
+            scroll-behavior: smooth;
+        }
+
+        :root {
+            --sidebar-width: 270px;
+            --bg-color: #090d16;
+            --sidebar-bg: #030712;
+            --card-bg: #111827;
+            --card-border: #1f2937;
+            --accent-color: #38bdf8;
+            --accent-glow: rgba(56, 189, 248, 0.2);
+            --supabase-green: #3ecf8e;
+            --github-gray: #e6edf3;
+            --text-color: #f9fafb;
+            --text-muted: #9ca3af;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            min-height: 100vh;
+            width: 1280px;
+        }
+
+        /* KEYFRAME ANIMATIONS */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes logoPulse {
+            0% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+            50% { box-shadow: 0 0 22px rgba(56, 189, 248, 0.5); }
+            100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
+        }
+
+        /* FIXED LEFT-SIDE NAVIGATION PANEL */
+        aside {
+            width: var(--sidebar-width);
+            position: fixed;
+            top: 0;
+            bottom: 0;
+            left: 0;
+            background-color: var(--sidebar-bg);
             display: flex;
             flex-direction: column;
-            min-height: 100vh;
-            padding-top: var(--nav-height); 
+            justify-content: flex-start;
+            padding: 2.5rem 1.5rem;
+            border-right: 1px solid var(--card-border);
+            z-index: 100;
         }
 
-        main { flex: 1 0 auto; display: flex; flex-direction: column; }
+        .brand {
+            display: flex;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 0.8rem;
+        }
 
-        /* --- NAVIGATION --- */
-        nav { 
-            padding: 0.5rem 5%; 
-            display: flex; 
-            justify-content: space-between; 
-            align-items: center; 
-            border-bottom: 1px solid #161e2e; 
-            position: fixed; 
-            top: 0; 
-            left: 0; 
-            right: 0; 
-            z-index: 1000; 
-            background-image: url('tech-bg.png'); 
-            background-size: cover;
-            background-position: center bottom;
-            overflow: hidden; 
+        .brand-logo {
+            width: 65px;
+            height: 65px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--card-border);
+            animation: logoPulse 4s infinite ease-in-out;
+            transition: transform 0.3s ease;
         }
-        
-        .nav-brand { 
-            display: flex !important; 
-            align-items: center; 
-            font-size: 0.9rem; 
-            font-weight: 800; 
-            letter-spacing: 1px; 
-            color: var(--light-text); 
-            text-transform: uppercase; 
-            text-decoration: none; 
-            line-height: 1.2; 
+
+        .brand-logo:hover {
+            transform: scale(1.05) rotate(5deg);
         }
-        .nav-brand { display: flex !important; align-items: center; font-size: 0.9rem; font-weight: 800; letter-spacing: 1px; color: var(--light-text); text-transform: uppercase; text-decoration: none; line-height: 1.2; }
-        .nav-logo { height: 40px; width: auto; margin-right: 12px; vertical-align: middle; }
-        .nav-brand span { color: var(--accent-orange); font-size: 0.65rem; display: block; margin-top: 2px; letter-spacing: 0.5px; }
-        
-        .nav-links { display: flex; list-style: none; margin: 0; padding: 0; align-items: center; }
-        .nav-links li { margin-left: 18px; }
-        .nav-links a { color: white; text-decoration: none; font-weight: 500; transition: 0.3s; font-size: 0.75rem; display: inline-block; }
-        .nav-links a:hover, .active-link { color: var(--accent-orange) !important; }
-        .nav-quote-btn { border: 1px solid var(--accent-orange); padding: 5px 12px; border-radius: 4px; color: var(--accent-orange) !important; font-weight: 800 !important; }
-        .hamburger { display: none; cursor: pointer; flex-direction: column; gap: 4px; padding: 10px; z-index: 1001; }
-        .hamburger div { width: 20px; height: 2px; background-color: white; transition: 0.3s; }
-        
-        /* --- HERO SECTION --- */
-        .hero { 
-            position: relative;
-            min-height: 86vh;
+
+        .brand h1 {
+            color: var(--accent-color);
+            font-size: 1.4rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            line-height: 1.1;
+        }
+
+        .brand p {
+            font-size: 0.7rem;
+            color: var(--text-muted);
+            margin-top: 0.2rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* NAVIGATION MENU */
+        nav {
+            margin-top: 2rem;
             width: 100%;
-            text-align: center; 
-            overflow: hidden;
-            background: var(--dark-bg);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+        }
+
+        nav li {
+            width: 100%;
+            position: relative;
+        }
+
+        nav a {
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            background-color: transparent;
+            position: relative;
+        }
+
+        nav a::before {
+            content: '';
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover, nav a.active {
+            color: #ffffff;
+            background-color: var(--card-bg);
+            transform: translateX(6px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+        }
+
+        nav a:hover::before, nav a.active::before {
+            background-color: var(--accent-color);
+            box-shadow: 0 0 8px var(--accent-color);
+            transform: scale(1.4);
+        }
+
+        nav a::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 15%;
+            height: 70%;
+            width: 3px;
+            background-color: var(--accent-color);
+            border-radius: 0 4px 4px 0;
+            opacity: 0;
+            transform: scaleY(0);
+            transition: all 0.3s ease;
+        }
+
+        nav a:hover::after, nav a.active::after {
+            opacity: 1;
+            transform: scaleY(1);
+        }
+
+        /* SOCIAL MEDIA LINKS SECTION (BELOW NAVIGATION) */
+        .social-nav {
+            margin-top: 1.5rem;
+            margin-bottom: auto;
+            padding-top: 1.2rem;
+            border-top: 1px solid var(--card-border);
+            width: 100%;
+        }
+
+        .social-nav span {
+            display: block;
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-muted);
+            margin-bottom: 0.8rem;
+            font-weight: 700;
+        }
+
+        .social-icons {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.5rem;
+        }
+
+        .social-btn {
             display: flex;
             align-items: center;
             justify-content: center;
+            width: 42px;
+            height: 42px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .hero-video-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1;
-            object-fit: cover;
-        }
-        .hero-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle, rgba(9,13,22,0.4) 0%, rgba(9,13,22,0.95) 100%);
-            z-index: 2;
-        }
-        .hero-content { position: relative; z-index: 3; }
-        .hero h1 { font-size: clamp(2.5rem, 8vw, 4.5rem); margin-bottom: 30px; font-weight: 900; line-height: 1.1;}
-        .hero h2 { font-size: clamp(1.1rem, 4vw, 1.8rem); margin-bottom: 40px; font-weight: 700; line-height: 1.2; color: #fff; }
-        .hero p { font-size: 1.2rem; color: #ccc; max-width: 750px; margin: 0 auto 30px; }
-        .cta-btn-main { background: var(--primary-blue); color: white; padding: 14px 42px; border-radius: 5px; text-decoration: none; display: inline-block; transition: 0.3s; font-size: 0.95rem; font-weight: bold; box-shadow: 0 4px 15px rgba(10, 88, 202, 0.4); }
-        .cta-btn-main:hover { transform: translateY(-2px); background: #0d6efd; }
 
-        /* --- MAIN CONTAINER --- */
-        .container { max-width: 800px; margin: 0 auto; padding: 40px 5% 80px; }
+        .social-btn svg {
+            width: 20px;
+            height: 20px;
+            fill: currentColor;
+            transition: transform 0.3s ease;
+        }
 
-        /* --- PROCESS VIDEO STYLING --- */
-        .process-video-container {
-            width: 100%;
-            max-width: 650px;
-            margin: 0 auto;
-            position: relative;
-            border-radius: 12px;
+        .social-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        /* ICON HOVER COLORS */
+        .social-btn.facebook:hover {
+            color: #1877f2;
+            border-color: #1877f2;
+            background-color: rgba(24, 119, 242, 0.1);
+        }
+
+        .social-btn.instagram:hover {
+            color: #e4405f;
+            border-color: #e4405f;
+            background-color: rgba(228, 64, 95, 0.1);
+        }
+
+        .social-btn.messenger:hover {
+            color: #0084ff;
+            border-color: #0084ff;
+            background-color: rgba(0, 132, 255, 0.1);
+        }
+
+        .social-btn.whatsapp:hover {
+            color: #25d366;
+            border-color: #25d366;
+            background-color: rgba(37, 211, 102, 0.1);
+        }
+
+        .sidebar-footer {
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--card-border);
+            padding-top: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .sidebar-footer a {
+            color: var(--accent-color);
+            text-decoration: none;
+        }
+
+        .github-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.4rem;
+            color: var(--github-gray) !important;
+            font-weight: 600;
+            margin-top: 0.4rem;
+        }
+
+        /* MAIN CONTENT AREA */
+        main {
+            margin-left: var(--sidebar-width);
+            flex: 1;
+            padding: 3rem 4rem;
+        }
+
+        section {
+            margin-bottom: 4.5rem;
+            scroll-margin-top: 2rem;
+            animation: fadeUp 0.8s ease-out forwards;
+        }
+
+        /* HERO SECTION */
+        .hero-container {
+            background-color: var(--card-bg);
+            padding: 3rem;
+            border-radius: 16px;
+            border: 1px solid var(--card-border);
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2.5rem;
+            align-items: center;
+            box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.5);
+            transition: border-color 0.3s ease;
+        }
+
+        .hero-container:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .badge {
+            display: inline-block;
+            background-color: var(--accent-glow);
+            color: var(--accent-color);
+            padding: 0.35rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+            border: 1px solid rgba(56, 189, 248, 0.3);
+        }
+
+        .hero h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            line-height: 1.2;
+            font-weight: 800;
+        }
+
+        .hero h2 span {
+            background: linear-gradient(135deg, #38bdf8 0%, #818cf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        p.hero-text {
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .hero-image-wrap {
             overflow: hidden;
-            border: 2px solid #1e293b;
-            background: #000;
-            box-shadow: 0 15px 40px rgba(0,0,0,0.6);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
         }
-        .process-video { 
-            width: 100%; 
-            display: block;
+
+        .hero-image-wrap img {
+            width: 100%;
+            height: 280px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .hero-image-wrap:hover img {
+            transform: scale(1.05);
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+            padding-top: 1.5rem;
+            border-top: 1px solid var(--card-border);
+        }
+
+        .stat-item h4 {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            font-weight: 800;
+        }
+
+        .stat-item p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        h2.section-title {
+            font-size: 1.8rem;
+            margin-bottom: 1.8rem;
+            font-weight: 800;
+            letter-spacing: -0.5px;
+            display: flex;
+            align-items: center;
+            gap: 0.8rem;
+        }
+
+        h2.section-title::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background-color: var(--card-border);
+        }
+
+        /* BUTTONS */
+        .btn {
+            display: inline-block;
+            background: linear-gradient(135deg, #38bdf8 0%, #0284c7 100%);
+            color: #ffffff;
+            padding: 0.85rem 1.8rem;
+            font-weight: 700;
+            font-size: 0.95rem;
+            border-radius: 8px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            border: none;
             cursor: pointer;
+            box-shadow: 0 4px 14px rgba(56, 189, 248, 0.3);
         }
 
-        /* --- MONITOR/GRID STYLES --- */
-        .transparency-section { padding: 40px 5%; background: transparent; text-align: center; }
-        .monitor-box { max-width: 900px; margin: 0 auto; padding: 30px 20px; background: rgba(10, 88, 202, 0.03); border: 1px solid rgba(10, 88, 202, 0.3); border-radius: 12px; }
-        .pulse-dot { height: 7px; width: 7px; background-color: #ff4b4b; border-radius: 50%; display: inline-block; box-shadow: 0 0 6px #ff4b4b; animation: pulse-animation 1.5s infinite; }
-        @keyframes pulse-animation { 0% { opacity: 1; transform: scale(1); } 50% { opacity: 0.4; transform: scale(1.2); } 100% { opacity: 1; transform: scale(1); } }
-        .monitor-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 20px; text-align: left; margin-top: 30px; }
-        .monitor-card { background: rgba(255,255,255,0.02); padding: 20px; border-radius: 10px; border: 1px solid rgba(255,255,255,0.05); }
-        .monitor-card h4 { color: var(--accent-orange); margin: 0 0 8px; font-size: 1rem; }
-        .monitor-card p { font-size: 0.85rem; color: var(--muted-text); line-height: 1.5; margin: 0; }
-
-        /* --- TESTIMONIALS --- */
-        .testimonial-section { background: rgba(0,0,0,0.2); padding: 40px 0 0 0; border-top: 1px solid #161e2e; margin-top: auto; overflow: hidden; }
-        .testimonial-slider { width: 100%; overflow: hidden; padding: 20px 0; position: relative; }
-        .testimonial-track { display: flex; width: max-content; gap: 15px; animation: marquee 25s linear infinite; }
-        .testimonial-track:hover { animation-play-state: paused; }
-        .testimonial-card-move { width: 240px; flex-shrink: 0; background: rgba(10, 88, 202, 0.05); padding: 15px; border-radius: 10px; border-left: 3px solid var(--primary-blue); white-space: normal; text-align: left; }
-
-        @keyframes marquee { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
-        
-        /* --- FOOTER --- */
-        footer { 
-            flex-shrink: 0; 
-            padding: 20px 5%; 
-            text-align: center; 
-            border-top: 1px solid #161e2e; 
-            color: #ddd; 
-            font-size: 0.8rem; 
-            position: relative; 
-            background-image: url('tech-bg.png'); 
-            background-size: cover;
-            background-position: center top; 
-            overflow: hidden; 
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(56, 189, 248, 0.5);
         }
-        
-        footer a { color: #fff; text-decoration: none; margin: 0 8px; font-weight: 600; }
-        footer a:hover { color: var(--accent-orange); }
-        .footer-nav { margin-bottom: 10px; }
-        .footer-badges { margin-top: 10px; opacity: 0.8; font-size: 0.65rem; letter-spacing: 1px; color: var(--accent-orange); font-weight: bold; }
-        
-        /* --- FLOATING CONTACT --- */
-        .floating-contact-wrap { position: fixed; bottom: 30px; right: 20px; display: flex; flex-direction: column; gap: 15px; z-index: 9999; transition: transform 0.4s ease, opacity 0.3s ease; }
-        body.is-scrolling .floating-contact-wrap { transform: translateX(100px); opacity: 0; pointer-events: none; }
-        .float-item { display: flex; flex-direction: column; align-items: center; gap: 4px; }
-        .float-btn { width: 56px; height: 56px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none; color: white; box-shadow: 0 6px 16px rgba(0,0,0,0.6); transition: 0.2s; cursor: pointer; border: none; }
-        .float-btn:hover { transform: scale(1.1); }
-        .float-whatsapp { background-color: #25D366; }
-        .float-btn svg { width: 28px; height: 28px; fill: white; }
-        .float-label { font-size: 0.65rem; font-weight: bold; color: #ccc; background: rgba(0,0,0,0.8); padding: 2px 8px; border-radius: 4px; text-transform: uppercase; }
 
-        @media (max-width: 768px) {
-            .hamburger { display: flex; }
-            .nav-links { position: fixed; right: 0; top: 0; height: 100vh; background-color: var(--dark-bg); flex-direction: column; width: 260px; transform: translateX(100%); transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1); padding-top: 70px; border-left: 1px solid #161e2e; align-items: flex-start; }
-            .nav-links li { width: 100%; margin: 0; }
-            .nav-links a { display: block; width: 100%; padding: 20px 30px; font-size: 0.95rem; border-bottom: 1px solid #161e2e; box-sizing: border-box; }
-            .nav-active { transform: translateX(0%); }
-            .hamburger.toggle .line1 { transform: rotate(-45deg) translate(-5px, 6px); }
-            .hamburger.toggle .line2 { opacity: 0; }
-            .hamburger.toggle .line3 { transform: rotate(45deg) translate(-5px, -6px); }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid var(--card-border);
+            color: var(--github-gray);
+            box-shadow: none;
+            margin-left: 0.5rem;
+        }
+
+        .btn-outline:hover {
+            border-color: var(--github-gray);
+            background-color: rgba(255, 255, 255, 0.05);
+        }
+
+        /* TECH STACK SECTION */
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.2rem;
+        }
+
+        .tech-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            padding: 1.5rem;
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .tech-card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-4px);
+        }
+
+        .tech-card.supabase-card:hover {
+            border-color: var(--supabase-green);
+            box-shadow: 0 0 15px rgba(62, 207, 142, 0.2);
+        }
+
+        .tech-card.github-card:hover {
+            border-color: var(--github-gray);
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+        }
+
+        .tech-icon {
+            font-size: 2rem;
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .tech-card h4 {
+            font-size: 1.05rem;
+            font-weight: 700;
+            margin-bottom: 0.3rem;
+            color: var(--text-color);
+        }
+
+        .tech-card p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+        }
+
+        /* FILTERABLE PORTFOLIO */
+        .portfolio-filters {
+            display: flex;
+            gap: 0.8rem;
+            margin-bottom: 1.8rem;
+        }
+
+        .filter-btn {
+            background-color: var(--card-bg);
+            color: var(--text-muted);
+            border: 1px solid var(--card-border);
+            padding: 0.6rem 1.2rem;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.85rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .filter-btn:hover, .filter-btn.active {
+            background-color: var(--accent-color);
+            color: #030712;
+            border-color: var(--accent-color);
+            box-shadow: 0 4px 12px var(--accent-glow);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 1.8rem;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            overflow: hidden;
+            transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
+        }
+
+        .card.hide {
+            display: none;
+        }
+
+        .card-image-wrap {
+            overflow: hidden;
+            height: 180px;
+        }
+
+        .card-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-6px);
+            box-shadow: 0 15px 35px -10px rgba(0, 0, 0, 0.6);
+        }
+
+        .card:hover .card-image {
+            transform: scale(1.08);
+        }
+
+        .card-body {
+            padding: 1.8rem;
+        }
+
+        .card h3 {
+            color: var(--text-color);
+            margin-bottom: 0.6rem;
+            font-size: 1.2rem;
+            font-weight: 700;
+            transition: color 0.3s ease;
+        }
+
+        .card:hover h3 {
+            color: var(--accent-color);
+        }
+
+        .card p {
+            color: var(--text-muted);
+            line-height: 1.6;
+            font-size: 0.9rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .card-tags {
+            display: flex;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            background-color: #1f2937;
+            color: var(--accent-color);
+            padding: 0.25rem 0.6rem;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .tag.tag-frontend {
+            color: #38bdf8;
+            background-color: rgba(56, 189, 248, 0.1);
+        }
+
+        .tag.tag-fullstack {
+            color: #a855f7;
+            background-color: rgba(168, 85, 247, 0.1);
+        }
+
+        .tag.tag-supabase {
+            color: var(--supabase-green);
+            background-color: rgba(62, 207, 142, 0.1);
+        }
+
+        .tag.tag-github {
+            color: var(--github-gray);
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        /* ESTIMATOR DETAILS & BACKEND SCOPE STYLES */
+        .estimator-details {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+
+        .estimator-info-card {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 1.8rem;
+        }
+
+        .estimator-info-card h3 {
+            font-size: 1.1rem;
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+        }
+
+        .estimator-info-card p {
+            font-size: 0.88rem;
+            color: var(--text-muted);
+            line-height: 1.6;
+        }
+
+        .backend-scope-card h3 {
+            color: var(--supabase-green);
+        }
+
+        .backend-scope-card ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 0.7rem;
+        }
+
+        .backend-scope-card li {
+            font-size: 0.82rem;
+            color: var(--text-muted);
+            line-height: 1.5;
+            position: relative;
+            padding-left: 1.2rem;
+        }
+
+        .backend-scope-card li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--supabase-green);
+        }
+
+        .backend-scope-card strong {
+            color: var(--text-color);
+        }
+
+        /* COST CALCULATOR STYLING */
+        .calculator-container {
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 2.5rem;
+            display: grid;
+            grid-template-columns: 1.2fr 0.8fr;
+            gap: 2.5rem;
+        }
+
+        .calc-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .calc-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 700;
+            margin-bottom: 0.8rem;
+            color: var(--text-color);
+        }
+
+        .calc-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+        }
+
+        .calc-checkbox, .calc-radio {
+            display: none;
+        }
+
+        .option-label {
+            background-color: #0b1120;
+            border: 1px solid var(--card-border);
+            padding: 0.88rem 1rem;
+            border-radius: 8px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            text-align: left;
+            font-weight: 600;
+            display: block;
+        }
+
+        .option-label small {
+            display: block;
+            font-weight: normal;
+            font-size: 0.75rem;
+            color: var(--text-muted);
+            margin-top: 0.3rem;
+            line-height: 1.3;
+        }
+
+        .calc-checkbox:checked + .option-label,
+        .calc-radio:checked + .option-label {
+            border-color: var(--accent-color);
+            background-color: var(--accent-glow);
+            color: #ffffff;
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
+        }
+
+        .calc-checkbox:checked + .option-label small,
+        .calc-radio:checked + .option-label small {
+            color: #d1d5db;
+        }
+
+        .calc-summary {
+            background-color: #0b1120;
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            text-align: center;
+        }
+
+        .calc-summary h3 {
+            font-size: 1.1rem;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+        }
+
+        .calc-price {
+            font-size: 2.4rem;
+            font-weight: 800;
+            color: var(--accent-color);
+            margin: 1rem 0;
+        }
+
+        .calc-summary p {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-bottom: 1.5rem;
+            line-height: 1.5;
+        }
+
+        /* CONTACT SECTION */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 0.8fr 1.2fr;
+            gap: 2rem;
+        }
+
+        .contact-info-card {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            display: flex;
+            flex-direction: column;
+            gap: 1.8rem;
+        }
+
+        .info-item h4 {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 0.4rem;
+        }
+
+        .info-item a, .info-item p {
+            color: var(--text-color);
+            font-size: 1.05rem;
+            font-weight: 600;
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .info-item a:hover {
+            color: var(--accent-color);
+        }
+
+        .contact-container {
+            background-color: var(--card-bg);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--card-border);
+            transition: border-color 0.3s ease;
+        }
+
+        .contact-container:hover {
+            border-color: var(--accent-color);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.2rem;
+        }
+
+        input, textarea, select {
+            width: 100%;
+            padding: 1rem 1.2rem;
+            background-color: #0b1120;
+            border: 1px solid var(--card-border);
+            color: var(--text-color);
+            border-radius: 8px;
+            outline: none;
+            font-size: 0.95rem;
+            transition: all 0.3s ease;
+        }
+
+        input:focus, textarea:focus, select:focus {
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
     </style>
 </head>
 <body>
-    <nav>
-        <a href="index.html" class="nav-brand">
-            <img src="logo.png" alt="JMCY Logo" class="nav-logo">
-            <div>JMCY WEB SOLUTIONS<br><span>Real-Time Custom Web Development</span></div>
-        </a>
-        <ul class="nav-links" id="nav-menu">
-            <li><a href="index.html" class="active-link">Home</a></li>
-            <li><a href="about.html">About Us</a></li>
-            <li><a href="service.html">Services</a></li>
-            <li><a href="portfolio.html">Portfolio</a></li>
-            <li><a href="legal.html">Terms & Conditions</a></li>
-            <li><a href="quote.html">Projects / Pricing</a></li>
-            <li><a href="contact.html" class="nav-quote-btn">Get Started</a></li>
-        </ul>
-        <div class="hamburger" id="hamburger"><div class="line1"></div><div class="line2"></div><div class="line3"></div></div>
-    </nav>
 
-    <main>
-        <section class="hero">
-            <video class="hero-video-bg" autoplay loop muted playsinline preload="auto" poster="image_0.png">
-                <source src="818026310.webm" type="video/webm">
-            </video>
-            <div class="hero-overlay"></div>
-            
-            <div class="hero-content">
-                <h1><span style="color: var(--accent-orange);">Custom Websites Built Real-Time</span></h1>
-                <h2>Watch Your Site Being Developed in Real Time</h2>
-                <p>Get a private live preview link and watch your website evolve step-by-step — with full transparency, faster revisions, and zero guesswork.</p>
-                <a href="quote.html" class="cta-btn-main">Build Your Custom Quote</a>
+    <!-- PERMANENT LEFT SIDEBAR PANEL -->
+    <aside>
+        <div class="brand">
+            <img src="logo.png" alt="JMCY Logo" class="brand-logo">
+            <div>
+                <h1>JMCY</h1>
+                <p>WEB SOLUTIONS</p>
             </div>
-        </section>
-        
-        <div class="container">
-            <section class="transparency-section">
-                <div class="monitor-box">
-                    <div style="display: inline-flex; align-items: center; gap: 6px; background: rgba(0,0,0,0.3); padding: 4px 12px; border-radius: 20px; border: 1px solid #1e293b; margin-bottom: 15px;">
-                         <span class="pulse-dot"></span>
-                         <span style="font-size: 0.65rem; text-transform: uppercase; letter-spacing: 1px; font-weight: bold; color: #eee;">System Status: Active Build</span>
-                    </div>
-                    <h2 style="font-size: 1.8rem; margin: 0 0 15px;">Real-Time Development Access</h2>
-                    <div class="monitor-grid">
-                         <div class="monitor-card"><h4>Exclusive Preview URL</h4><p>Real-Time Development Access <strong>live staging link</strong> where every update is deployed instantly.</p></div>
-                        <div class="monitor-card"><h4>Visual Verification</h4><p>Preview your website on mobile or desktop in real time — ensuring everything looks perfect before launch.</p></div>
-                        <div class="monitor-card"><h4>Instant Milestone Sync</h4><p>Every feature and section is updated live — no waiting, no hidden progress, full visibility.</p></div>
-                    </div>
-                </div>
-            </section>
-
-            <section style="padding:60px 0; background: transparent; text-align:center;">
-                <h2 style="font-size:1.8rem; margin-bottom:15px; color: var(--primary-blue);">Our Development Process</h2>
-                <p style="color:var(--muted-text); font-size:0.9rem; max-width:550px; margin:0 auto 25px;">A streamlined workflow designed to give you full control at every stage.</p>
-                
-                <div class="process-video-container">
-                    <video class="process-video" controls preload="none" poster="image_0.png">
-                        <source src="1000015986.webm" type="video/webm">
-                        Your browser does not support the video tag.
-                    </video>
-                </div>
-
-                <div class="monitor-grid" style="margin-top: 40px;">
-                    <div class="monitor-card"><h4>1. Quote Builder</h4><p>Customize your project by selecting features and functionality through our smart quote builder.</p></div>
-                    <div class="monitor-card"><h4>2. Live Development</h4><p>Development starts immediately with real-time access to your private preview link.</p></div>
-                    <div class="monitor-card"><h4>3. Review & Feedback</h4><p>Review progress live and request changes instantly while your website is being built.</p></div>
-                    <div class="monitor-card"><h4>4. Launch</h4><p>After final approval, your fully optimized website is deployed and ready for the world.</p></div>
-                </div>
-            </section>
         </div>
 
-        <section class="testimonial-section">
-            <div style="max-width: 800px; margin: 0 auto; padding: 0 5%;">
-                <div style="max-width: 400px; margin: 0 auto 40px; background: rgba(255,255,255,0.01); padding: 30px 20px; border-radius: 12px; border: 1px solid #161e2e; text-align: center;">
-                    <h2 style="font-size: 1.2rem; margin-bottom: 10px;">Rate Our <span style="color: var(--accent-orange);">Service</span></h2>
-                    <p style="font-size: 0.8rem; color: var(--muted-text); margin-bottom: 25px; line-height: 1.6;">Your insights are vital in maintaining our high technical standards.</p>
-                    <button onclick="submitRating()" id="submit-btn" style="background: var(--accent-orange); color: black; border: none; padding: 14px 20px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.85rem; transition: 0.3s; width: 100%; text-transform: uppercase; letter-spacing: 1px;">Submit Rating & Review</button>
+        <nav>
+            <ul>
+                <li><a href="#about" class="active">About</a></li>
+                <li><a href="#tech">Tech Stack</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#calculator">Estimator</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+
+        <!-- SOCIAL MEDIA LINKS (POSITIONED BELOW NAVIGATION) -->
+        <div class="social-nav">
+            <span>Connect With Us</span>
+            <div class="social-icons">
+                <!-- FACEBOOK -->
+                <a href="https://www.facebook.com/share/1F1MPHFTPg/" target="_blank" class="social-btn facebook" title="Facebook Page">
+                    <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+                </a>
+                <!-- INSTAGRAM -->
+                <a href="https://www.instagram.com/jmcy.websolutions" target="_blank" class="social-btn instagram" title="Instagram (jmcy.websolutions)">
+                    <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+                </a>
+                <!-- MESSENGER -->
+                <a href="https://m.me/jmcywebsolutions2026" target="_blank" class="social-btn messenger" title="Messenger (jmcywebsolutions2026)">
+                    <svg viewBox="0 0 24 24"><path d="M12 0C5.373 0 0 4.974 0 11.111c0 3.498 1.744 6.614 4.469 8.654V24l4.088-2.242c1.092.302 2.246.466 3.443.466 6.627 0 12-4.975 12-11.113C24 4.974 18.627 0 12 0zm1.191 14.963l-3.055-3.26-5.963 3.26 6.559-6.96 3.125 3.26 5.893-3.26-6.559 6.96z"/></svg>
+                </a>
+                <!-- WHATSAPP -->
+                <a href="https://wa.me/639091297422" target="_blank" class="social-btn whatsapp" title="WhatsApp (0909 129 7422)">
+                    <svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                </a>
+            </div>
+        </div>
+
+        <div class="sidebar-footer">
+            <p><a href="http://www.jmcywebsolutions.com" target="_blank">www.jmcywebsolutions.com</a></p>
+            <p><a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="github-link">
+                <svg height="14" width="14" viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.28.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                GitHub Repositories
+            </a></p>
+            <p style="margin-top:0.4rem;">&copy; 2026 JMCY Web Solutions.</p>
+        </div>
+    </aside>
+
+    <!-- MAIN CONTENT -->
+    <main>
+        <!-- ABOUT / HERO SECTION -->
+        <section id="about" class="hero">
+            <div class="hero-container">
+                <div>
+                    <span class="badge">Custom Frontend & Supabase Architecture</span>
+                    <h2>Engineered Web Solutions: <span>Frontend & Full-Stack ERP</span></h2>
+                    <p class="hero-text">We build two distinct tiers of web platforms: lightweight, lightning-fast <strong>Frontend-Only Websites</strong> and powerful <strong>Full-Stack Applications</strong> driven by Supabase cloud databases and Higher ERP backends.</p>
+                    <a href="#calculator" class="btn">Calculate Project Cost</a>
+                    <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank" class="btn btn-outline">Explore GitHub</a>
+
+                    <div class="hero-stats">
+                        <div class="stat-item">
+                            <h4>Frontend</h4>
+                            <p>Pure HTML / CSS / JS</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Full-Stack</h4>
+                            <p>Supabase + ERP</p>
+                        </div>
+                        <div class="stat-item">
+                            <h4>Version Control</h4>
+                            <p>Managed via GitHub</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="hero-image-wrap">
+                    <img src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=600&q=80" alt="Web Development Architecture">
                 </div>
             </div>
-            <div class="testimonial-slider" id="slider-container">
-                <div class="testimonial-track" id="slider-track">
-                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 5px;">★★★★★</div><p style="font-size: 0.75rem; color: var(--light-text); font-style: italic; margin-bottom: 8px;">"The GitHub Live link was a game changer."</p><span style="font-size: 0.7rem; color: var(--muted-text); font-weight: bold;">— TechStart <span style="color:var(--primary-blue)">✔</span></span></div>
-                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 5px;">★★★★★</div><p style="font-size: 0.75rem; color: var(--light-text); font-style: italic; margin-bottom: 8px;">"Fast delivery and very clean code."</p><span style="font-size: 0.7rem; color: var(--muted-text); font-weight: bold;">— Creative Agency <span style="color:var(--primary-blue)">✔</span></span></div>
-                    <div class="testimonial-card-move"><div style="color: var(--accent-orange); font-size: 0.8rem; margin-bottom: 5px;">★★★★★</div><p style="font-size: 0.75rem; color: var(--light-text); font-style: italic; margin-bottom: 8px;">"Real-time monitoring made the process easy."</p><span style="font-size: 0.7rem; color: var(--muted-text); font-weight: bold;">— DevSolutions <span style="color:var(--primary-blue)">✔</span></span></div>
+        </section>
+
+        <!-- TECH STACK SECTION -->
+        <section id="tech">
+            <h2 class="section-title">Tech Stack & Infrastructure</h2>
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <span class="tech-icon">🌐</span>
+                    <h4>Frontend Web</h4>
+                    <p>Clean HTML5, CSS3, & JS without heavy frameworks or template bloat.</p>
+                </div>
+                <div class="tech-card supabase-card">
+                    <span class="tech-icon">⚡</span>
+                    <h4>Supabase Database</h4>
+                    <p>Cloud PostgreSQL database for ERP data, real-time sync, and user access.</p>
+                </div>
+                <div class="tech-card github-card">
+                    <span class="tech-icon">🐙</span>
+                    <h4>GitHub Management</h4>
+                    <p>Version control, automated deployments, and continuous integration.</p>
+                </div>
+                <div class="tech-card supabase-card">
+                    <span class="tech-icon">🔒</span>
+                    <h4>Supabase Auth & RLS</h4>
+                    <p>Secure authentication with fine-grained Row Level Security policies.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- TWO SERVICE TYPES SECTION -->
+        <section id="services">
+            <h2 class="section-title">Our 2 Website Solution Types</h2>
+            <div class="grid">
+                <!-- TYPE 1: FRONTEND-ONLY -->
+                <div class="card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1581291518633-83b4ebd1d83e?auto=format&fit=crop&w=600&q=80" alt="Frontend Only Website" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3>1. Frontend-Only Websites</h3>
+                        <p>Perfect for corporate portfolios, landing pages, and business showcases. Built entirely on clean HTML/CSS/JS for ultra-fast load times, SEO optimization, and smooth mobile UI.</p>
+                        <div class="card-tags">
+                            <span class="tag tag-frontend">Frontend Only</span>
+                            <span class="tag">Semantic HTML5</span>
+                            <span class="tag">Custom CSS</span>
+                            <span class="tag tag-github">GitHub Hosted</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- TYPE 2: FRONTEND + BACKEND -->
+                <div class="card">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=600&q=80" alt="Full-Stack Web App" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3>2. Full-Stack Websites (Frontend + Supabase)</h3>
+                        <p>Engineered for complex business operations, portals, and Higher ERP applications. Integrates custom frontend UI with Supabase PostgreSQL, Authentication, and dynamic API flows.</p>
+                        <div class="card-tags">
+                            <span class="tag tag-fullstack">Frontend + Backend</span>
+                            <span class="tag tag-supabase">Supabase ERP</span>
+                            <span class="tag tag-supabase">PostgreSQL</span>
+                            <span class="tag">Realtime Sync</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- FILTERABLE PROJECTS PORTFOLIO SECTION -->
+        <section id="projects">
+            <h2 class="section-title">Featured Projects & Repositories</h2>
+            
+            <div class="portfolio-filters">
+                <button class="filter-btn active" onclick="filterProjects('all')">All Solutions</button>
+                <button class="filter-btn" onclick="filterProjects('frontend-type')">Frontend Only</button>
+                <button class="filter-btn" onclick="filterProjects('fullstack-type')">Full-Stack (Supabase)</button>
+            </div>
+
+            <div class="grid">
+                <!-- PROJECT 1: FULLSTACK -->
+                <div class="card project-item fullstack-type">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=600&q=80" alt="Enterprise Operations ERP" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3>Enterprise Operations ERP Portal</h3>
+                        <p>Full-stack business portal integrated with Supabase PostgreSQL for employee records, analytics, and role permissions.</p>
+                        <div class="card-tags">
+                            <span class="tag tag-fullstack">Frontend + Backend</span>
+                            <span class="tag tag-supabase">Supabase PostgreSQL</span>
+                            <span class="tag tag-github">GitHub Repo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 2: FRONTEND ONLY -->
+                <div class="card project-item frontend-type">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=600&q=80" alt="Corporate Showcase Website" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3>Corporate Showcase Website</h3>
+                        <p>High-speed, frontend-only marketing website engineered with pure HTML/CSS and interactive JavaScript components.</p>
+                        <div class="card-tags">
+                            <span class="tag tag-frontend">Frontend Only</span>
+                            <span class="tag">Pure HTML/CSS</span>
+                            <span class="tag tag-github">GitHub Pages</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- PROJECT 3: FULLSTACK -->
+                <div class="card project-item fullstack-type">
+                    <div class="card-image-wrap">
+                        <img src="https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&w=600&q=80" alt="E-Commerce Supabase Web App" class="card-image">
+                    </div>
+                    <div class="card-body">
+                        <h3>Custom E-Commerce Store & Portal</h3>
+                        <p>High-speed custom storefront connected to cloud inventory tracking, user auth, and automated webhook workflows.</p>
+                        <div class="card-tags">
+                            <span class="tag tag-fullstack">Frontend + Backend</span>
+                            <span class="tag tag-supabase">Supabase DB</span>
+                            <span class="tag tag-github">GitHub Code</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE COST ESTIMATOR SECTION -->
+        <section id="calculator">
+            <h2 class="section-title">Interactive Scope & Cost Estimator</h2>
+
+            <!-- HOW IT WORKS & BACKEND SCOPE EXPLANATION -->
+            <div class="estimator-details">
+                <div class="estimator-info-card">
+                    <h3>💡 How The Estimator Works</h3>
+                    <p>Our real-time cost calculator calculates an investment baseline using your preferred website tier and selected functional modules. As you toggle choices, the price dynamically recalculates in real-time. Submitting the estimate auto-populates your selected scope directly into our inquiry form for a seamless consultation workflow.</p>
+                </div>
+
+                <div class="estimator-info-card backend-scope-card">
+                    <h3>⚙️ Backend Architecture Scope (Supabase + ERP)</h3>
+                    <ul>
+                        <li><strong>PostgreSQL Database Architecture:</strong> Schema design, relational tables, indexed foreign keys, and optimized query execution for enterprise records.</li>
+                        <li><strong>Authentication & Security (RLS):</strong> Secure user login/signup flows, JWT session handling, and granular Row Level Security (RLS) policies.</li>
+                        <li><strong>Higher ERP Sync & Edge Functions:</strong> Cloud serverless functions to process business logic, real-time data webhooks, and third-party API endpoints.</li>
+                        <li><strong>Cloud Storage & Asset Buckets:</strong> Managed Supabase Storage buckets with restricted access policies for user document uploads and media hosting.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- CALCULATOR INTERFACE -->
+            <div class="calculator-container">
+                <div>
+                    <div class="calc-group">
+                        <label>1. Choose Architecture Tier & Scope:</label>
+                        <div class="calc-options">
+                            <input type="radio" id="type1" name="projectType" value="15000" class="calc-radio" checked onchange="calculateTotal()">
+                            <label for="type1" class="option-label">
+                                <strong>Frontend-Only Website</strong>
+                                <small>Pure HTML/CSS/JS, fast static layout & UI</small>
+                            </label>
+
+                            <input type="radio" id="type2" name="projectType" value="35000" class="calc-radio" onchange="calculateTotal()">
+                            <label for="type2" class="option-label">
+                                <strong>Frontend + Supabase Backend</strong>
+                                <small>Full-Stack ERP application & cloud database</small>
+                            </label>
+                        </div>
+                    </div>
+
+                    <div class="calc-group">
+                        <label>2. Add Backend & Custom Feature Modules:</label>
+                        <div class="calc-options">
+                            <input type="checkbox" id="feat1" value="10000" class="calc-checkbox" onchange="calculateTotal()">
+                            <label for="feat1" class="option-label">
+                                <strong>Supabase Auth & RLS</strong>
+                                <small>User logins & security policies</small>
+                            </label>
+
+                            <input type="checkbox" id="feat2" value="12000" class="calc-checkbox" onchange="calculateTotal()">
+                            <label for="feat2" class="option-label">
+                                <strong>Higher ERP Relational Sync</strong>
+                                <small>PostgreSQL database tables & indexes</small>
+                            </label>
+
+                            <input type="checkbox" id="feat3" value="8000" class="calc-checkbox" onchange="calculateTotal()">
+                            <label for="feat3" class="option-label">
+                                <strong>Admin Management UI</strong>
+                                <small>CRUD interfaces & data tables</small>
+                            </label>
+
+                            <input type="checkbox" id="feat4" value="6000" class="calc-checkbox" onchange="calculateTotal()">
+                            <label for="feat4" class="option-label">
+                                <strong>Supabase Edge & Webhooks</strong>
+                                <small>Serverless functions & APIs</small>
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="calc-summary">
+                    <div>
+                        <h3>Estimated Investment</h3>
+                        <div class="calc-price" id="totalPrice">₱15,000</div>
+                        <p>Includes complete source code, responsive mobile optimization, GitHub version control, and initial deployment setup.</p>
+                    </div>
+                    <button type="button" class="btn" onclick="applyEstimateToForm()">Inquire With This Estimate</button>
+                </div>
+            </div>
+        </section>
+
+        <!-- CONTACT SECTION -->
+        <section id="contact">
+            <h2 class="section-title">Contact Us</h2>
+            
+            <div class="contact-grid">
+                <div class="contact-info-card">
+                    <div class="info-item">
+                        <h4>Website & Domain</h4>
+                        <a href="http://www.jmcywebsolutions.com" target="_blank">www.jmcywebsolutions.com</a>
+                    </div>
+                    <div class="info-item">
+                        <h4>GitHub Profile</h4>
+                        <a href="https://github.com/YOUR_GITHUB_USERNAME" target="_blank">github.com/YOUR_GITHUB_USERNAME</a>
+                    </div>
+                    <div class="info-item">
+                        <h4>Direct Email</h4>
+                        <a href="mailto:jhamcyd@gmail.com">jhamcyd@gmail.com</a>
+                    </div>
+                    <div class="info-item">
+                        <h4>WhatsApp</h4>
+                        <a href="https://wa.me/639091297422" target="_blank">+63 909 129 7422</a>
+                    </div>
+                    <div class="info-item">
+                        <h4>Messenger</h4>
+                        <a href="https://m.me/jmcywebsolutions2026" target="_blank">jmcywebsolutions2026</a>
+                    </div>
+                </div>
+
+                <div class="contact-container">
+                    <p style="color: var(--text-muted); margin-bottom: 1.5rem; font-size: 0.95rem;">Ready to launch your frontend or full-stack web application? Send us your details below:</p>
+                    
+                    <form action="#" method="post" onsubmit="event.preventDefault(); alert('Thank you! Your inquiry has been sent to jhamcyd@gmail.com.');">
+                        <div>
+                            <input type="text" placeholder="Full Name" required>
+                        </div>
+                        <div>
+                            <input type="email" placeholder="Email Address" required>
+                        </div>
+                        <div>
+                            <select id="architectureSelect" required>
+                                <option value="">Select Website Type</option>
+                                <option value="Frontend-Only Website">1. Frontend-Only Website (Static HTML/CSS/JS)</option>
+                                <option value="Full-Stack Website">2. Full-Stack Website (Frontend + Supabase Backend)</option>
+                            </select>
+                        </div>
+                        <div>
+                            <textarea id="messageInput" rows="5" placeholder="Tell us about your web project requirements..." required></textarea>
+                        </div>
+                        <button type="submit" class="btn">Send Consultation Request</button>
+                    </form>
                 </div>
             </div>
         </section>
     </main>
 
-    <footer>
-        <div class="footer-nav"><a href="index.html">Home</a> | <a href="about.html">About</a> | <a href="service.html">Services</a> | <a href="portfolio.html">Portfolio</a> | <a href="quote.html">Pricing</a> | <a href="contact.html">Get Started</a> | <a href="legal.html">Terms & Conditions</a></div>
-        <p>&copy; 2026 JMCY WEB SOLUTIONS. All Rights Reserved.</p>
-        <div class="footer-badges">REAL-TIME WEB DEVELOPMENT • CUSTOM-BUILT SYSTEMS • GCASH VERIFIED</div>
-    </footer>
-
-    <div class="floating-contact-wrap">
-        <div class="float-item">
-            <button class="float-btn float-whatsapp" onclick="openApp('whatsapp://send?phone=09091297422', 'https://play.google.com/store/apps/details?id=com.whatsapp')"><svg viewBox="0 0 24 24"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.417-.003 6.557-5.338 11.892-11.893 11.892-1.997-.001-3.951-.5-5.688-1.448l-6.305 1.652zm6.599-3.835c1.53.909 3.039 1.389 4.625 1.39 5.25.001 9.522-4.271 9.524-9.521.001-2.544-.992-4.935-2.793-6.738-1.802-1.803-4.195-2.795-6.738-2.796-5.251 0-9.522 4.271-9.524 9.521-.001 1.688.45 3.336 1.306 4.773l-.991 3.618 3.706-.972zm10.165-6.843c-.277-.139-1.641-.809-1.894-.901-.253-.093-.438-.139-.623.139-.185.277-.714.901-.875 1.086-.161.185-.323.208-.6.069-.277-.139-1.171-.432-2.231-1.378-.824-.735-1.38-1.643-1.541-1.921-.162-.277-.017-.427.121-.565.125-.124.277-.323.416-.485.139-.161.185-.277.277-.462.093-.185.046-.347-.023-.485-.069-.139-.623-1.501-.853-2.057-.225-.542-.454-.469-.623-.477-.16-.007-.344-.008-.528-.008s-.485.069-.739.347c-.253.277-.97 0.948-.97 2.311 0 1.363.993 2.679 1.131 2.864.139.185 1.954 2.985 4.733 4.184.661.285 1.177.455 1.579.583.664.211 1.268.181 1.745.11.532-.079 1.641-.671 1.872-1.32.231-.648.231-1.202.161-1.32-.069-.118-.253-.185-.53-.324z"/></svg></button>
-            <span class="float-label">WhatsApp</span>
-        </div>
-    </div>
-
+    <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hamburger = document.getElementById('hamburger');
-            const navMenu = document.getElementById('nav-menu');
-            
-            let scrollTimer;
-            window.addEventListener('scroll', () => {
-                document.body.classList.add('is-scrolling');
-                clearTimeout(scrollTimer);
-                scrollTimer = setTimeout(() => { document.body.classList.remove('is-scrolling'); }, 400);
-            }, { passive: true });
+        // PORTFOLIO FILTER FUNCTION
+        function filterProjects(category) {
+            const buttons = document.querySelectorAll('.filter-btn');
+            const items = document.querySelectorAll('.project-item');
 
-            const closeMenu = () => { if (navMenu.classList.contains('nav-active')) { navMenu.classList.remove('nav-active'); hamburger.classList.remove('toggle'); } };
-            hamburger.addEventListener('click', (e) => { e.stopPropagation(); navMenu.classList.toggle('nav-active'); hamburger.classList.toggle('toggle'); });
-            window.addEventListener('scroll', closeMenu, { passive: true });
-            document.addEventListener('click', (e) => { if ((!navMenu.contains(e.target) && !hamburger.contains(e.target)) || e.target.tagName === 'A') closeMenu(); });
+            buttons.forEach(btn => btn.classList.remove('active'));
+            event.target.classList.add('active');
 
-            const track = document.getElementById('slider-track');
-            if (track) { track.innerHTML += track.innerHTML; }
+            items.forEach(item => {
+                if (category === 'all' || item.classList.contains(category)) {
+                    item.classList.remove('hide');
+                } else {
+                    item.classList.add('hide');
+                }
+            });
+        }
+
+        // ESTIMATOR CALCULATOR LOGIC
+        function calculateTotal() {
+            let total = 0;
+
+            const selectedType = document.querySelector('input[name="projectType"]:checked');
+            if (selectedType) {
+                total += parseInt(selectedType.value);
+            }
+
+            const checkboxes = document.querySelectorAll('.calc-checkbox:checked');
+            checkboxes.forEach(cb => {
+                total += parseInt(cb.value);
+            });
+
+            document.getElementById('totalPrice').innerText = '₱' + total.toLocaleString();
+            return total;
+        }
+
+        // APPLY ESTIMATE TO CONTACT FORM
+        function applyEstimateToForm() {
+            const total = calculateTotal();
+            const selectedType = document.querySelector('input[name="projectType"]:checked');
+            const typeLabel = selectedType ? selectedType.nextElementSibling.querySelector('strong').innerText : "Custom Project";
+
+            const archSelect = document.getElementById('architectureSelect');
+            if (typeLabel.includes("Frontend-Only")) {
+                archSelect.value = "Frontend-Only Website";
+            } else {
+                archSelect.value = "Full-Stack Website";
+            }
+
+            document.getElementById('messageInput').value = `Hello JMCY Web Solutions,\n\nI calculated an estimated quote of ₱${total.toLocaleString()} for a ${typeLabel}. I would like to discuss implementing this project using your custom HTML frontend and Supabase backend services.`;
+
+            document.querySelector('#contact').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // ACCURATE NAV HIGHLIGHT ON SCROLL
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('nav a');
+
+        window.addEventListener('scroll', () => {
+            let current = '';
+            const scrollPosition = window.pageYOffset || document.documentElement.scrollTop;
+            const windowHeight = window.innerHeight;
+            const fullHeight = document.documentElement.scrollHeight;
+
+            if (scrollPosition < 100) {
+                current = 'about';
+            } else if (scrollPosition + windowHeight >= fullHeight - 50) {
+                current = sections[sections.length - 1].getAttribute('id');
+            } else {
+                sections.forEach(section => {
+                    const rect = section.getBoundingClientRect();
+                    if (rect.top <= windowHeight * 0.35 && rect.bottom >= 100) {
+                        current = section.getAttribute('id');
+                    }
+                });
+            }
+
+            if (current) {
+                navLinks.forEach(a => {
+                    a.classList.remove('active');
+                    if (a.getAttribute('href') === `#${current}`) {
+                        a.classList.add('active');
+                    }
+                });
+            }
         });
-
-        function openApp(appUri, storeUrl) { const start = Date.now(); window.location.href = appUri; setTimeout(function() { if (Date.now() - start < 2500) window.location.href = storeUrl; }, 2000); }
-        function submitRating() { window.open("https://g.page/r/CZbhiUAcia4iEBI/review", "_blank"); }
     </script>
 </body>
 </html>

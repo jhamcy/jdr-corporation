@@ -396,6 +396,7 @@
       aspect-ratio: 16 / 10;
       overflow: hidden;
       background: #0b1220;
+      position: relative;
     }
 
     .project-image-wrap img {
@@ -407,6 +408,81 @@
 
     .project:hover .project-image-wrap img {
       transform: scale(1.06);
+    }
+
+    /* SLIDESHOW STYLES FOR CUSTOM PLATFORMS CARD */
+    .slideshow-container {
+      position: relative;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide-item {
+      display: none;
+      width: 100%;
+      height: 100%;
+    }
+
+    .slide-item.active {
+      display: block;
+    }
+
+    .slide-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .slide-btn {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      background: rgba(11, 18, 32, 0.65);
+      color: #ffffff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      font-size: 1.1rem;
+      border-radius: 50%;
+      z-index: 10;
+      transition: background 0.3s ease;
+    }
+
+    .slide-btn:hover {
+      background: var(--primary);
+      color: #0b1220;
+    }
+
+    .slide-btn.prev {
+      left: 10px;
+    }
+
+    .slide-btn.next {
+      right: 10px;
+    }
+
+    .slide-dots {
+      position: absolute;
+      bottom: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 6px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      background: rgba(255, 255, 255, 0.5);
+      border-radius: 50%;
+      cursor: pointer;
+      transition: background 0.3s ease, transform 0.3s ease;
+    }
+
+    .dot.active {
+      background: var(--primary);
+      transform: scale(1.2);
     }
 
     .project-content {
@@ -761,7 +837,34 @@
         <article class="project">
           <div>
             <div class="project-image-wrap">
-              <img src="project2.png" alt="Custom Business Platforms Preview">
+              <div class="slideshow-container" id="custom-platform-slideshow">
+                <div class="slide-item active">
+                  <img src="image1.jpg" alt="JMP International Fish Trading Home Portal">
+                </div>
+                <div class="slide-item">
+                  <img src="image2.jpg" alt="About JMP International Fish Trading Section">
+                </div>
+                <div class="slide-item">
+                  <img src="image3.jpg" alt="Why Partner With JMP International Section">
+                </div>
+                <div class="slide-item">
+                  <img src="image4.jpg" alt="What Our Partners Say & FAQ Assistant">
+                </div>
+                <div class="slide-item">
+                  <img src="image5.jpg" alt="Product Inquiries & Contact Details Footer">
+                </div>
+
+                <button class="slide-btn prev" onclick="moveSlide(-1)">&#10094;</button>
+                <button class="slide-btn next" onclick="moveSlide(1)">&#10095;</button>
+
+                <div class="slide-dots">
+                  <span class="dot active" onclick="currentSlide(0)"></span>
+                  <span class="dot" onclick="currentSlide(1)"></span>
+                  <span class="dot" onclick="currentSlide(2)"></span>
+                  <span class="dot" onclick="currentSlide(3)"></span>
+                  <span class="dot" onclick="currentSlide(4)"></span>
+                </div>
+              </div>
             </div>
             <div class="project-content">
               <div>
@@ -845,6 +948,48 @@
     document.querySelectorAll(".animate-on-scroll").forEach(section => {
       observer.observe(section);
     });
+
+    // Slideshow Logic for Project 02
+    let slideIndex = 0;
+    const slides = document.querySelectorAll("#custom-platform-slideshow .slide-item");
+    const dots = document.querySelectorAll("#custom-platform-slideshow .dot");
+    let slideTimer;
+
+    function showSlide(index) {
+      if (index >= slides.length) slideIndex = 0;
+      else if (index < 0) slideIndex = slides.length - 1;
+      else slideIndex = index;
+
+      slides.forEach(slide => slide.classList.remove("active"));
+      dots.forEach(dot => dot.classList.remove("active"));
+
+      slides[slideIndex].classList.add("active");
+      dots[slideIndex].classList.add("active");
+    }
+
+    function moveSlide(step) {
+      showSlide(slideIndex + step);
+      resetAutoSlide();
+    }
+
+    function currentSlide(index) {
+      showSlide(index);
+      resetAutoSlide();
+    }
+
+    function autoSlide() {
+      slideTimer = setInterval(() => {
+        showSlide(slideIndex + 1);
+      }, 4000);
+    }
+
+    function resetAutoSlide() {
+      clearInterval(slideTimer);
+      autoSlide();
+    }
+
+    // Initialize Slideshow
+    autoSlide();
   </script>
 
 </body>

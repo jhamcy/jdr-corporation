@@ -824,7 +824,42 @@
         <article class="project">
           <div>
             <div class="project-image-wrap">
-              <img src="project1.png" alt="Enterprise ERP Inventory System Preview">
+              <div class="slideshow-container" id="erp-system-slideshow">
+                <div class="slide-item active">
+                  <img src="Screenshot1.jpg" alt="Internal Employee System Access - Login Portal">
+                </div>
+                <div class="slide-item">
+                  <img src="Screenshot2.jpg" alt="Dashboard & Cold Storage Throughput Analytics">
+                </div>
+                <div class="slide-item">
+                  <img src="Screenshot3.jpg" alt="Stock & Asset Control Matrix Hub">
+                </div>
+                <div class="slide-item">
+                  <img src="Screenshot4.jpg" alt="Shipment Importation Documentation Hub">
+                </div>
+                <div class="slide-item">
+                  <img src="Screenshot5.jpg" alt="Registry & Inbound of Item Product">
+                </div>
+                <div class="slide-item">
+                  <img src="Screenshot6.jpg" alt="OR Dispo Ledger Entry">
+                </div>
+                <div class="slide-item">
+                  <img src="Screenshot7.jpg" alt="Global Inventory Audit Ledger">
+                </div>
+
+                <button class="slide-btn prev" onclick="moveSlide('erp-system-slideshow', -1)">&#10094;</button>
+                <button class="slide-btn next" onclick="moveSlide('erp-system-slideshow', 1)">&#10095;</button>
+
+                <div class="slide-dots">
+                  <span class="dot active" onclick="currentSlide('erp-system-slideshow', 0)"></span>
+                  <span class="dot" onclick="currentSlide('erp-system-slideshow', 1)"></span>
+                  <span class="dot" onclick="currentSlide('erp-system-slideshow', 2)"></span>
+                  <span class="dot" onclick="currentSlide('erp-system-slideshow', 3)"></span>
+                  <span class="dot" onclick="currentSlide('erp-system-slideshow', 4)"></span>
+                  <span class="dot" onclick="currentSlide('erp-system-slideshow', 5)"></span>
+                  <span class="dot" onclick="currentSlide('erp-system-slideshow', 6)"></span>
+                </div>
+              </div>
             </div>
             <div class="project-content">
               <div>
@@ -1036,6 +1071,7 @@
     }
 
     // Initialize Slideshows
+    initSlideshow("erp-system-slideshow");
     initSlideshow("custom-platform-slideshow");
     initSlideshow("corporate-website-slideshow");
   </script>

@@ -58,7 +58,7 @@
             100% { box-shadow: 0 0 10px rgba(56, 189, 248, 0.2); }
         }
 
-        /* MOBILE HEADER BAR (Hidden on Desktop & Desktop View Mode) */
+        /* MOBILE HEADER BAR */
         .mobile-header {
             display: none;
             position: fixed;
@@ -115,7 +115,7 @@
             background-color: var(--card-bg);
         }
 
-        /* DEFAULT DESKTOP RIGHT-SIDE NAVIGATION PANEL */
+        /* DESKTOP RIGHT-SIDE NAVIGATION PANEL */
         aside {
             width: var(--sidebar-width);
             position: fixed;
@@ -889,7 +889,7 @@
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
-        /* STRICT VIEWPORT-WIDTH MEDIA QUERIES FOR NATIVE MOBILE DEVICES */
+        /* STRICT VIEWPORT-WIDTH MEDIA QUERIES FOR MOBILE DEVICES */
         @media screen and (max-width: 768px) {
             .mobile-header {
                 display: flex;
@@ -916,20 +916,61 @@
             main {
                 margin-right: 0;
                 width: 100%;
-                padding: 6rem 1.5rem 3rem 1.5rem;
+                padding: 5.5rem 1rem 3rem 1rem;
             }
 
-            .hero-container,
+            /* HERO SECTION MOBILE CENTERING & RESPONSIVE FIXES */
+            .hero-container {
+                grid-template-columns: 1fr !important;
+                text-align: center;
+                padding: 1.8rem 1.2rem;
+                width: 100%;
+                margin: 0 auto;
+                box-sizing: border-box;
+            }
+
+            .hero .badge {
+                margin: 0 auto 1rem auto;
+            }
+
+            .hero h2 {
+                font-size: 1.8rem;
+            }
+
+            .hero .btn {
+                display: block;
+                width: 100%;
+                margin: 0 0 0.8rem 0;
+            }
+
+            .hero .btn-outline {
+                margin-left: 0 !important;
+            }
+
+            .hero-image-wrap {
+                width: 100%;
+                max-width: 100%;
+                margin: 1.5rem auto 0 auto;
+            }
+
+            .hero-image-wrap img {
+                width: 100%;
+                height: auto;
+                max-height: 220px;
+                object-fit: cover;
+            }
+
+            .hero-stats {
+                justify-content: center;
+                gap: 1rem;
+            }
+
             .calculator-container,
             .contact-grid,
             .estimator-details,
             .grid,
             .tech-grid {
                 grid-template-columns: 1fr !important;
-            }
-
-            .hero h2 {
-                font-size: 2rem;
             }
 
             .calc-options {
@@ -1182,13 +1223,13 @@
                     <div class="calc-group">
                         <label>1. Choose Architecture Tier & Scope:</label>
                         <div class="calc-options">
-                            <input type="radio" id="type1" name="projectType" value="15000" class="calc-radio" checked onchange="calculateTotal()">
+                            <input type="radio" id="type1" name="projectType" value="15000" class="calc-radio" checked onchange="handleTypeChange()">
                             <label for="type1" class="option-label">
                                 <strong>Frontend-Only Website</strong>
                                 <small>Pure HTML/CSS/JS, fast static layout & UI</small>
                             </label>
 
-                            <input type="radio" id="type2" name="projectType" value="35000" class="calc-radio" onchange="calculateTotal()">
+                            <input type="radio" id="type2" name="projectType" value="35000" class="calc-radio" onchange="handleTypeChange()">
                             <label for="type2" class="option-label">
                                 <strong>Frontend + Supabase Backend</strong>
                                 <small>Full-Stack ERP application & cloud database</small>
@@ -1196,7 +1237,8 @@
                         </div>
                     </div>
 
-                    <div class="calc-group">
+                    <!-- DYNAMIC MODULE GROUP -->
+                    <div class="calc-group" id="backendModulesGroup" style="display: none;">
                         <label>2. Add Backend & Custom Feature Modules:</label>
                         <div class="calc-options">
                             <input type="checkbox" id="feat1" value="10000" class="calc-checkbox" onchange="calculateTotal()">
@@ -1318,12 +1360,10 @@
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 
             if (currentScroll > lastScrollTop && currentScroll > 60) {
-                // Scrolling DOWN on Mobile -> Close drawer & hide navigation bars
                 sidebarNav.classList.remove('open');
                 mobileHeader.classList.add('nav-hidden');
                 sidebarNav.classList.add('nav-hidden');
             } else {
-                // Scrolling UP on Mobile -> Show navigation bars
                 mobileHeader.classList.remove('nav-hidden');
                 sidebarNav.classList.remove('nav-hidden');
             }
@@ -1347,6 +1387,24 @@
                     item.classList.add('hide');
                 }
             });
+        }
+
+        /* TOGGLE VISIBILITY OF BACKEND MODULES BASED ON ARCHITECTURE TIER */
+        function handleTypeChange() {
+            const isFrontendOnly = document.getElementById('type1').checked;
+            const backendGroup = document.getElementById('backendModulesGroup');
+            const checkboxes = document.querySelectorAll('.calc-checkbox');
+
+            if (isFrontendOnly) {
+                backendGroup.style.display = 'none';
+                checkboxes.forEach(cb => {
+                    cb.checked = false;
+                });
+            } else {
+                backendGroup.style.display = 'block';
+            }
+
+            calculateTotal();
         }
 
         function calculateTotal() {
@@ -1414,6 +1472,8 @@
                 });
             }
         });
+
+        document.addEventListener('DOMContentLoaded', handleTypeChange);
     </script>
 </body>
 </html>

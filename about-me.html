@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="JMCY Web Solutions — Custom website platforms for any business, plus enterprise ERP inventory systems available online or as local .exe apps by James Del Rosario, Founder & CEO.">
+  <meta name="theme-color" content="#0b1220">
+  <title>James Del Rosario | Founder & CEO — JMCY Web Solutions</title>
+
+  <style>
+    :root {
+      --primary: #4eb8ff;
+      --primary-dark: #278bd0;
+      --bg-dark: #0b1220;
+      --bg-card: #ffffff;
+      --text-main: #172033;
+      --text-muted: #59677b;
+      --border-color: #e2e9f2;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: Arial, Helvetica, sans-serif;
+      line-height: 1.6;
+      color: var(--text-main);
+      background: #f5f8fc;
+      overflow-x: hidden;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .container {
+      width: min(1200px, 90%);
+      margin: auto;
+    }
+
+    /* SCROLL ANIMATION BASE */
+    .animate-on-scroll {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+
+    .animate-on-scroll.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* TOP HEADER & RETURN BUTTON */
+    header.top-bar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 1000;
+      background: rgba(11, 18, 32, 0.9);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      padding: 16px 0;
+    }
+
+    .top-bar-inner {
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+    }
+
+    .btn-return {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 8px;
+      color: #ffffff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.25s ease;
+    }
+
+    .btn-return:hover {
+      background: var(--primary);
+      color: #07111f;
+      border-color: var(--primary);
+      transform: translateX(-3px);
+    }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 130px 0 80px;
+      background:
+        radial-gradient(circle at 80% 20%, rgba(72, 166, 255, .18), transparent 30%),
+        linear-gradient(135deg, #08111f, #12233b 60%, #0b1728);
+      color: white;
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: 1.15fr 0.85fr;
+      align-items: center;
+      gap: 70px;
+    }
+
+    .eyebrow {
+      color: #63c2ff;
+      text-transform: uppercase;
+      letter-spacing: 3px;
+      font-size: .85rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      animation: fadeInDown 1s ease-out;
+    }
+
+    .hero h1 {
+      font-size: clamp(2.8rem, 4.5vw, 4.2rem);
+      line-height: 1.1;
+      margin-bottom: 22px;
+      animation: fadeInUp 1s ease-out;
+    }
+
+    .hero h1 span {
+      color: #63c2ff;
+    }
+
+    .hero p {
+      max-width: 620px;
+      color: #c8d5e7;
+      font-size: 1.12rem;
+      margin-bottom: 30px;
+      animation: fadeInUp 1.2s ease-out;
+    }
+
+    .brand-banner-preview {
+      margin-bottom: 25px;
+      max-width: 380px;
+      border-radius: 12px;
+      overflow: hidden;
+      border: 1px solid rgba(78, 184, 255, 0.3);
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      animation: fadeInUp 1.3s ease-out;
+    }
+
+    .brand-banner-preview img {
+      width: 100%;
+      display: block;
+    }
+
+    .buttons {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+      animation: fadeInUp 1.4s ease-out;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 14px 26px;
+      border-radius: 10px;
+      font-weight: 700;
+      cursor: pointer;
+      border: none;
+      font-size: 1rem;
+      transition: transform .25s, box-shadow .25s, background .25s;
+    }
+
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn-primary {
+      background: var(--primary);
+      color: #07111f;
+      box-shadow: 0 10px 30px rgba(78,184,255,.25);
+    }
+
+    .btn-secondary {
+      border: 1px solid #526982;
+      color: white;
+      background: transparent;
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .profile-wrap {
+      display: flex;
+      justify-content: center;
+      position: relative;
+      animation: fadeInRight 1.2s ease-out;
+    }
+
+    .profile-card {
+      width: min(410px, 100%);
+      padding: 14px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid rgba(255,255,255,.15);
+      box-shadow: 0 30px 70px rgba(0,0,0,.35);
+      transform: rotate(2deg);
+      transition: transform 0.35s ease, box-shadow 0.35s ease;
+    }
+
+    .profile-card:hover {
+      transform: rotate(0deg) translateY(-6px);
+      box-shadow: 0 40px 80px rgba(78,184,255,.2);
+    }
+
+    .profile-card img {
+      width: 100%;
+      display: block;
+      aspect-ratio: 4 / 5;
+      object-fit: cover;
+      object-position: center top;
+      border-radius: 20px;
+    }
+
+    /* Floating badge decoration */
+    .floating-badge {
+      position: absolute;
+      bottom: -20px;
+      left: 15px;
+      background: rgba(11, 18, 32, 0.88);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(78, 184, 255, 0.3);
+      padding: 14px 20px;
+      border-radius: 14px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+      animation: floatBadge 4s ease-in-out infinite;
+    }
+
+    .floating-badge span {
+      font-size: 1.5rem;
+    }
+
+    .floating-badge div h4 {
+      font-size: 0.9rem;
+      color: white;
+    }
+
+    .floating-badge div p {
+      font-size: 0.8rem;
+      color: #63c2ff;
+      margin: 0;
+    }
+
+    /* SECTIONS */
+    section {
+      padding: 100px 0;
+    }
+
+    .section-title {
+      text-align: center;
+      margin-bottom: 60px;
+    }
+
+    .section-title small {
+      color: var(--primary-dark);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 2px;
+    }
+
+    .section-title h2 {
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      margin-top: 10px;
+      color: #111b2e;
+    }
+
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 35px;
+    }
+
+    .card {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 18px;
+      padding: 38px;
+      box-shadow: 0 15px 45px rgba(30,55,90,.06);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 20px 50px rgba(30,55,90,.12);
+    }
+
+    .card h3 {
+      margin-bottom: 16px;
+      color: #132238;
+      font-size: 1.3rem;
+    }
+
+    .card p {
+      color: var(--text-muted);
+      font-size: 1.02rem;
+    }
+
+    /* SKILLS */
+    .skills {
+      background: #edf4fb;
+    }
+
+    .skill-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 25px;
+    }
+
+    .skill {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      border: 1px solid #dfe8f2;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .skill:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 15px 35px rgba(30,55,90,.12);
+    }
+
+    .skill-icon {
+      width: 50px;
+      height: 50px;
+      display: grid;
+      place-items: center;
+      border-radius: 12px;
+      background: #e2f3ff;
+      margin-bottom: 18px;
+      font-size: 1.35rem;
+      transition: transform 0.3s ease;
+    }
+
+    .skill:hover .skill-icon {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    .skill h3 {
+      margin-bottom: 8px;
+      font-size: 1.15rem;
+    }
+
+    .skill p {
+      color: #68778b;
+      font-size: .96rem;
+    }
+
+    /* PROJECTS */
+    .project-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 28px;
+    }
+
+    .project {
+      border-radius: 18px;
+      background: linear-gradient(145deg, #ffffff, #f5f9fd);
+      border: 1px solid #e0e8f2;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .project:hover {
+      transform: translateY(-8px);
+      box-shadow: 0 20px 45px rgba(30,55,90,.12);
+    }
+
+    .project-image-wrap {
+      width: 100%;
+      aspect-ratio: 16 / 10;
+      overflow: hidden;
+      background: #0b1220;
+    }
+
+    .project-image-wrap img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.5s ease;
+    }
+
+    .project:hover .project-image-wrap img {
+      transform: scale(1.06);
+    }
+
+    .project-content {
+      padding: 28px;
+      display: flex;
+      flex-direction: column;
+      flex-grow: 1;
+      justify-content: space-between;
+    }
+
+    .project-number {
+      color: #37a9ee;
+      font-weight: 800;
+      font-size: .85rem;
+      margin-bottom: 8px;
+      letter-spacing: 1px;
+    }
+
+    .project h3 {
+      margin-bottom: 10px;
+      font-size: 1.25rem;
+    }
+
+    .project p {
+      color: #647287;
+      font-size: .96rem;
+      margin-bottom: 24px;
+    }
+
+    .project-link {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--primary-dark);
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      transition: gap 0.2s ease;
+    }
+
+    .project-link:hover {
+      gap: 10px;
+      text-decoration: underline;
+    }
+
+    /* CONTACT */
+    .contact {
+      background: var(--bg-dark);
+      color: white;
+    }
+
+    .contact .section-title h2 {
+      color: white;
+    }
+
+    .contact-box {
+      max-width: 800px;
+      margin: auto;
+      text-align: center;
+    }
+
+    .contact-box p {
+      color: #b9c8db;
+      font-size: 1.1rem;
+      margin-bottom: 30px;
+    }
+
+    .contact-info {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+      margin-top: 30px;
+    }
+
+    .contact-info a {
+      padding: 14px 24px;
+      border: 1px solid #344962;
+      border-radius: 10px;
+      color: #dce8f7;
+      font-size: 1rem;
+      transition: all .25s ease;
+      background: rgba(255, 255, 255, 0.03);
+    }
+
+    .contact-info a:hover {
+      border-color: var(--primary);
+      color: var(--primary);
+      transform: translateY(-3px);
+      box-shadow: 0 10px 20px rgba(78, 184, 255, 0.15);
+    }
+
+    footer {
+      padding: 28px;
+      text-align: center;
+      background: #07101d;
+      color: #7f91a8;
+      font-size: .92rem;
+    }
+
+    /* KEYFRAME ANIMATIONS */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInRight {
+      from {
+        opacity: 0;
+        transform: translateX(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes floatBadge {
+      0%, 100% {
+        transform: translateY(0);
+      }
+      50% {
+        transform: translateY(-8px);
+      }
+    }
+
+    /* RESPONSIVE BREAKPOINTS */
+    @media (max-width: 1024px) {
+      .hero-grid {
+        grid-template-columns: 1fr;
+        gap: 50px;
+      }
+      .hero-content {
+        text-align: center;
+      }
+      .hero p, .brand-banner-preview {
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .buttons {
+        justify-content: center;
+      }
+      .profile-wrap {
+        order: -1;
+      }
+      .skill-grid,
+      .project-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .about-grid,
+      .skill-grid,
+      .project-grid {
+        grid-template-columns: 1fr;
+      }
+
+      section {
+        padding: 70px 0;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- TOP BAR WITH RETURN BUTTON ONLY -->
+  <header class="top-bar">
+    <div class="container top-bar-inner">
+      <a href="index.html" class="btn-return">
+        &#8592; Back to Main Site
+      </a>
+    </div>
+  </header>
+
+  <!-- HERO -->
+  <header class="hero" id="home">
+    <div class="container hero-grid">
+
+      <div class="hero-content">
+        <div class="eyebrow">Welcome to JMCY Web Solutions</div>
+        <h1>Custom Platforms for <span>Any Business</span> & ERP Systems.</h1>
+        
+        <div class="brand-banner-preview">
+          <img src="1000015640.png" alt="JMCY Web Solutions Official Brand Banner">
+        </div>
+
+        <p>
+          Hi, I'm <strong>James Del Rosario</strong>, Founder & CEO of JMCY Web Solutions. We build tailored 
+          web platforms for any type of business, alongside large-scale ERP inventory systems available both online (cloud) 
+          and as standalone local `.exe` applications.
+        </p>
+
+        <div class="buttons">
+          <a class="btn btn-primary" href="#projects">Explore Solutions</a>
+          <a class="btn btn-secondary" href="#contact">Get in Touch</a>
+        </div>
+      </div>
+
+      <div class="profile-wrap">
+        <div class="profile-card">
+          <img src="profile.png" alt="James Del Rosario - Founder & CEO">
+        </div>
+        <div class="floating-badge">
+          <span>💼</span>
+          <div>
+            <h4>Founder & CEO</h4>
+            <p>JMCY Web Solutions</p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- ABOUT -->
+  <section id="about">
+    <div class="container animate-on-scroll">
+
+      <div class="section-title">
+        <small>Get to know us</small>
+        <h2>About JMCY Web Solutions</h2>
+      </div>
+
+      <div class="about-grid">
+
+        <div class="card">
+          <h3>Who We Are</h3>
+          <p>
+            Founded by <strong>James Del Rosario</strong>, JMCY Web Solutions delivers professional software engineering 
+            and web development services designed to fit businesses of any scale and industry.
+          </p>
+          <br>
+          <p>
+            We take pride in turning operational workflows into high-performance digital systems that eliminate friction, 
+            improve record-keeping, and scale alongside your growth.
+          </p>
+        </div>
+
+        <div class="card">
+          <h3>What We Do</h3>
+          <p>
+            We specialize in designing <strong>custom website platforms for any business</strong>, as well as handling 
+            large-scale enterprise projects like <strong>ERP Inventory Systems</strong>. 
+          </p>
+          <br>
+          <p>
+            Whether your enterprise requires a cloud-based online database system or a secure local standalone 
+            <code>.exe</code> application running offline, we build solutions tailored to your operational preferences.
+          </p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- SKILLS -->
+  <section class="skills" id="skills">
+    <div class="container animate-on-scroll">
+
+      <div class="section-title">
+        <small>Our Technical Capabilities</small>
+        <h2>What We Deliver</h2>
+      </div>
+
+      <div class="skill-grid">
+
+        <div class="skill">
+          <div class="skill-icon">🌐</div>
+          <h3>Custom Business Web Platforms</h3>
+          <p>Tailor-made web applications and platforms engineered from scratch to match the unique workflows of any industry.</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">📦</div>
+          <h3>ERP Inventory Systems</h3>
+          <p>Large-scale inventory management suites covering receiving, stock tracking, item movement, and deep business analytics.</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">💻</div>
+          <h3>Online & Local .exe Deployment</h3>
+          <p>Flexible delivery models supporting both cloud storage (online accessibility) and local desktop <code>.exe</code> setups.</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">🗄️</div>
+          <h3>Robust Database Architecture</h3>
+          <p>Secure, optimized relational databases designed to handle high volumes of sensitive corporate and inventory records.</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">⚙️</div>
+          <h3>Business Process Automation</h3>
+          <p>Replacing manual administrative bottlenecks and spreadsheets with streamlined automated software modules.</p>
+        </div>
+
+        <div class="skill">
+          <div class="skill-icon">🚀</div>
+          <h3>Scalable Architecture</h3>
+          <p>Building maintainable, high-performance systems prepared for heavy workloads and long-term business expansion.</p>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="projects">
+    <div class="container animate-on-scroll">
+
+      <div class="section-title">
+        <small>Our Solutions</small>
+        <h2>Featured Projects</h2>
+      </div>
+
+      <div class="project-grid">
+
+        <article class="project">
+          <div>
+            <div class="project-image-wrap">
+              <img src="project1.png" alt="Enterprise ERP Inventory System Preview">
+            </div>
+            <div class="project-content">
+              <div>
+                <div class="project-number">PROJECT 01</div>
+                <h3>Enterprise ERP & Inventory System</h3>
+                <p>Comprehensive inventory tracking and ERP suites available as secure cloud platforms or offline local <code>.exe</code> workstation packages.</p>
+              </div>
+              <a href="#contact" class="project-link">Inquire about this &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-image-wrap">
+              <img src="project2.png" alt="Custom Business Platforms Preview">
+            </div>
+            <div class="project-content">
+              <div>
+                <div class="project-number">PROJECT 02</div>
+                <h3>Custom Platforms for Any Business</h3>
+                <p>Purpose-built web systems designed specifically around your operational model, customer portals, and internal management needs.</p>
+              </div>
+              <a href="#contact" class="project-link">Inquire about this &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="project">
+          <div>
+            <div class="project-image-wrap">
+              <img src="project3.png" alt="Corporate Websites Preview">
+            </div>
+            <div class="project-content">
+              <div>
+                <div class="project-number">PROJECT 03</div>
+                <h3>Professional Corporate Websites</h3>
+                <p>Lightning-fast, mobile-friendly websites built to establish powerful digital authority and convert leads for businesses of all sizes.</p>
+              </div>
+              <a href="#contact" class="project-link">Inquire about this &rarr;</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section class="contact" id="contact">
+    <div class="container animate-on-scroll">
+
+      <div class="section-title">
+        <small>Let's collaborate</small>
+        <h2>Contact JMCY Web Solutions</h2>
+      </div>
+
+      <div class="contact-box">
+        <p>
+          Need a custom web platform for your business or a heavy-duty ERP inventory system 
+          (online or local <code>.exe</code>)? Reach out through any of our channels below.
+        </p>
+
+        <div class="contact-info">
+          <a href="mailto:jhamcyd@gmail.com">✉ Email</a>
+          <a href="tel:+639091297422">📱 0909 129 7422</a>
+          <a href="https://www.jmcywebsolutions.com/" target="_blank" rel="noopener">🌐 Official Website</a>
+          <a href="https://wa.me/639091297422" target="_blank" rel="noopener">💬 WhatsApp</a>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <footer>
+    © <span id="year"></span> James Del Rosario / JMCY Web Solutions. All rights reserved.
+  </footer>
+
+  <script>
+    // Dynamic Footer Year
+    document.getElementById("year").textContent = new Date().getFullYear();
+
+    // Scroll Animation Observer
+    const observerOptions = {
+      threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries, observer) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, observerOptions);
+
+    document.querySelectorAll(".animate-on-scroll").forEach(section => {
+      observer.observe(section);
+    });
+  </script>
+
+</body>
+</html>

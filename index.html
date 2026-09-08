@@ -889,8 +889,8 @@
             box-shadow: 0 0 10px rgba(56, 189, 248, 0.2);
         }
 
-        /* MOBILE MEDIA QUERIES (< 1024px) */
-        @media (max-width: 1024px) {
+        /* MOBILE MEDIA QUERIES (Native Mobile Touch Viewports Only) */
+        @media screen and (max-width: 1024px) and (hover: none) and (pointer: coarse) {
             .mobile-header {
                 display: flex;
             }
@@ -935,13 +935,25 @@
             }
         }
 
-        /* DESKTOP MEDIA QUERIES (>= 1024px) */
-        @media (min-width: 1025px) {
-            aside {
-                transform: none !important;
-            }
+        /* DESKTOP MEDIA QUERIES & DESKTOP SITE MODE ON MOBILE */
+        @media screen and (min-width: 1025px), screen and (min-resolution: 2dppx) and (min-width: 980px) {
             .mobile-header {
                 display: none !important;
+            }
+
+            aside {
+                position: fixed !important;
+                top: 0 !important;
+                bottom: 0 !important;
+                right: 0 !important;
+                transform: none !important;
+                width: var(--sidebar-width);
+                z-index: 900;
+            }
+
+            main {
+                margin-right: var(--sidebar-width);
+                width: calc(100% - var(--sidebar-width));
             }
         }
     </style>
@@ -1310,7 +1322,8 @@
 
         function closeMobileMenu() {
             const sidebar = document.getElementById('sidebarNav');
-            if (window.innerWidth <= 1024) {
+            const isMobileDevice = window.innerWidth <= 1024 && window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+            if (isMobileDevice) {
                 sidebar.classList.remove('open');
             }
         }
@@ -1321,7 +1334,9 @@
         const sidebarNav = document.getElementById('sidebarNav');
 
         function handleMobileScroll() {
-            if (window.innerWidth > 1024) return; // Ignore desktop viewers
+            // Strictly target native mobile touch viewports
+            const isMobileDevice = window.innerWidth <= 1024 && window.matchMedia("(hover: none) and (pointer: coarse)").matches;
+            if (!isMobileDevice) return; 
 
             let currentScroll = window.pageYOffset || document.documentElement.scrollTop;
 

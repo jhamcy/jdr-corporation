@@ -415,6 +415,7 @@
       position: relative;
       width: 100%;
       height: 100%;
+      background-color: #0b1220;
     }
 
     .slide-item {
@@ -427,10 +428,12 @@
       display: block;
     }
 
+    /* FULL VIEW FIX */
     .slide-item img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain; /* Shows entire image without cropping */
+      background-color: #0b1220;
     }
 
     .slide-btn {

@@ -395,22 +395,23 @@
       width: 100%;
       aspect-ratio: 16 / 10;
       overflow: hidden;
-      background: #0b1220;
+      background: #ffffff;
       position: relative;
     }
 
     .project-image-wrap img {
       width: 100%;
       height: 100%;
-      object-fit: cover;
+      object-fit: contain;
       transition: transform 0.5s ease;
+      background-color: #ffffff;
     }
 
     .project:hover .project-image-wrap img {
-      transform: scale(1.06);
+      transform: scale(1.04);
     }
 
-    /* SLIDESHOW STYLES FOR CUSTOM PLATFORMS CARD */
+    /* SLIDESHOW STYLES FOR CARDS */
     .slideshow-container {
       position: relative;
       width: 100%;
@@ -428,11 +429,10 @@
       display: block;
     }
 
-    /* FULL VIEW FIX */
     .slide-item img {
       width: 100%;
       height: 100%;
-      object-fit: contain; /* Shows entire image without cropping */
+      object-fit: contain;
       background-color: #0b1220;
     }
 
@@ -857,15 +857,15 @@
                   <img src="image5.jpg" alt="Product Inquiries & Contact Details Footer">
                 </div>
 
-                <button class="slide-btn prev" onclick="moveSlide(-1)">&#10094;</button>
-                <button class="slide-btn next" onclick="moveSlide(1)">&#10095;</button>
+                <button class="slide-btn prev" onclick="moveSlide('custom-platform-slideshow', -1)">&#10094;</button>
+                <button class="slide-btn next" onclick="moveSlide('custom-platform-slideshow', 1)">&#10095;</button>
 
                 <div class="slide-dots">
-                  <span class="dot active" onclick="currentSlide(0)"></span>
-                  <span class="dot" onclick="currentSlide(1)"></span>
-                  <span class="dot" onclick="currentSlide(2)"></span>
-                  <span class="dot" onclick="currentSlide(3)"></span>
-                  <span class="dot" onclick="currentSlide(4)"></span>
+                  <span class="dot active" onclick="currentSlide('custom-platform-slideshow', 0)"></span>
+                  <span class="dot" onclick="currentSlide('custom-platform-slideshow', 1)"></span>
+                  <span class="dot" onclick="currentSlide('custom-platform-slideshow', 2)"></span>
+                  <span class="dot" onclick="currentSlide('custom-platform-slideshow', 3)"></span>
+                  <span class="dot" onclick="currentSlide('custom-platform-slideshow', 4)"></span>
                 </div>
               </div>
             </div>
@@ -883,7 +883,34 @@
         <article class="project">
           <div>
             <div class="project-image-wrap">
-              <img src="project3.png" alt="Corporate Websites Preview">
+              <div class="slideshow-container" id="corporate-website-slideshow">
+                <div class="slide-item active">
+                  <img src="photo1.jpg" alt="Professional Corporate Website Preview 1">
+                </div>
+                <div class="slide-item">
+                  <img src="photo2.jpg" alt="Professional Corporate Website Preview 2">
+                </div>
+                <div class="slide-item">
+                  <img src="photo3.jpg" alt="Professional Corporate Website Preview 3">
+                </div>
+                <div class="slide-item">
+                  <img src="photo4.jpg" alt="Professional Corporate Website Preview 4">
+                </div>
+                <div class="slide-item">
+                  <img src="photo5.jpg" alt="Professional Corporate Website Preview 5">
+                </div>
+
+                <button class="slide-btn prev" onclick="moveSlide('corporate-website-slideshow', -1)">&#10094;</button>
+                <button class="slide-btn next" onclick="moveSlide('corporate-website-slideshow', 1)">&#10095;</button>
+
+                <div class="slide-dots">
+                  <span class="dot active" onclick="currentSlide('corporate-website-slideshow', 0)"></span>
+                  <span class="dot" onclick="currentSlide('corporate-website-slideshow', 1)"></span>
+                  <span class="dot" onclick="currentSlide('corporate-website-slideshow', 2)"></span>
+                  <span class="dot" onclick="currentSlide('corporate-website-slideshow', 3)"></span>
+                  <span class="dot" onclick="currentSlide('corporate-website-slideshow', 4)"></span>
+                </div>
+              </div>
             </div>
             <div class="project-content">
               <div>
@@ -952,47 +979,65 @@
       observer.observe(section);
     });
 
-    // Slideshow Logic for Project 02
-    let slideIndex = 0;
-    const slides = document.querySelectorAll("#custom-platform-slideshow .slide-item");
-    const dots = document.querySelectorAll("#custom-platform-slideshow .dot");
-    let slideTimer;
+    // Reusable Slideshow Logic for Multiple Containers
+    const slideshowState = {};
 
-    function showSlide(index) {
-      if (index >= slides.length) slideIndex = 0;
-      else if (index < 0) slideIndex = slides.length - 1;
-      else slideIndex = index;
+    function initSlideshow(containerId) {
+      slideshowState[containerId] = {
+        slideIndex: 0,
+        timer: null
+      };
+
+      autoSlide(containerId);
+    }
+
+    function showSlide(containerId, index) {
+      const container = document.getElementById(containerId);
+      if (!container) return;
+
+      const slides = container.querySelectorAll(".slide-item");
+      const dots = container.querySelectorAll(".dot");
+      let state = slideshowState[containerId];
+
+      if (index >= slides.length) state.slideIndex = 0;
+      else if (index < 0) state.slideIndex = slides.length - 1;
+      else state.slideIndex = index;
 
       slides.forEach(slide => slide.classList.remove("active"));
       dots.forEach(dot => dot.classList.remove("active"));
 
-      slides[slideIndex].classList.add("active");
-      dots[slideIndex].classList.add("active");
+      slides[state.slideIndex].classList.add("active");
+      if (dots[state.slideIndex]) {
+        dots[state.slideIndex].classList.add("active");
+      }
     }
 
-    function moveSlide(step) {
-      showSlide(slideIndex + step);
-      resetAutoSlide();
+    function moveSlide(containerId, step) {
+      let state = slideshowState[containerId];
+      showSlide(containerId, state.slideIndex + step);
+      resetAutoSlide(containerId);
     }
 
-    function currentSlide(index) {
-      showSlide(index);
-      resetAutoSlide();
+    function currentSlide(containerId, index) {
+      showSlide(containerId, index);
+      resetAutoSlide(containerId);
     }
 
-    function autoSlide() {
-      slideTimer = setInterval(() => {
-        showSlide(slideIndex + 1);
+    function autoSlide(containerId) {
+      slideshowState[containerId].timer = setInterval(() => {
+        let state = slideshowState[containerId];
+        showSlide(containerId, state.slideIndex + 1);
       }, 4000);
     }
 
-    function resetAutoSlide() {
-      clearInterval(slideTimer);
-      autoSlide();
+    function resetAutoSlide(containerId) {
+      clearInterval(slideshowState[containerId].timer);
+      autoSlide(containerId);
     }
 
-    // Initialize Slideshow
-    autoSlide();
+    // Initialize Slideshows
+    initSlideshow("custom-platform-slideshow");
+    initSlideshow("corporate-website-slideshow");
   </script>
 
 </body>
